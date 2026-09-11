@@ -12,7 +12,7 @@ interface products {
   isLoading: boolean;
 }
 
-const ProductFiltersSidebar = ({ products, isLoading }: products) => {
+const ProductFiltersSidebar = ({ products }: products) => {
   const allSizes = products.flatMap(
     (product) => product.sizes?.map((size) => size.toString()) ?? []
   );
@@ -144,25 +144,27 @@ const ProductFiltersSidebar = ({ products, isLoading }: products) => {
           </div>
         </section>
         <Separator />
-        <section>
-          <h3 className="mb-3 font-medium">Category</h3>
-          <div className="space-y-3">
-            {categories.map((category) => (
-              <label
-                key={category}
-                className="flex cursor-pointer items-center gap-3 text-sm"
-              >
-                <Checkbox
-                  checked={isActive("category", category)}
-                  onCheckedChange={(checked) =>
-                    updateFilter("category", checked ? category : "")
-                  }
-                />
-                {category}
-              </label>
-            ))}
-          </div>
-        </section>
+      {
+        categories &&   <section>
+        <h3 className="mb-3 font-medium">Category</h3>
+        <div className="space-y-3">
+          {categories.map((category) => (
+            <label
+              key={category}
+              className="flex cursor-pointer items-center gap-3 text-sm"
+            >
+              <Checkbox
+                checked={isActive("category", category)}
+                onCheckedChange={(checked) =>
+                  updateFilter("category", checked ? category : "")
+                }
+              />
+              {category}
+            </label>
+          ))}
+        </div>
+      </section>
+      }
         {/* <Separator /> */}
 
         <Separator />

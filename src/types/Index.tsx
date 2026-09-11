@@ -121,10 +121,11 @@ sizes?: number[];
   images?: ProductImage[];
   collections?: Collection[];
   variants?: ProductVariant[];
-  category?:string;
+  category:string;
   materials?: {
     id?: string;
     name: string;
+    slug?:string
   }[];
 
   colors: {

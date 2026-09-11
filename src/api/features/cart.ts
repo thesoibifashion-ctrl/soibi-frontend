@@ -203,7 +203,6 @@ export const updateCartHistoryReceipt = (
 };
 
 
-// PATCH /api/cart
 export const updateCartAddress = (payload: {
   state?: string | null;
   city?: string | null;
