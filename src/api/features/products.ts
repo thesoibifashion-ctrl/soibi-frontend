@@ -3,7 +3,7 @@ import { publicApiGet } from "../requests/public";
 import { useQuery } from "@tanstack/react-query";
 
 
-
+// products
 export const getProducts = () => {
   return publicApiGet<Product[]>("/api/products");
 };
