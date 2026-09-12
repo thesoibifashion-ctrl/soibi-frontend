@@ -51,7 +51,7 @@ const Hero = ({ customization }: HeroProps) => {
               <div className="flex w-fit self-end gap-13">
                 <AnimatedButton
                   text="Explore our Collections"
-                  route="/collections"
+                  route="/collection"
                   variant="black"
                 />
               </div>
