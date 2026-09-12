@@ -26,9 +26,9 @@ const Hero = ({ customization }: HeroProps) => {
 
       <div className="relative z-10 mt-9 h-full">
         <Container className="h-full">
-          <div className="grid h-162.5 grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid lg:h-162.5 grid-cols-1 md:grid-cols-2 gap-3">
             {/* Left image */}
-            <div className="relative h-full">
+            <div className="relative min-h-120 lg:min-h-0 h-full">
               <Image
                 src={latestCollectionOption?.[0]?.imageUrl || ""}
                 alt=""
@@ -40,7 +40,7 @@ const Hero = ({ customization }: HeroProps) => {
             {/* Right column */}
             <div className="flex h-full flex-col-reverse md:flex-col">
               {/* Right image */}
-              <div className="relative min-h-0 mt-[10px] md:mt-0 flex-1">
+              <div className="relative min-h-120 lg:min-h-0 mt-[10px] md:mt-0 flex-1">
                 <Image
                   src={latestCollectionOption?.[1]?.imageUrl || ""}
                   alt=""
@@ -50,9 +50,9 @@ const Hero = ({ customization }: HeroProps) => {
               </div>
 
               {/* Text */}
-              <div className="bg-black leading-10 md:mt-3 px-[30px] py-[35px] text-2xl md:text-[55px] text-white">
+              <div className="bg-black leading-10 lg:leading-15 md:mt-3 px-[30px] py-[35px] text-2xl md:text-[55px] text-white">
                 <ScrollTypewriter text={"Worn by Queens."} />
-                <br />
+                <br  className="hidden"/>
                 <ScrollTypewriter text={"Made for You."} />
               </div>
             </div>

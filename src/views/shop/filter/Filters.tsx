@@ -110,7 +110,7 @@ const ProductFiltersSidebar = ({ products }: products) => {
   };
 
   return (
-    <aside className="w-full rounded-xl lg:border h-fit  bg-white px-5 lg:p-5 lg:sticky lg:top-30 lg:w-72">
+    <aside className="w-full  rounded-xl lg:border h-fit  bg-white px-5 lg:p-5 lg:sticky lg:top-30 lg:w-72">
       <div className="h-[90vh] overflow-scroll space-y-6  [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">Filters</h2>

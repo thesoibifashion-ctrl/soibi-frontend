@@ -92,7 +92,7 @@ export const Navbar = () => {
           }
         `}
       >
-        <Container className="mx-auto flex h-20 items-center justify-between">
+        <Container className="mx-auto flex h-15  lg:h-20 items-center justify-between">
           <div className="flex items-center gap-10">
             {/* Logo */}
             <Link
@@ -164,7 +164,7 @@ export const Navbar = () => {
               variant="ghost"
               size="icon"
               className={`
-                relative z-[10002] rounded-full md:hidden
+                relative z-10002 rounded-full md:hidden
                 transition-colors duration-500
                 hover:bg-black/5
                 ${mobileOpen ? "text-black" : textColor}

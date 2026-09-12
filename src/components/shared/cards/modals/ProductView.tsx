@@ -23,28 +23,28 @@ export function QuickViewModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[70vw]! max-h-[80vh]! overflow-hidden p-0 gap-0!">
+      <DialogContent className="lg:max-w-[70vw]! max-h-[90vh]! lg:max-h-[80vh]! overflow-scroll p-0 gap-0!">
         <DialogHeader className="p-0!">
           <DialogTitle className="hidden" />
         </DialogHeader>
 
-        <div className="grid h-[80vh] grid-cols-2 gap-[53px]">
-          <div className="h-full overflow-hidden">
+        <div className="grid h-[80vh] grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-13.25">
+          <div className="h-full overflow-auto lg:overflow-hidden">
             <img
               src={product.images?.[0]?.imageUrl}
               alt={product.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-top"
             />
           </div>
 
           <div className="h-full overflow-y-auto pr-6">
-            <div className="flex min-h-full flex-col justify-between p-8 pt-20">
+            <div className="flex min-h-full flex-col justify-between p-4 lg:p-8 lg:pt-20">
               <div>
-                <p className="text-[65px] leading-[80px] text-black">
+                <p className="text-3xl lg:text-[65px] lg:leading-20 text-black">
                   {product.name}
                 </p>
 
-                <p className="mt-5 text-[13px] leading-[30px] text-black">
+                <p className="mt-5 text-[13px] leading-7.5 text-black">
                   {product.description?.slice(0, 200) ||
                     "No description available."}
                 </p>

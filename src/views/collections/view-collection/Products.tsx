@@ -1,13 +1,18 @@
 import { Collection } from "@/api/features/collection";
+import { QuickViewModal } from "@/components/shared/cards/modals/ProductView";
 import { ProductCard } from "@/components/shared/cards/ProductCard";
 import Container from "@/components/shared/Container";
 import { Product } from "@/types/Index";
+import { useState } from "react";
 
 interface Collections {
   collection: Collection;
 }
 
 const Products = (collection: Collections) => {
+   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(
+      null
+    );
   return (
     <Container>
       <p className="  text-center mt-5">
@@ -18,9 +23,15 @@ const Products = (collection: Collections) => {
           <ProductCard
             key={product.id}
             product={product}
-            onQuickView={() => {}}
+            onQuickView={setQuickViewProduct}
           />
         ))}
+
+              <QuickViewModal
+                product={quickViewProduct}
+                open={!!quickViewProduct}
+                onOpenChange={(open) => !open && setQuickViewProduct(null)}
+              />
       </div>
     
     </Container>

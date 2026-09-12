@@ -65,7 +65,7 @@ const Categories = ({ products }: CategoriesProps) => {
                   src={categoryImages[category]}
                   alt={category}
                   fill
-                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover object-center lg:object-top transition-transform duration-500 group-hover:scale-105"
                 />
 
                 {/* Overlay */}

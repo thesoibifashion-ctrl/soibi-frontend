@@ -111,7 +111,7 @@ const Index = () => {
 
               <SheetContent
                 side="left"
-                className="w-[320px] border-none overflow-y-auto "
+                className="w-[320px] z-[1001] border-none overflow-y-auto "
               >
                 <SheetHeader></SheetHeader>
 

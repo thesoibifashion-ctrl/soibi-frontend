@@ -223,7 +223,7 @@ const CartSidebar = ({ active }: isActive) => {
       </button>
 
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent className="flex lg:w-full w-[90%]! lg:max-w-[430px] flex-col bg-[#F8F6F2] p-0">
+        <SheetContent className="flex lg:w-full w-[90%]! lg:max-w-[430px] flex-col bg-[#F8F6F2] p-0 z-[1001]">
           <SheetHeader className="border-b border-border bg-white px-6 py-5">
             <SheetTitle className="font-display text-xl font-bold text-near-black">
               Your Bag
