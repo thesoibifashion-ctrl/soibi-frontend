@@ -38,7 +38,7 @@ const FavoritesGrid = () => {
 
   return (
     <>
-      <div className="grid grid-cols-4 mt-32 max-w-[90%] mx-auto gap-3 mt-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 mt-32 max-w-[90%] mx-auto gap-3 mt-8">
         {favorites?.map((item) => {
           return (
             <ProductCard

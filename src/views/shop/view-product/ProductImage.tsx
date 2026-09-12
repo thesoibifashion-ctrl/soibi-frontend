@@ -11,6 +11,7 @@ import { useProductBySlug } from "@/api/features/products";
 import AnimatedSubmitButton from "@/components/shared/SubmitButton";
 import { GUEST_CART_KEY } from "@/hooks/use-guest-cart";
 import { useQueryClient } from "@tanstack/react-query";
+import { X } from "lucide-react";
 interface ProductDescriptionProps {
   description: string;
 }
@@ -181,6 +182,7 @@ const ReferencedProduct = ({ slug, onClose }: ReferencedProductProps) => {
     }
   };
 
+
   return (
     <Dialog
       open
@@ -188,7 +190,53 @@ const ReferencedProduct = ({ slug, onClose }: ReferencedProductProps) => {
         if (!open) onClose();
       }}
     >
-      <DialogContent className="max-w-2xl overflow-hidden rounded-2xl border-none p-0">
+      <DialogContent
+        showCloseButton={false}
+        className="
+          w-[calc(100%-2rem)]!
+          max-w-[80vw]!
+          overflow-hidden
+          rounded-2xl
+          border-none
+          p-0
+          sm:w-[80vw]!
+        "
+      >
+        {/* Custom close button */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close product modal"
+          className="
+            absolute
+            right-4
+            top-4
+            z-50
+            flex
+            h-12
+            w-12
+            items-center
+            justify-center
+            rounded-full
+            border
+            border-white/70
+            bg-black/70
+            text-white
+            shadow-xl
+            backdrop-blur-md
+            transition
+            hover:bg-black
+            focus:outline-none
+            focus:ring-2
+            focus:ring-white
+            sm:right-5
+            sm:top-5
+          "
+        >
+          <X size={25} strokeWidth={2.5} />
+          <span className="sr-only">Close</span>
+        </button>
+
         {isLoading && (
           <div className="flex min-h-[400px] items-center justify-center">
             <LoadingAnimation />

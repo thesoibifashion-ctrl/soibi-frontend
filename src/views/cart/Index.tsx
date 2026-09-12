@@ -139,7 +139,8 @@ const CartPage = () => {
     );
 
     return (
-      sum + (selectedPrice?.amount ?? item.unitPriceSnapshot) * item.quantity
+      sum +
+      (selectedPrice?.amount ?? item.unitPriceSnapshot) * item.quantity
     );
   }, 0);
 
@@ -202,10 +203,10 @@ const CartPage = () => {
   }
 
   return (
-    <Container className="bg-[#EEEEEE] min-h-screen pt-30 gap-10 lg:gap-20 lg:flex-row flex flex-col-reverse justify-between w-full">
+    <Container className="bg-[#EEEEEE] min-h-screen pt-30 gap-8 lg:gap-20 lg:flex-row flex flex-col-reverse lg:justify-between w-full">
       {/* LEFT — item cards */}
-
-      <div className="w-full lg:w-[45%] space-y-5">
+      
+      <div className=" lg:w-[45%] space-y-5">
         <h1 className="text-[50px] hidden lg:flex">Cart</h1>
 
         {displayItems.map((item, idx) => {
@@ -237,11 +238,9 @@ const CartPage = () => {
 
                   <div className="flex text-sm">
                     <p>
-                      {
-                        item.pricesSnapshot?.find(
-                          (price) => price.currency === activeCurrency
-                        )?.symbol
-                      }
+                      {item.pricesSnapshot?.find(
+                        (price) => price.currency === activeCurrency
+                      )?.symbol}
                     </p>
                     <span>
                       {(
@@ -256,10 +255,7 @@ const CartPage = () => {
                 <div className="w-full flex justify-between items-center">
                   <div className="flex w-fit items-center gap-3">
                     {isUpdating ? (
-                      <Loader2
-                        size={16}
-                        className="animate-spin text-gray-500"
-                      />
+                      <Loader2 size={16} className="animate-spin text-gray-500" />
                     ) : (
                       <>
                         <button
@@ -271,10 +267,7 @@ const CartPage = () => {
                           <CircleMinus size={18} />
                         </button>
                         <span>{item.quantity}</span>
-                        <button
-                          type="button"
-                          onClick={() => handleIncrease(item)}
-                        >
+                        <button type="button" onClick={() => handleIncrease(item)}>
                           <CirclePlus size={18} />
                         </button>
                       </>
@@ -306,41 +299,43 @@ const CartPage = () => {
         })}
       </div>
 
-      <div className="w-full">
+
+    <div className="w-full lg:w-[45%]">
         <h1 className="text-[50px]  lg:hidden">Cart</h1>
 
-        <div className="bg-[#000000] h-fit p-8 rounded-lg w-full lg:w-[40%]">
-          <div className="rounded-2xl  ">
-            <h2 className="mb-4 font-semibold text-white">Order Summary</h2>
+      <div className="bg-[#000000] h-fit p-8 rounded-lg w-full">
 
-            <div className="flex items-center justify-between text-sm text-white">
-              <span>Number of Products</span>
-              <span>{totalItemCount}</span>
-            </div>
+        <div className="rounded-2xl  ">
+          <h2 className="mb-4 font-semibold text-white">Order Summary</h2>
 
-            <div className="mt-2 space-y-3 border-t pt-3">
-              <div className="flex items-center justify-between text-xs text-white font-semibold">
-                <span>Total ({activeCurrency})</span>
-                <span>
-                  {currencySymbol}
-                  {total.toLocaleString()}
-                </span>
-              </div>
-            </div>
-
-            <p className="mt-4 rounded-lg bg-yellow-50 p-3 text-xs leading-5 text-yellow-800">
-              Delivery is not available for online booking yet. Our team will
-              reach out to you directly to arrange delivery once your order is
-              confirmed.
-            </p>
+          <div className="flex items-center justify-between text-sm text-white">
+            <span>Number of Products</span>
+            <span>{totalItemCount}</span>
           </div>
-          <div className="  cursor-pointer mt-5 flex justify-center items-center">
-            <span className="w-fit bg-white rounded-[50px] px-8   text-sm py-2">
-              <Link href="/checkout">Proceed to checkout</Link>
-            </span>
+
+          <div className="mt-2 space-y-3 border-t pt-3">
+            <div className="flex items-center justify-between text-xs text-white font-semibold">
+              <span>Total ({activeCurrency})</span>
+              <span>
+                {currencySymbol}
+                {total.toLocaleString()}
+              </span>
+            </div>
           </div>
+
+          <p className="mt-4 rounded-lg bg-yellow-50 p-3 text-xs leading-5 text-yellow-800">
+            Delivery is not available for online booking yet. Our team will
+            reach out to you directly to arrange delivery once your order is
+            confirmed.
+          </p>
+        </div>
+        <div className="  cursor-pointer mt-5 flex justify-center items-center">
+          <span className="w-fit bg-white rounded-[50px] px-8   text-sm py-2">
+            <Link href="/checkout">Proceed to checkout</Link>
+          </span>
         </div>
       </div>
+    </div>
     </Container>
   );
 };
