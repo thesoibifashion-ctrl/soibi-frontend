@@ -63,7 +63,7 @@ const MeasurementGuideModal = ({
         <div className="bg-black px-8 py-3 mt-3 rounded-[20px]">
           <p className="text-white text-[20px]">Measurement Tips</p>
 
-          <div className="grid grid-cols-2 gap-4 mt-3">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
             {tips.map((item) => (
               <div key={item.id}>
                 <p className="text-white font-sans text-[15px] flex gap-2 items-start">

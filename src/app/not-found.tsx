@@ -3,10 +3,11 @@ import ErrorState from "@/components/shared/Error";
 const NotFound = () => {
   return (
     <ErrorState
-      title="Cart"
+      title=""
       text="Oops, i think we are lost"
-      image="/empty-cart.png"
-      route="/shop"
+      image="/404.png"
+      route="/"
+      button="Back to home"
     />
   );
 };

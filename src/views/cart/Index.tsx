@@ -203,8 +203,7 @@ const CartPage = () => {
   }
 
   return (
-    <Container className="bg-[#EEEEEE] min-h-screen pt-30 gap-8 lg:gap-20 lg:flex-row flex flex-col-reverse lg:justify-between w-full">
-      {/* LEFT — item cards */}
+    <Container className="bg-[#EEEEEE] lg:min-h-screen pt-24 lg:pt-30 gap-8 lg:gap-20 lg:flex-row flex flex-col-reverse lg:justify-between w-full">
       
       <div className=" lg:w-[45%] space-y-5">
         <h1 className="text-[50px] hidden lg:flex">Cart</h1>

@@ -38,6 +38,7 @@ export const Navbar = () => {
     pathname.startsWith("/checkout") ||
     pathname.startsWith("/history") ||
     pathname.startsWith("/favorites") ||
+    pathname.startsWith("/404") ||
     pathname.startsWith("/tracking");
 
   useEffect(() => {

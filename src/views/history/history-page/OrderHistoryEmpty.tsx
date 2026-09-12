@@ -27,7 +27,7 @@ const OrderHistoryEmpty = () => {
         </p>
 
         <Link
-          href="/product"
+          href="/collection"
           className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#0E0E0E] px-7 py-4 text-xs font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#C9A227] hover:text-[#0E0E0E]"
         >
           Explore Collection

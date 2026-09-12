@@ -29,7 +29,7 @@ const Hero = ({ imageUrl }: HeroProps) => {
               <div className="mt-8 flex w-full items-center gap-5 md:gap-13">
                 <AnimatedButton
                   text="Explore Collection"
-                  route="/collections"
+                  route="/collection"
                   variant="black"
                 />
                 <AnimatedButton
