@@ -44,7 +44,7 @@ const MeasurementGuideModal = ({
   measurements,
   measurementValues,
   handleMeasurementChange,
-  classes = "max-w-[50vw]!"
+  classes = "max-w-[80vw]! lg:max-w-[50vw]!"
 }: MeasurementGuideModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
