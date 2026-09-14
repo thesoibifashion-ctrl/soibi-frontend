@@ -1,5 +1,6 @@
 import { useCollections } from "@/api/features/collection";
 import Container from "@/components/shared/Container";
+import Link from "next/link";
 
 const Memory = () => {
   const {
@@ -12,22 +13,29 @@ const Memory = () => {
   );
 
   return (
-    <Container className="lg:grid grid-cols-2 flex flex-col-reverse  items-center pb-10 md:pb-50 pt-8 md:pt-29.75 gap-15">
+    <Container className="lg:grid grid-cols-2 flex flex-col-reverse  items-center  pt-8 md:pt-29.75 gap-15">
       <div className="mt-8 lg:mt-0">
         <p className="font-medium text-[15px] md:text-xl text-[#404944]">
           Est. Port Harcourt 2022
         </p>
-        <div className="mt-4.25 md:mt-8">
+        <div className="mt-2 md:mt-8">
           <p className="text-[32px] md:text-[64px] text-[#000000] leading-12.5">
             {" "}
             Fashion as{" "}
           </p>
-          <span className="text-[#7B3C10] text-4xl md:text-5xl md:leading-[70px]">Living memory</span>
+          <span className="text-[#7B3C10] text-4xl md:text-5xl md:leading-[70px]">
+            Living memory
+          </span>
           <p className="text-base md:text-[24px] text-[#000000]">
             We design for the woman who arrives in her own time, confidently,
             and entirely herself. Pieces created to transcend seasons and
             trends.
           </p>
+          <div className="mt-4 lg:mt-8">
+            <Link className="text-sm text-[#000000] underline " href="/about">
+              OUR STORY
+            </Link>
+          </div>
         </div>
       </div>
       <div className="h-150 relative w-full">

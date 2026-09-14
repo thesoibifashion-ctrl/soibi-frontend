@@ -12,7 +12,7 @@ interface HeroProps {
   customization: CustomizationCategory[];
 }
 
-const ROTATE_INTERVAL = 4000;
+const ROTATE_INTERVAL = 6000;
 
 const Hero = ({ customization }: HeroProps) => {
   const latestCollection = customization?.find(
@@ -43,9 +43,10 @@ const Hero = ({ customization }: HeroProps) => {
   if (!activeOption?.imageUrl) return null;
 
   return (
-    <div className="">
-      <Container>
-        <p className="text-[#000000] text-[30px]  md:text-[66px] lg:text-[55px]">
+    <div className="mt-8 md:mt-32 ">
+      <Container className="">
+        <hr className="border-t border-[#000000]"/>
+        <p className="text-[#000000] text-[30px] mt-24  md:text-[66px] lg:text-[55px]">
           Our Latest Collection
         </p>
       </Container>

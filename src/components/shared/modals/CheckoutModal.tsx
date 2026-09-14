@@ -153,7 +153,7 @@ const CheckoutButton = ({ open, onOpenChange }: CheckoutButtonProps) => {
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="min-w-[440px] rounded-3xl border-0 bg-white p-8 shadow-2xl">
+      <DialogContent className="max-w-[90vw] lg:min-w-[440px] rounded-3xl border-0 bg-white p-8 shadow-2xl">
         {view === "choice" && (
           <>
             <DialogHeader className="text-center">
@@ -295,7 +295,7 @@ const CheckoutButton = ({ open, onOpenChange }: CheckoutButtonProps) => {
                   onChange={(e) => handleDigitChange(index, e.target.value)}
                   onKeyDown={(e) => handleDigitKeyDown(index, e)}
                   onPaste={handleDigitPaste}
-                  className="h-14 w-14 rounded-xl border border-[#E5E7EB] bg-[#FAFAFA] text-center text-xl font-semibold outline-none transition focus:border-black disabled:opacity-60"
+                  className="h-9 lg:h-14 w-9 lg:w-14 rounded-xl border border-[#E5E7EB] bg-[#FAFAFA] text-center text-xl font-semibold outline-none transition focus:border-black disabled:opacity-60"
                 />
               ))}
             </div>

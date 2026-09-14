@@ -5,6 +5,7 @@ import { QueryProvider } from "@/providers/query-provider";
 import Navbar from "@/components/ui/navigation/Header";
 import { Toaster } from "sonner";
 import { CurrencyProvider } from "@/providers/currency-provider";
+import NextTopLoader from "nextjs-toploader";
 
 const prata = Prata({
   variable: "--font-prata",
@@ -46,6 +47,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
         <QueryProvider>
           <Navbar />
+          <NextTopLoader color="#A56423" showSpinner={false} />
+
           <CurrencyProvider>{children}</CurrencyProvider>
         </QueryProvider>
       </body>

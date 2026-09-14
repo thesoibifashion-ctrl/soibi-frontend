@@ -27,7 +27,7 @@ const OrderSummaryCard = ({ items, selectedCurrency, className = "", footer }: O
   const totalItemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 console.log(items)
   return (
-    <div className={`rounded-2xl border p-6 w-[443px] ${className}`}>
+    <div className={`rounded-2xl border p-6 w-full lg:w-[443px] ${className}`}>
         <p className="text-xs text-[#A56423] font-sans font-semibold">YOUR ORDER</p>
       <h2 className="font-semibold text-white text-2xl leading-[40px]">Order Summary</h2>
 

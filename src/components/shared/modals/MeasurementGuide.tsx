@@ -44,13 +44,13 @@ const MeasurementGuideModal = ({
   measurements,
   measurementValues,
   handleMeasurementChange,
-  classes = "max-w-[80vw]! lg:max-w-[50vw]!"
+  classes = "max-w-[90vw]! lg:max-w-[50vw]!"
 }: MeasurementGuideModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={`max-h-[85vh] bg-[#EEEEEE] px-[50px] overflow-y-auto ${classes && classes}`}>
-        <DialogHeader className="mt-[70px]">
-          <DialogTitle className="text-center text-[50px] leading-[40px]">
+      <DialogContent className={`max-h-[85vh] bg-[#EEEEEE] px-5 lg:px-[50px] overflow-y-auto ${classes && classes}`}>
+        <DialogHeader className="mt-8 lg:mt-[70px]">
+          <DialogTitle className="text-center text-lg lg:text-[50px] font-semibold leading-[40px]">
             Take Your measurement
           </DialogTitle>
         </DialogHeader>
@@ -77,7 +77,7 @@ const MeasurementGuideModal = ({
           </div>
         </div>
 
-        <div className="grid-cols-2 grid gap-5 bg-white rounded-[20px] p-6">
+        <div className="grid-cols-1 lg:grid-cols-2 grid gap-5 bg-white rounded-[20px] p-6">
           {measurements.map((m, idx) => (
             <div key={m.title} className="">
               <div>

@@ -63,7 +63,10 @@ type DisplayItem = {
 const CartSidebarSkeleton = () => (
   <div className="space-y-4">
     {Array.from({ length: 3 }).map((_, i) => (
-      <div key={i} className="flex gap-4 rounded-xl border border-border bg-white p-4">
+      <div
+        key={i}
+        className="flex gap-4 rounded-xl border border-border bg-white p-4"
+      >
         <Skeleton className="h-28 w-20 flex-shrink-0 rounded-lg" />
         <div className="flex flex-1 flex-col justify-between">
           <div>
@@ -158,14 +161,26 @@ const CartSidebar = ({ active }: isActive) => {
         customMeasurements: item.customMeasurements,
       }));
 
-  const totalItemCount = displayItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItemCount = displayItems.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
 
   const isLoading = !authChecked || (authenticated && cartLoading);
 
+  // const handleCheckout = async () => {
+  //   isAuthenticated()
+  //     ? (window.location.href = "/checkout")
+  //     : setOpenCheckoutModal(true);
+  // };
+
   const handleCheckout = async () => {
-    isAuthenticated()
-      ? (window.location.href = "/checkout")
-      : setOpenCheckoutModal(true);
+    if (isAuthenticated()) {
+      window.location.href = "/checkout";
+    } else {
+      setOpen(false);
+      setOpenCheckoutModal(true);
+    }
   };
 
   const handleIncrease = (item: DisplayItem) => {
@@ -238,7 +253,11 @@ const CartSidebar = ({ active }: isActive) => {
             {isLoading ? (
               <CartSidebarSkeleton />
             ) : displayItems.length === 0 ? (
-              <ErrorState title="" text="Oops! Your bag is empty." image="/empty-cart.png" />
+              <ErrorState
+                title=""
+                text="Oops! Your bag is empty."
+                image="/empty-cart.png"
+              />
             ) : (
               <div className="space-y-4">
                 {displayItems.map((item, idx) => (
@@ -291,7 +310,9 @@ const CartSidebar = ({ active }: isActive) => {
                               >
                                 <span
                                   className="h-1.5 w-1.5 rounded-full border border-black/10"
-                                  style={{ backgroundColor: item.selectedColor }}
+                                  style={{
+                                    backgroundColor: item.selectedColor,
+                                  }}
                                 />
                                 {item.selectedColor}
                               </Badge>
@@ -330,7 +351,10 @@ const CartSidebar = ({ active }: isActive) => {
 
                           <p className="font-display text-sm font-bold text-near-black">
                             {item.pricesSnapshot
-                              ?.find((price) => price.currency === cart?.selectedCurrency)
+                              ?.find(
+                                (price) =>
+                                  price.currency === cart?.selectedCurrency
+                              )
                               ?.amount?.toLocaleString()}
                           </p>
                         </div>
@@ -378,7 +402,8 @@ const CartSidebar = ({ active }: isActive) => {
 
                           return (
                             total +
-                            (selectedPrice?.amount ?? item.unitPriceSnapshot) * item.quantity
+                            (selectedPrice?.amount ?? item.unitPriceSnapshot) *
+                              item.quantity
                           );
                         }, 0)
                         .toLocaleString()}
@@ -399,15 +424,22 @@ const CartSidebar = ({ active }: isActive) => {
                 />
 
                 <div className="w-fit">
-                  <AnimatedSubmitButton onClick={handleCheckout} text={"Checkout"} />
+                  <AnimatedSubmitButton
+                    onClick={handleCheckout}
+                    text={"Checkout"}
+                  />
                 </div>
 
-                <CheckoutButton open={openCheckoutModal} onOpenChange={setOpenCheckoutModal} />
+             
               </div>
             </SheetFooter>
           )}
         </SheetContent>
       </Sheet>
+      <CheckoutButton
+                  open={openCheckoutModal}
+                  onOpenChange={setOpenCheckoutModal}
+                />
     </>
   );
 };

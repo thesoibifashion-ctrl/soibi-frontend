@@ -85,7 +85,7 @@ const SizeGuideModal = ({
       onOpenChange={onOpenChange}
       title=""
       description=""
-      className="max-w-[80vw]! lg:max-w-[938px]! p-[72px] bg-[#EEEEEE]"
+      className="max-w-[90vw]! lg:max-w-[80vw]!  p-8  lg:p-[72px] bg-[#EEEEEE]"
     >
       <div className="space-y-6">
         {/* Size selector */}
@@ -117,8 +117,9 @@ const SizeGuideModal = ({
         </div> */}
 
         {/* Size chart */}
-        <p className="text-[50px] ">Size Chart</p>
-        <div className="overflow-x-auto rounded-lg border bg-white border-black/10">
+        <p className="text-3xl lg:text-[50px] ">Size Chart</p>
+       <div className="w-[75vw] overflow-auto">
+       <div className="overflow-x-auto rounded-lg max-w-[90vw] lg:max-w-full border bg-white border-black/10">
           <table className="w-full min-w-[600px] border-collapse text-sm">
             <thead>
               <tr className="border-b border-black/10 bg-[#F7F7F7]">
@@ -186,6 +187,7 @@ const SizeGuideModal = ({
             </tbody>
           </table>
         </div>
+       </div>
         {/* ${
                       isSelected
                         ? "bg-black text-white"

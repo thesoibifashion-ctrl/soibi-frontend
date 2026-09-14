@@ -11,10 +11,16 @@ import {
   isAuthenticated,
   type CartItem,
 } from "@/api/features/cart";
-import { getGuestCartItems, clearGuestCart, type GuestCartItem } from "@/hooks/use-guest-cart";
+import {
+  getGuestCartItems,
+  clearGuestCart,
+  type GuestCartItem,
+} from "@/hooks/use-guest-cart";
 import { uploadToCloudinary } from "@/lib/upload-to-cloudinary";
 import Container from "@/components/shared/Container";
-import OrderSummaryCard, { OrderSummaryItem } from "@/components/shared/cards/SummaryCard";
+import OrderSummaryCard, {
+  OrderSummaryItem,
+} from "@/components/shared/cards/SummaryCard";
 import DetailsStep from "./Details";
 import ReceiptStep from "./ReceiptStep";
 import { useCurrency } from "@/providers/currency-provider";
@@ -56,7 +62,9 @@ const CheckoutPage = () => {
   const [guestEmail, setGuestEmail] = useState("");
   const [guestPhone, setGuestPhone] = useState("");
   const [whatsappOverride, setWhatsappOverride] = useState("");
-  const [contactMethod, setContactMethod] = useState<"email" | "whatsapp">("email");
+  const [contactMethod, setContactMethod] = useState<"email" | "whatsapp">(
+    "email"
+  );
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
@@ -137,7 +145,10 @@ const CheckoutPage = () => {
 
         await submitCart({
           contactMethod,
-          phoneNumber: contactMethod === "whatsapp" ? whatsappOverride || undefined : undefined,
+          phoneNumber:
+            contactMethod === "whatsapp"
+              ? whatsappOverride || undefined
+              : undefined,
         });
       } else {
         await submitCart({
@@ -157,7 +168,9 @@ const CheckoutPage = () => {
       toast.success("Order submitted");
       router.push("/shop");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Couldn't submit your order");
+      toast.error(
+        error instanceof Error ? error.message : "Couldn't submit your order"
+      );
     } finally {
       setIsSubmitting(false);
       setIsUploading(false);
@@ -165,87 +178,114 @@ const CheckoutPage = () => {
   };
 
   if (!authChecked || (authenticated && cartLoading)) {
-    return <div className="p-10 text-center text-sm text-gray-500">Loading...</div>;
+    return (
+      <div className="p-10 text-center text-sm text-gray-500">Loading...</div>
+    );
   }
 
   if (summaryItems.length === 0) {
-    return <div className="p-10 text-center text-sm text-gray-500">Your cart is empty.</div>;
+    return (
+      <div className="p-10 text-center text-sm text-gray-500">
+        Your cart is empty.
+      </div>
+    );
   }
 
   return (
     <div className="bg-[#EEEEEE] min-h-screen py-24">
-      <Container className="flex gap-10">
-        <div className="space-y-6 lg:col-span-2">
-          <div>
-            <p className="text-xs text-[#A56423] font-semibold">CHECKOUT</p>
-            <p className="text-[50px] text-[#000000]">Complete Your Order</p>
-            <p className="text-xs font-semibold text-[#595959]">
-              Complete your details and payment information to submit your order.
-            </p>
-          </div>
+      <Container className="flex flex-col-reverse lg:flex-row gap-10">
+        <div>
+       
+          <div className="space-y-6 lg:col-span-2">
+            <div className="flex items-center gap-3 w-[80%] lg:w-[400px] mt-5">
+              <div
+                className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
+                  step === "details"
+                    ? "bg-black text-white"
+                    : "bg-gray-100 text-gray-500"
+                }`}
+              >
+                1
+              </div>
+              <span
+                className={step === "details" ? "font-medium" : "text-gray-500"}
+              >
+                Details
+              </span>
 
-          <div className="flex items-center gap-3 w-[400px] mt-5">
-            <div
-              className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
-                step === "details" ? "bg-black text-white" : "bg-gray-100 text-gray-500"
-              }`}
-            >
-              1
+              <div className="h-px w-8 lg:w-full flex-1 bg-gray-200" />
+
+              <div
+                className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
+                  step === "receipt"
+                    ? "bg-black text-white"
+                    : "bg-gray-100 text-gray-500"
+                }`}
+              >
+                2
+              </div>
+              <span
+                className={step === "receipt" ? "font-medium" : "text-gray-500"}
+              >
+                Receipt
+              </span>
             </div>
-            <span className={step === "details" ? "font-medium" : "text-gray-500"}>Details</span>
 
-            <div className="h-px flex-1 bg-gray-200" />
+            {step === "details" && (
+              <DetailsStep
+                authenticated={authenticated}
+                guestName={guestName}
+                onGuestNameChange={setGuestName}
+                guestEmail={guestEmail}
+                onGuestEmailChange={setGuestEmail}
+                guestPhone={guestPhone}
+                onGuestPhoneChange={setGuestPhone}
+                whatsappOverride={whatsappOverride}
+                onWhatsappOverrideChange={setWhatsappOverride}
+                contactMethod={contactMethod}
+                onContactMethodChange={setContactMethod}
+                state={state}
+                onStateChange={setState}
+                city={city}
+                onCityChange={setCity}
+                address={address}
+                onAddressChange={setAddress}
+                onContinue={handleContinueToReceipt}
+              />
+            )}
 
-            <div
-              className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
-                step === "receipt" ? "bg-black text-white" : "bg-gray-100 text-gray-500"
-              }`}
-            >
-              2
-            </div>
-            <span className={step === "receipt" ? "font-medium" : "text-gray-500"}>Receipt</span>
+            {step === "receipt" && (
+              <ReceiptStep
+                receiptPreview={receiptPreview}
+                onReceiptSelected={handleReceiptSelected}
+                onBack={() => setStep("details")}
+                onSubmit={handleFinalSubmit}
+                isSubmitting={isSubmitting}
+                isUploading={isUploading}
+              />
+            )}
           </div>
-
-          {step === "details" && (
-            <DetailsStep
-              authenticated={authenticated}
-              guestName={guestName}
-              onGuestNameChange={setGuestName}
-              guestEmail={guestEmail}
-              onGuestEmailChange={setGuestEmail}
-              guestPhone={guestPhone}
-              onGuestPhoneChange={setGuestPhone}
-              whatsappOverride={whatsappOverride}
-              onWhatsappOverrideChange={setWhatsappOverride}
-              contactMethod={contactMethod}
-              onContactMethodChange={setContactMethod}
-              state={state}
-              onStateChange={setState}
-              city={city}
-              onCityChange={setCity}
-              address={address}
-              onAddressChange={setAddress}
-              onContinue={handleContinueToReceipt}
-            />
-          )}
-
-          {step === "receipt" && (
-            <ReceiptStep
-              receiptPreview={receiptPreview}
-              onReceiptSelected={handleReceiptSelected}
-              onBack={() => setStep("details")}
-              onSubmit={handleFinalSubmit}
-              isSubmitting={isSubmitting}
-              isUploading={isUploading}
-            />
-          )}
         </div>
 
+    <div>
+    <div className=" lg:hidden">
+            <p className="text-xs text-[#A56423] font-semibold">CHECKOUT</p>
+            <p className="text-3xl lg:text-[50px] mt-[3.5px] text-[#000000]">Complete Your Order</p>
+            <p className="text-xs font-semibold my-2  text-[#595959]">
+              Complete your details and payment information to submit your
+              order.
+            </p>
+          </div>
         <OrderSummaryCard
           items={summaryItems}
-          selectedCurrency={authenticated ? cart?.selectedCurrency ?? selectedCurrency : selectedCurrency}
-          className="sticky top-24 bg-black h-fit text-white"
+          selectedCurrency={
+            authenticated
+              ? cart?.selectedCurrency ?? selectedCurrency
+              : selectedCurrency
+          }
+          className="lg:sticky lg:top-24 bg-black h-fit text-white"
         />
+    </div>
       </Container>
     </div>
   );
