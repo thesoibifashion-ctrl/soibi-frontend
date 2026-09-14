@@ -13,12 +13,12 @@ const Memory = () => {
   );
 
   return (
-    <Container className="lg:grid grid-cols-2 flex flex-col-reverse  items-center  pt-8 md:pt-29.75 gap-15">
-      <div className="mt-8 lg:mt-0">
-        <p className="font-medium text-[15px] md:text-xl text-[#404944]">
+    <Container className="lg:grid grid-cols-2 flex flex-col-reverse  items-center pb-10 md:pb-20 lg:pb-50 pt-8 md:pt-29.75 gap-15">
+      <div className="mt-12 lg:mt-0">
+        <p className="font-medium text-[11px] md:text-xl text-[#404944]">
           Est. Port Harcourt 2022
         </p>
-        <div className="mt-2 md:mt-8">
+        <div className=" md:mt-8">
           <p className="text-[32px] md:text-[64px] text-[#000000] leading-12.5">
             {" "}
             Fashion as{" "}
@@ -31,10 +31,12 @@ const Memory = () => {
             and entirely herself. Pieces created to transcend seasons and
             trends.
           </p>
-          <div className="mt-4 lg:mt-8">
-            <Link className="text-sm text-[#000000] underline " href="/about">
+          <div className="mt-4 lg:block flex justify-end w-full lg:mt-8">
+            <Link className="text-sm text-[#000000] underline hidden lg:block " href="/about">
               OUR STORY
             </Link>
+            <button   className={`group w-fit relative lg:hidden inline-flex items-center justify-center overflow-hidden rounded-[50px] border px-3 md:px-6 py-2 md:py-4 font-[var(--font-inter)] text-xs font-medium tracking-wide border-black`}>OUR STORY</button>
+
           </div>
         </div>
       </div>

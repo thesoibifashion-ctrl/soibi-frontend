@@ -17,7 +17,7 @@ const categoryImages: Record<string, string> = {
   Accessories: "/earrings.jpg",
 };
 
-const mainCategories = ["Clothes", "Bags", "Shoes", "Accessories"];
+const mainCategories = [ "Bags", "Shoes", "Accessories","Clothes"];
 
 const Categories = ({ products }: CategoriesProps) => {
   // Get only the main categories that actually exist in the products
@@ -30,17 +30,18 @@ const Categories = ({ products }: CategoriesProps) => {
   // ].some((category) => !mainCategories.includes(category));
 
   return (
-    <Container className="mt-12 md:mt-40.25">
+    <Container className="mt-20 md:mt-40.25">
       <div>
         <div className="flex items-center justify-between">
-          <p className="text-2xl md:text-[55px]">Our Products</p>
+          <p className="text-[26px] md:text-[55px]">Our Products</p>
           <div className="w-fit">
-          <AnimatedButton text={"View more"} route={"/shop"} />
-
+          {/* <AnimatedButton text={"View more"} route={"/shop"} /> */}
+<Link href={"/shop"} className="underline text-sm">
+View more</Link>
           </div>
         </div>
         <div
-          className={`mt-10 grid-cols-1 grid gap-4 ${
+          className={`mt-2 lg:mt-10 grid-cols-1 grid gap-4 ${
             availableCategories.length === 1
               ? "md:grid-cols-1"
               : availableCategories.length === 2

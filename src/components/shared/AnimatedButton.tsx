@@ -4,9 +4,10 @@ interface ButtonProps {
   text: string;
   route: string;
   variant?: "black" | "white";
+  textColor?:string
 }
 
-const AnimatedButton = ({ text, route, variant = "black" }: ButtonProps) => {
+const AnimatedButton = ({ text, route, variant = "black",textColor= "white" }: ButtonProps) => {
   const isBlack = variant === "black";
 
   return (

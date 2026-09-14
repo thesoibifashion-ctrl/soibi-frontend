@@ -18,7 +18,7 @@ export function Marquee({ items, speed = 20, direction = "right", pauseOnHover =
         }}
       >
         {[...items, ...items].map((text, i) => (
-          <span key={i} className="flex items-center text-white text-[20px] md:text-[70px] font-medium uppercase tracking-wide">
+          <span key={i} className="flex items-center text-white text-2xl md:text-[70px] font-medium uppercase tracking-wide">
             {text}
           </span>
         ))}

@@ -43,10 +43,10 @@ const Hero = ({ customization }: HeroProps) => {
   if (!activeOption?.imageUrl) return null;
 
   return (
-    <div className="mt-8 md:mt-32 ">
+    <div className="mt-8 lg::mt-32 ">
       <Container className="">
-        <hr className="border-t border-[#000000]"/>
-        <p className="text-[#000000] text-[30px] mt-24  md:text-[66px] lg:text-[55px]">
+        <hr className="lg:border-t lg:border-[#000000]"/>
+        <p className="text-[#000000] text-[30px] lg:mt-24  md:text-[66px] lg:text-[55px]">
           Our Latest Collection
         </p>
       </Container>
