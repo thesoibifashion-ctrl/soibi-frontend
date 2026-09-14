@@ -12,8 +12,8 @@ const Memory = () => {
   );
 
   return (
-    <Container className="md:grid grid-cols-2 flex flex-col-reverse  items-center pb-10 md:pb-50 pt-8 md:pt-29.75 gap-15">
-      <div className="mt-8 md:mt-0">
+    <Container className="lg:grid grid-cols-2 flex flex-col-reverse  items-center pb-10 md:pb-50 pt-8 md:pt-29.75 gap-15">
+      <div className="mt-8 lg:mt-0">
         <p className="font-medium text-[15px] md:text-xl text-[#404944]">
           Est. Port Harcourt 2022
         </p>
@@ -22,7 +22,7 @@ const Memory = () => {
             {" "}
             Fashion as{" "}
           </p>
-          <span className="text-[#7B3C10] text-[36px] md:text-[55px]">Living memory</span>
+          <span className="text-[#7B3C10] text-4xl md:text-5xl md:leading-[70px]">Living memory</span>
           <p className="text-base md:text-[24px] text-[#000000]">
             We design for the woman who arrives in her own time, confidently,
             and entirely herself. Pieces created to transcend seasons and
@@ -35,7 +35,7 @@ const Memory = () => {
           src="/memory.png"
           className="h-full rounded-lg w-full object-cover"
         />
-        <div className="absolute -bottom-18 md:-bottom-7 md:-left-10 left-2 w-48.25 rounded-[10px] bg-black p-6 animate-subtle-bounce">
+        <div className="absolute -bottom-18 lg:-bottom-7 lg:-left-10 left-2 w-48.25 rounded-[10px] bg-black p-6 animate-subtle-bounce">
           <p className="flex items-baseline text-[50px] leading-none text-white">
             {collectionLength?.length}
             <span className="ml-1 text-[20px]">Collections</span>

@@ -6,7 +6,7 @@ const Featured = () => {
     <div className="mt-20 md:mt-46.75">
       <Container className="flex justify-between items-center">
         <div>
-          <hr className="border-0.5  border-[black] w-10 " />
+          <hr className="border-0.5  border-[black] w-16 " />
           <p className="text-[26px] md:text-[55px] text-[#000000]">
             Featured Pieces
           </p>
