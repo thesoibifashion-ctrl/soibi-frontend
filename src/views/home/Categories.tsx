@@ -17,7 +17,7 @@ const categoryImages: Record<string, string> = {
   Accessories: "/earrings.jpg",
 };
 
-const mainCategories = [ "Bags", "Shoes", "Accessories","Clothes"];
+const mainCategories = ["Bags", "Shoes", "Accessories", "Clothes"];
 
 const Categories = ({ products }: CategoriesProps) => {
   // Get only the main categories that actually exist in the products
@@ -35,9 +35,10 @@ const Categories = ({ products }: CategoriesProps) => {
         <div className="flex items-center justify-between">
           <p className="text-[26px] md:text-[55px]">Our Products</p>
           <div className="w-fit">
-          {/* <AnimatedButton text={"View more"} route={"/shop"} /> */}
-<Link href={"/shop"} className="underline text-sm">
-View more</Link>
+            {/* <AnimatedButton text={"View more"} route={"/shop"} /> */}
+            <Link href={"/shop"} className="underline text-sm">
+              View more
+            </Link>
           </div>
         </div>
         <div
