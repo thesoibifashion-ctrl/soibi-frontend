@@ -45,13 +45,13 @@ const Hero = ({ customization }: HeroProps) => {
   return (
     <div className="mt-8 lg::mt-32 ">
       <Container className="">
-        <hr className="lg:border-t lg:border-[#000000]"/>
+        <hr className="lg:border-t lg:border-[#00000040] border-dotted"/>
         <p className="text-[#000000] text-[30px] lg:mt-24  md:text-[66px] lg:text-[55px]">
           Our Latest Collection
         </p>
       </Container>
 
-      <div className="relative min-h-screen lg:min-h-250 w-full overflow-hidden pb-12.5">
+      <div className="relative min-h-screen  lg:min-h-250 w-full overflow-hidden pb-12.5">
         {/* Background image crossfade */}
         <AnimatePresence mode="sync">
           <motion.div
