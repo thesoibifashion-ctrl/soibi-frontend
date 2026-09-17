@@ -230,7 +230,7 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
                     key={image.id}
                     type="button"
                     onClick={() => setSelectedImage(index)}
-                    className={`lg:relative shrink-0 overflow-hidden ${
+                    className={`lg:relative lg:mt-2 shrink-0 overflow-hidden ${
                       selectedImage === index
                         ? "ring-2 ring-transparent"
                         : "opacity-70 hover:opacity-100"
