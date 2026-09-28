@@ -121,7 +121,7 @@ const CartPage = () => {
         imageUrlSnapshot: item.imageUrlSnapshot ?? null,
         quantity: item.quantity,
         selectedSize: item.selectedSize ?? null,
-        currency: item.currency ?? "",
+        currency: "USD",
         selectedColor: item.selectedColor ?? null,
         selectedMaterial: item.selectedMaterial ?? null,
         unitPriceSnapshot: item.unitPriceSnapshot,

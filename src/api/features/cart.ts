@@ -260,3 +260,24 @@ export const addFavorite = (productId: string) => {
 export const removeFavorite = (productId: string) => {
   return apiDelete(`/api/favorites/${productId}`);
 };
+
+export const initializePaystackPayment = (historyId: string) => {
+  return apiPost<{
+    accessCode: string;
+    reference: string;
+    authorizationUrl: string;
+  }>("/api/payments/paystack/initialize", {
+    historyId,
+  });
+};
+
+export const verifyPaystackPayment = (reference: string) => {
+  return apiGet<{
+    historyId: string;
+    orderNumber: string | null;
+    paymentStatus: string;
+    paystackStatus: string;
+    amountPaidKobo: number;
+    currency: string;
+  }>(`/api/payments/paystack/verify/${encodeURIComponent(reference)}`);
+};

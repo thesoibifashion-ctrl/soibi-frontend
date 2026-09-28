@@ -46,10 +46,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
         <QueryProvider>
-          <Navbar />
-          <NextTopLoader height={3} color="#A56423" showSpinner={false} />
+          <CurrencyProvider>
+            <Navbar />
+            <NextTopLoader height={3} color="#A56423" showSpinner={false} />
 
-          <CurrencyProvider>{children}</CurrencyProvider>
+            {children}
+          </CurrencyProvider>
         </QueryProvider>
       </body>
     </html>

@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/command";
 import { Check, ChevronsUpDown } from "lucide-react";
 import AnimatedSubmitButton from "@/components/shared/SubmitButton";
+import { countries } from "@/country";
 
 interface DetailsStepProps {
   authenticated: boolean;
@@ -41,18 +42,6 @@ interface DetailsStepProps {
   onContinue: () => void;
 }
 
-const countries = [
-  { code: "NG", name: "Nigeria", flag: "🇳🇬" },
-  { code: "US", name: "United States", flag: "🇺🇸" },
-  { code: "GB", name: "United Kingdom", flag: "🇬🇧" },
-  { code: "CA", name: "Canada", flag: "🇨🇦" },
-  { code: "AU", name: "Australia", flag: "🇦🇺" },
-  { code: "DE", name: "Germany", flag: "🇩🇪" },
-  { code: "FR", name: "France", flag: "🇫🇷" },
-  { code: "GH", name: "Ghana", flag: "🇬🇭" },
-  { code: "ZA", name: "South Africa", flag: "🇿🇦" },
-  { code: "AE", name: "United Arab Emirates", flag: "🇦🇪" },
-];
 
 const DetailsStep = ({
   authenticated,
@@ -85,6 +74,12 @@ const DetailsStep = ({
     setCountryOpen(false);
   };
 
+  const getFlag = (code: string) =>
+    code
+      .toUpperCase()
+      .replace(/./g, char =>
+        String.fromCodePoint(127397 + char.charCodeAt(0))
+      );
   return (
     <div className="space-y-5 bg-white shadow-lg rounded-2xl border p-6">
       <div className="space-y-3">
@@ -199,7 +194,7 @@ const DetailsStep = ({
               >
                 {selectedCountry ? (
                   <span className="flex items-center gap-2">
-                    <span className="text-lg">{selectedCountry.flag}</span>
+                    <span className="text-lg">{getFlag(selectedCountry.code)}</span>
                     <span>{selectedCountry.name}</span>
                   </span>
                 ) : (
@@ -227,7 +222,7 @@ const DetailsStep = ({
                           onSelect={() => handleCountrySelect(item)}
                           className="cursor-pointer"
                         >
-                          <span className="mr-2 text-lg">{item.flag}</span>
+                          <span className="mr-2 text-lg">{(getFlag(item.code))}</span>
                           <span>{item.name}</span>
 
                           <Check

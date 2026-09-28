@@ -74,20 +74,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           {product.id && <FavoriteButton productId={product.id} />}
         </div>
         <div className=" flex items-center gap-2">
-          {/* {product.salePrice ? (
-            <>
-              <span className="text-sm font-semibold">{product[0.]}</span>
-              <span className="text-xs text-muted-foreground line-through">${product.basePrice}</span>
-            </>
-          ) : (
-            <span className="text-sm font-semibold">${product.basePrice}</span>
-          )} */}
           {product.prices && (
-            //   product.prices.map((price) => (
-            //   <span key={price.currencyId} className="text-sm font-semibold">
-            //     {price.symbol}{price.amount}
-            //   </span>
-            // ))
             <DynamicPrice
               prices={product.prices}
               className="text-xs md:text-sm font-semibold"

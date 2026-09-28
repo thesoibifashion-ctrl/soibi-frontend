@@ -11,6 +11,7 @@ import CartSidebar from "@/components/shared/modals/CartSidebar";
 import { isAuthenticated } from "@/lib/auth-finder";
 import UserPop from "@/components/shared/UserPop";
 import { useIsMobile } from "@/hooks/use-isMobile";
+import ProductSearchModal from "@/components/shared/modals/SearchModal";
 
 const NAV_LINKS = [
   ["Home", "/"],
@@ -77,7 +78,7 @@ export const Navbar = () => {
     ...NAV_LINKS,
     ...(authenticated ? [["History", "/history"]] : []),
   ];
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
 
   return (
     <>
@@ -147,16 +148,10 @@ export const Navbar = () => {
             <UserPop scrolled={scrolled || isProductPage} />
 
             <CartSidebar active={scrolled || isProductPage} />
-
+            <ProductSearchModal active={scrolled || isProductPage} />
             {authenticated && (
               <Link href="/favorites" className="hidden md:block">
-                <Heart
-                  color={
-                    scrolled || isProductPage
-                      ? "black"
-                      : "white"
-                  }
-                />
+                <Heart color={scrolled || isProductPage ? "black" : "white"} />
               </Link>
             )}
 
@@ -177,17 +172,13 @@ export const Navbar = () => {
               <span className="relative flex h-5 w-5 items-center justify-center">
                 <Menu
                   className={`absolute h-5 w-5 transition-all duration-300 ${
-                    mobileOpen
-                      ? "rotate-90 opacity-0"
-                      : "rotate-0 opacity-100"
+                    mobileOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
                   }`}
                 />
 
                 <X
                   className={`absolute h-5 w-5 transition-all duration-300 ${
-                    mobileOpen
-                      ? "rotate-0 opacity-100"
-                      : "-rotate-90 opacity-0"
+                    mobileOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"
                   }`}
                 />
               </span>
@@ -221,25 +212,13 @@ export const Navbar = () => {
           transition-transform duration-500
           ease-[cubic-bezier(0.22,1,0.36,1)]
           md:hidden
-          ${
-            mobileOpen
-              ? "translate-x-0"
-              : "translate-x-full"
-          }
+          ${mobileOpen ? "translate-x-0" : "translate-x-full"}
         `}
       >
         {/* Sidebar Header */}
         <div className="flex h-20 items-center border-b border-black/5 px-6">
-          <Link
-            href="/"
-            onClick={() => setMobileOpen(false)}
-          >
-            <Image
-              src="/icon-black.svg"
-              alt="Logo"
-              width={100}
-              height={100}
-            />
+          <Link href="/" onClick={() => setMobileOpen(false)}>
+            <Image src="/icon-black.svg" alt="Logo" width={100} height={100} />
           </Link>
         </div>
 
@@ -260,9 +239,7 @@ export const Navbar = () => {
                 }
               `}
               style={{
-                transitionDelay: mobileOpen
-                  ? `${index * 60}ms`
-                  : "0ms",
+                transitionDelay: mobileOpen ? `${index * 60}ms` : "0ms",
               }}
             >
               {label}

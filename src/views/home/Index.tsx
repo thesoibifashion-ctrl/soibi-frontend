@@ -93,15 +93,15 @@ const HomePage = () => {
 
       <Categories products={data || []} />
 
-      <div className="hidden lg:block">
+      <div>
         <Heritage />
       </div>
       {customizations && customizations.length > 0 && (
         <Soibi customization={customizations} />
       )}
-      <div className=" lg:hidden">
+      {/* <div className=" lg:hidden">
         <Heritage />
-      </div>
+      </div> */}
       <InstagramCarousel images={images} />
       <CurrencyPicker />
     </div>

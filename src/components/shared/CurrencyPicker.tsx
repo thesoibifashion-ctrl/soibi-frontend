@@ -21,7 +21,7 @@ const CurrencyPicker = () => {
   );
 
   return (
-    <div className="fixed bottom-5 left-18 z-50">
+    <div className="fixed bottom-5 left-12 z-50">
       <DropdownMenu>
         <DropdownMenuTrigger className="flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2.5 text-sm font-medium shadow-md outline-none">
           {selected?.name && (

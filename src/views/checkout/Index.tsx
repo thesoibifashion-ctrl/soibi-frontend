@@ -8,8 +8,10 @@ import {
   getCart,
   submitCart,
   updateCartAddress,
+  initializePaystackPayment,
   isAuthenticated,
   type CartItem,
+  verifyPaystackPayment,
 } from "@/api/features/cart";
 import {
   getGuestCartItems,
@@ -24,17 +26,41 @@ import OrderSummaryCard, {
 import DetailsStep from "./Details";
 import ReceiptStep from "./ReceiptStep";
 import { useCurrency } from "@/providers/currency-provider";
-import { useRouter } from "next/navigation";
-
+import { useRouter, useSearchParams } from "next/navigation";
 type Step = "details" | "receipt";
 
 const CheckoutPage = () => {
   const { selectedCurrency } = useCurrency();
   const router = useRouter();
-
+  const searchParams = useSearchParams();
+  const paymentReference = searchParams.get("reference");
   const [authenticated, setAuthenticated] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
 
+  // useEffect(() => {
+  //   if (!paymentReference) return;
+  
+  //   const verifyPayment = async () => {
+  //     try {
+  //       const result = await verifyPaystackPayment(paymentReference);
+  
+  //       if (result.paymentStatus === "paid") {
+  //         toast.success("Payment successful");
+  //         router.replace("/shop");
+  //       } else {
+  //         toast.error("Payment was not completed");
+  //       }
+  //     } catch (error) {
+  //       toast.error(
+  //         error instanceof Error
+  //           ? error.message
+  //           : "Could not verify payment"
+  //       );
+  //     }
+  //   };
+  
+  //   verifyPayment();
+  // }, [paymentReference, router]);
   useEffect(() => {
     setAuthenticated(isAuthenticated());
     setAuthChecked(true);
@@ -53,8 +79,18 @@ const CheckoutPage = () => {
     enabled: authenticated,
   });
 
-  const [step, setStep] = useState<Step>("details");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  type Step = "details" | "receipt";
+
+  const stepParam = searchParams.get("step");
+  
+  const step: Step = stepParam === "receipt" ? "receipt" : "details";
+  
+  const setStep = (nextStep: Step) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("step", nextStep);
+  
+    router.replace(`/checkout?${params.toString()}`, { scroll: false });
+  };  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
   // Step 1 — details
@@ -176,7 +212,58 @@ const CheckoutPage = () => {
       setIsUploading(false);
     }
   };
-
+  // const handleFinalSubmit = async () => {
+  //   if (summaryItems.length === 0) {
+  //     toast.error("Your cart is empty");
+  //     return;
+  //   }
+  
+  //   setIsSubmitting(true);
+  
+  //   try {
+  //     if (authenticated) {
+  //       await updateCartAddress({
+  //         state: state || null,
+  //         city: city || null,
+  //         address: address || null,
+  //       });
+  
+  //       const result = await submitCart({
+  //         contactMethod,
+  //         phoneNumber:
+  //           contactMethod === "whatsapp"
+  //             ? whatsappOverride || undefined
+  //             : undefined,
+  //       });
+  
+  //       const payment = await initializePaystackPayment(result.historyId);
+  
+  //       window.location.href = payment.authorizationUrl;
+  //     } else {
+  //       const result = await submitCart({
+  //         contactMethod,
+  //         guestName,
+  //         guestEmail,
+  //         guestPhone,
+  //         state: state || undefined,
+  //         city: city || undefined,
+  //         address: address || undefined,
+  //         items: guestItems.map(({ localId, ...rest }) => rest),
+  //       });
+  
+  //       // clearGuestCart();
+  
+  //       const payment = await initializePaystackPayment(result.historyId);
+  
+  //       window.location.href = payment.authorizationUrl;
+  //     }
+  //   } catch (error) {
+  //     toast.error(
+  //       error instanceof Error ? error.message : "Couldn't start payment"
+  //     );
+  //     setIsSubmitting(false);
+  //   }
+  // };
   if (!authChecked || (authenticated && cartLoading)) {
     return (
       <div className="p-10 text-center text-sm text-gray-500">Loading...</div>
@@ -190,6 +277,7 @@ const CheckoutPage = () => {
       </div>
     );
   }
+  console.log(summaryItems,"sumary")
 
   return (
     <div className="bg-[#EEEEEE] min-h-screen py-24">
@@ -265,8 +353,9 @@ const CheckoutPage = () => {
               />
             )}
           </div>
-        </div>
+{/* <p className="cursor-poiner" onClick={()=>setStep("details")}>assad</p> */}
 
+        </div>
     <div>
     <div className=" lg:hidden">
             <p className="text-xs text-[#A56423] font-semibold">CHECKOUT</p>

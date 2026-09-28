@@ -53,8 +53,8 @@ const ReceiptStep = ({
   //     };
   //   }, [sessionId, onReceiptSelected]);
 
-  const copyAccountNumber = async () => {
-    await navigator.clipboard.writeText(ACCOUNT_NUMBER);
+  const copyAccountNumber = async (account: string) => {
+    await navigator.clipboard.writeText(account);
     setCopied(true);
 
     setTimeout(() => setCopied(false), 2000);
@@ -98,7 +98,7 @@ const ReceiptStep = ({
                 <span className="text-xs text-white">Bank Name</span>
 
                 <span className="text-right text-sm font-semibold text-white">
-                  Moniepoint
+                  ZENITH BANK
                 </span>
               </div>
 
@@ -106,21 +106,18 @@ const ReceiptStep = ({
                 <span className="text-xs text-white">Account Name</span>
 
                 <span className="max-w-[60%] text-right text-sm font-semibold text-white">
-                  Soibifashion
+                THE SOIBI FASHION
                 </span>
               </div>
 
               <div>
                 <div className="mb-2 flex items-center justify-between">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-white">
-                      Account Number
-                    </span>
-                
+                    <span className="text-xs text-white">Account Number</span>
                   </div>
                   <button
                     type="button"
-                    onClick={copyAccountNumber}
+                    onClick={() => copyAccountNumber("1313115151")}
                     className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#A56423] transition hover:text-white"
                   >
                     {copied ? (
@@ -139,7 +136,7 @@ const ReceiptStep = ({
 
                 <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-4">
                   <p className="font-mono text-xl font-bold tracking-[0.15em] text-[#A56423]">
-                    {ACCOUNT_NUMBER}
+                  1313115151
                   </p>
                 </div>
               </div>
@@ -151,7 +148,7 @@ const ReceiptStep = ({
                 Bank Transfer Details
               </p>
               <p className="font-bold text-[10px] text-[#A56423] py-1 px-3 rounded-full bg-black w-fit">
-                NGN ACCOUNT
+                DOLLAR ACCOUNT
               </p>
             </div>
             <div className="space-y-5 mt-5">
@@ -159,7 +156,7 @@ const ReceiptStep = ({
                 <span className="text-xs text-white">Bank Name</span>
 
                 <span className="text-right text-sm font-semibold text-white">
-                  Moniepoint
+                ZENITH BANK
                 </span>
               </div>
 
@@ -167,21 +164,18 @@ const ReceiptStep = ({
                 <span className="text-xs text-white">Account Name</span>
 
                 <span className="max-w-[60%] text-right text-sm font-semibold text-white">
-                  Soibifashion
+                THE SOIBI FASHION
                 </span>
               </div>
 
               <div>
                 <div className="mb-2 flex items-center justify-between">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-white">
-                      Account Number
-                    </span>
-                
+                    <span className="text-xs text-white">Account Number</span>
                   </div>
                   <button
                     type="button"
-                    onClick={copyAccountNumber}
+                    onClick={()=>copyAccountNumber("5076272023")}
                     className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#A56423] transition hover:text-white"
                   >
                     {copied ? (
@@ -200,7 +194,7 @@ const ReceiptStep = ({
 
                 <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-4">
                   <p className="font-mono text-xl font-bold tracking-[0.15em] text-[#A56423]">
-                    {ACCOUNT_NUMBER}
+                  5076272023
                   </p>
                 </div>
               </div>
@@ -217,7 +211,7 @@ const ReceiptStep = ({
             </p>
           </div>
 
-          <p className="mt-2 text-xs leading-6 text-white">
+          <p className="mt-2 text-sm font-sans leading-6 text-white">
             Scan this code to open the payment details and receipt upload on
             another device — it'll sync back here automatically.
           </p>

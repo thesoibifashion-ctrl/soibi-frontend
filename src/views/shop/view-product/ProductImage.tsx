@@ -195,6 +195,7 @@ const ReferencedProduct = ({ slug, onClose }: ReferencedProductProps) => {
         className="
           w-[calc(100%-2rem)]!
           max-w-[80vw]!
+          lg:max-w-[400px]!
           overflow-hidden
           rounded-2xl
           border-none
