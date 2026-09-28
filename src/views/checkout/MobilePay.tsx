@@ -7,7 +7,7 @@ import { Check } from "lucide-react";
 import PaymentDetails from "./AccountDetails";
 import { uploadToCloudinary } from "@/lib/cloudinary-id";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
 
 export default function MobilePayPage() {
   const params = useSearchParams();

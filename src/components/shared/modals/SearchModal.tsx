@@ -52,8 +52,7 @@ const ProductSearchModal = ({active}: searchModal) => {
           <Search className={`h-5 w-5 ${active ? "text-[black]" : "text-white"}`}  />
         </DialogTrigger>
 
-        <DialogContent className="flex z-[1000] h-[90vh] w-[95vw] max-w-7xl! flex-col gap-0 overflow-hidden bg-[#EEEEEE] p-0">
-          {/* Search */}
+        <DialogContent className="z-[1000] flex h-[98vh] w-[98vw] max-w-[98vw]! flex-col gap-0 overflow-hidden border border-white/30 bg-white/50 p-0 backdrop-blur-3xl">          {/* Search */}
           <div className="flex shrink-0 items-center gap-4 px-5 py-4">
             <div className="flex flex-1 items-center gap-3 border-b border-black/30">
               <Search className="h-5 w-5 shrink-0 text-black/60" />

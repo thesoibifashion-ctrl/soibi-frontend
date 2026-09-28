@@ -218,7 +218,7 @@ const LoginModal = ({ open, onOpenChange }: LoginModalProps) => {
               </button>
             </form>
 
-            <div className="my-6 flex items-center gap-4">
+            {/* <div className="my-6 flex items-center gap-4">
               <div className="h-px flex-1 bg-gray-200" />
               <span className="text-[11px] text-gray-400">OR</span>
               <div className="h-px flex-1 bg-gray-200" />
@@ -235,7 +235,7 @@ const LoginModal = ({ open, onOpenChange }: LoginModalProps) => {
                 src="/google.png"
               />
               Continue with Google
-            </button>
+            </button> */}
           </>
         )}
 
