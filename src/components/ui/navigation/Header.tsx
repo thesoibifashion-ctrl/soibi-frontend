@@ -40,7 +40,9 @@ export const Navbar = () => {
     pathname.startsWith("/history") ||
     pathname.startsWith("/favorites") ||
     pathname.startsWith("/404") ||
-    pathname.startsWith("/tracking");
+    pathname.startsWith("/tracking") ||
+    pathname.startsWith("/profile");
+    
 
   useEffect(() => {
     const handleScroll = () => {

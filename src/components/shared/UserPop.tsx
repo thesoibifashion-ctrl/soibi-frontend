@@ -5,9 +5,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { isAuthenticated } from "@/lib/auth-finder";
-import { CircleUser, LogIn, ShoppingBag, User } from "lucide-react";
+import { CircleUser, LogIn, RotateCcwClock, ShoppingBag, User, UserPen } from "lucide-react";
 import { useEffect, useState } from "react";
 import LoginModal from "./modals/LoginModal";
+import Link from "next/link";
 
 interface isScrolled {
   scrolled: boolean;
@@ -28,6 +29,10 @@ const UserPop = ({ scrolled }: isScrolled) => {
   //       ? (window.location.href = window.location.pathname)
   //       : setOpenCheckoutModal(true);
   //   };
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    window.location.href = "/";
+  };
   return (
     <>
       <Popover>
@@ -71,15 +76,21 @@ const UserPop = ({ scrolled }: isScrolled) => {
                   Checkout
                 </button>
 
-                <button 
+                <button
                   onClick={() => (window.location.href = "/history")}
-                
-                className="flex w-full items-center gap-3 rounded-xl px-3 py-1.5 text-sm text-gray-700 transition hover:bg-gray-100">
-                  <User size={18} />
-               History
+                  className="flex w-full items-center gap-3 rounded-xl px-3 py-1.5 text-sm text-gray-700 transition hover:bg-gray-100"
+                >
+                  <RotateCcwClock size={18} />
+                  History
                 </button>
-
-                <button className="flex w-full items-center gap-3 rounded-xl px-3 py-1.5 text-sm text-red-500 transition hover:bg-red-50">
+                <Link
+                  href={"/profile"}
+                  className="flex w-full items-center gap-3 rounded-xl px-3 py-1.5 text-sm text-gray-700 transition hover:bg-gray-100"
+                >
+                  <UserPen size={18} />
+                  Profile
+                </Link>
+                <button onClick={handleLogout} className="flex w-full items-center gap-3 rounded-xl px-3 py-1.5 text-sm text-red-500 transition hover:bg-red-50">
                   <LogIn size={18} />
                   Logout
                 </button>
