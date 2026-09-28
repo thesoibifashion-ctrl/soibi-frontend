@@ -37,30 +37,6 @@ const CheckoutPage = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
 
-  // useEffect(() => {
-  //   if (!paymentReference) return;
-  
-  //   const verifyPayment = async () => {
-  //     try {
-  //       const result = await verifyPaystackPayment(paymentReference);
-  
-  //       if (result.paymentStatus === "paid") {
-  //         toast.success("Payment successful");
-  //         router.replace("/shop");
-  //       } else {
-  //         toast.error("Payment was not completed");
-  //       }
-  //     } catch (error) {
-  //       toast.error(
-  //         error instanceof Error
-  //           ? error.message
-  //           : "Could not verify payment"
-  //       );
-  //     }
-  //   };
-  
-  //   verifyPayment();
-  // }, [paymentReference, router]);
   useEffect(() => {
     setAuthenticated(isAuthenticated());
     setAuthChecked(true);
@@ -82,15 +58,16 @@ const CheckoutPage = () => {
   type Step = "details" | "receipt";
 
   const stepParam = searchParams.get("step");
-  
+
   const step: Step = stepParam === "receipt" ? "receipt" : "details";
-  
+
   const setStep = (nextStep: Step) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("step", nextStep);
-  
+
     router.replace(`/checkout?${params.toString()}`, { scroll: false });
-  };  const [isSubmitting, setIsSubmitting] = useState(false);
+  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
   // Step 1 — details
@@ -135,6 +112,16 @@ const CheckoutPage = () => {
     setReceiptFile(file);
     setReceiptPreview(URL.createObjectURL(file));
     setReceiptUrl(null);
+  };
+
+  // Called when the phone finishes uploading and desktop polling picks it up.
+  // Does NOT submit anything — it only fills in the receipt the same way a
+  // local file selection would, so the existing Submit button + handleFinalSubmit
+  // logic just sees a receiptUrl that's already set and skips its own upload step.
+  const handleReceiptUrlReceived = (url: string) => {
+    setReceiptFile(null);
+    setReceiptPreview(url);
+    setReceiptUrl(url);
   };
 
   const handleContinueToReceipt = () => {
@@ -212,58 +199,7 @@ const CheckoutPage = () => {
       setIsUploading(false);
     }
   };
-  // const handleFinalSubmit = async () => {
-  //   if (summaryItems.length === 0) {
-  //     toast.error("Your cart is empty");
-  //     return;
-  //   }
-  
-  //   setIsSubmitting(true);
-  
-  //   try {
-  //     if (authenticated) {
-  //       await updateCartAddress({
-  //         state: state || null,
-  //         city: city || null,
-  //         address: address || null,
-  //       });
-  
-  //       const result = await submitCart({
-  //         contactMethod,
-  //         phoneNumber:
-  //           contactMethod === "whatsapp"
-  //             ? whatsappOverride || undefined
-  //             : undefined,
-  //       });
-  
-  //       const payment = await initializePaystackPayment(result.historyId);
-  
-  //       window.location.href = payment.authorizationUrl;
-  //     } else {
-  //       const result = await submitCart({
-  //         contactMethod,
-  //         guestName,
-  //         guestEmail,
-  //         guestPhone,
-  //         state: state || undefined,
-  //         city: city || undefined,
-  //         address: address || undefined,
-  //         items: guestItems.map(({ localId, ...rest }) => rest),
-  //       });
-  
-  //       // clearGuestCart();
-  
-  //       const payment = await initializePaystackPayment(result.historyId);
-  
-  //       window.location.href = payment.authorizationUrl;
-  //     }
-  //   } catch (error) {
-  //     toast.error(
-  //       error instanceof Error ? error.message : "Couldn't start payment"
-  //     );
-  //     setIsSubmitting(false);
-  //   }
-  // };
+
   if (!authChecked || (authenticated && cartLoading)) {
     return (
       <div className="p-10 text-center text-sm text-gray-500">Loading...</div>
@@ -277,13 +213,11 @@ const CheckoutPage = () => {
       </div>
     );
   }
-  console.log(summaryItems,"sumary")
 
   return (
     <div className="bg-[#EEEEEE] min-h-screen py-24">
       <Container className="flex flex-col-reverse lg:flex-row gap-10">
         <div>
-       
           <div className="space-y-6 lg:col-span-2">
             <div className="flex items-center gap-3 w-[80%] lg:w-[400px] mt-5">
               <div
@@ -346,6 +280,7 @@ const CheckoutPage = () => {
               <ReceiptStep
                 receiptPreview={receiptPreview}
                 onReceiptSelected={handleReceiptSelected}
+                onReceiptUrlReceived={handleReceiptUrlReceived}
                 onBack={() => setStep("details")}
                 onSubmit={handleFinalSubmit}
                 isSubmitting={isSubmitting}
@@ -353,28 +288,28 @@ const CheckoutPage = () => {
               />
             )}
           </div>
-{/* <p className="cursor-poiner" onClick={()=>setStep("details")}>assad</p> */}
-
         </div>
-    <div>
-    <div className=" lg:hidden">
+        <div>
+          <div className=" lg:hidden">
             <p className="text-xs text-[#A56423] font-semibold">CHECKOUT</p>
-            <p className="text-3xl lg:text-[50px] mt-[3.5px] text-[#000000]">Complete Your Order</p>
+            <p className="text-3xl lg:text-[50px] mt-[3.5px] text-[#000000]">
+              Complete Your Order
+            </p>
             <p className="text-xs font-semibold my-2  text-[#595959]">
               Complete your details and payment information to submit your
               order.
             </p>
           </div>
-        <OrderSummaryCard
-          items={summaryItems}
-          selectedCurrency={
-            authenticated
-              ? cart?.selectedCurrency ?? selectedCurrency
-              : selectedCurrency
-          }
-          className="lg:sticky lg:top-24 bg-black h-fit text-white"
-        />
-    </div>
+          <OrderSummaryCard
+            items={summaryItems}
+            selectedCurrency={
+              authenticated
+                ? cart?.selectedCurrency ?? selectedCurrency
+                : selectedCurrency
+            }
+            className="lg:sticky lg:top-24 bg-black h-fit text-white"
+          />
+        </div>
       </Container>
     </div>
   );
