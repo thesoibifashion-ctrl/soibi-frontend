@@ -45,7 +45,7 @@ const Hero = ({ customization }: HeroProps) => {
   return (
     <div className="mt-8 lg::mt-32 ">
       <Container className="">
-        <hr className="lg:border-t lg:border-[#00000040] border-dotted"/>
+        <hr className="lg:border-t lg:border-[#00000040] border-dotted" />
         <p className="text-[#000000] text-[30px] lg:mt-24  md:text-[66px] lg:text-[55px]">
           Our Latest Collection
         </p>
@@ -73,9 +73,9 @@ const Hero = ({ customization }: HeroProps) => {
         </AnimatePresence>
 
         <div className="relative z-10 ">
-          <Container className="">
-            <div className="pt-10 min-h-screen md:min-h-250 flex flex-col justify-between">
-              <div>
+          <div className="pt-10 min-h-screen md:min-h-250 flex flex-col justify-between">
+            <div>
+              <Container className="">
                 <div className="rounded-2xl border w-fit border-white/20 bg-white/10 py-3 md:py-0  px-5 md:p-6 backdrop-blur-lg">
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -92,57 +92,66 @@ const Hero = ({ customization }: HeroProps) => {
                     </motion.div>
                   </AnimatePresence>
                 </div>
+              </Container>
 
-                <div className="h-full mt-16  md:mt-55 flex justify-center items-center">
+              <div className="h-full mt-16 backdrop-blur-lg py-5 lg:py-8  border-white/20 bg-white/10 md:mt-70 flex justify-center items-center">
+                <Container>
                   <AnimatePresence mode="wait">
                     <motion.p
                       key={activeOption.description ?? activeIndex}
                       initial={{ opacity: 0, y: 12 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -12 }}
-                      transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-                      className="max-w-[90%] text-center text-lg md:text-[30px] leading-6 md:leading-12.5"
+                      transition={{
+                        duration: 0.5,
+                        ease: "easeOut",
+                        delay: 0.1,
+                      }}
+                      className=" text-center text-lg md:text-[24px] leading-6 md:leading-12.5"
                     >
                       {activeOption.description || "Latest Collection"}
                     </motion.p>
                   </AnimatePresence>
-                </div>
-              </div>
-
-              <div className="flex w-fit self-end items-end gap-13">
-                {shouldRotate && (
-                  <div className="mr-4 flex items-center gap-2">
-                    {options.map((_, i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={() => setActiveIndex(i)}
-                        aria-label={`Show slide ${i + 1}`}
-                        className="relative h-1.5 w-8 overflow-hidden rounded-full bg-white/30"
-                      >
-                        {i === activeIndex && (
-                          <motion.span
-                            key={activeIndex}
-                            className="absolute inset-0 rounded-full bg-white"
-                            initial={{ scaleX: 0 }}
-                            animate={{ scaleX: 1 }}
-                            transition={{ duration: ROTATE_INTERVAL / 1000, ease: "linear" }}
-                            style={{ transformOrigin: "left" }}
-                          />
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                <AnimatedButton
-                  text="Explore our Collections"
-                  route="/collection"
-                  variant="black"
-                />
+                </Container>
               </div>
             </div>
-          </Container>
+
+            <div className="flex w-fit self-end items-end gap-13">
+              {shouldRotate && (
+                <div className="mr-4 flex items-center gap-2">
+                  {options.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setActiveIndex(i)}
+                      aria-label={`Show slide ${i + 1}`}
+                      className="relative h-1.5 w-8 overflow-hidden rounded-full bg-white/30"
+                    >
+                      {i === activeIndex && (
+                        <motion.span
+                          key={activeIndex}
+                          className="absolute inset-0 rounded-full bg-white"
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          transition={{
+                            duration: ROTATE_INTERVAL / 1000,
+                            ease: "linear",
+                          }}
+                          style={{ transformOrigin: "left" }}
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              <AnimatedButton
+                text="Explore our Collections"
+                route="/collection"
+                variant="black"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
