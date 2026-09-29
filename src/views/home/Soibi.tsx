@@ -76,7 +76,7 @@ const Hero = ({ customization }: HeroProps) => {
                 {/* Blog button */}
                 <div className="absolute inset-0 hidden items-start justify-end p-5 md:flex">
                   <Link
-                    href="/"
+                    href="/blog"
                     className="inline-flex w-full items-center justify-center rounded-[50px] bg-white px-3 py-2 font-[var(--font-inter)] text-sm font-medium tracking-wide text-black md:w-fit md:px-6 md:py-4"
                   >
                     View Blog
@@ -86,7 +86,7 @@ const Hero = ({ customization }: HeroProps) => {
                 {/* Blog mobile button */}
                 <div className="absolute inset-0 flex items-end justify-center p-4 md:hidden">
                   <Link
-                    href="/"
+                    href="/blog"
                     className="rounded-full bg-white px-6 py-2 text-xs font-bold uppercase tracking-widest text-black"
                   >
                     View Blog
