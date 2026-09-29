@@ -1,76 +1,96 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useGallery } from "@/api/features/gallery";
 import Container from "@/components/shared/Container";
 
-
-type Category = "workshop" | "craftsmanship" | "completed_work";
-
 type GalleryImage = {
-    id: string;
-    title: string;
-    imageUrl: string;
-    imagePublicId?: string;
-    category: string;
-    sortOrder: number;
-    isPublished: boolean;
-};
-
-type GalleryResponse = {
-  success: boolean;
-  message: string;
-  data: GalleryImage[];
-};
-
-const tabs = [
-  { value: "all", label: "All" },
-  { value: "workshop", label: "Events" },
-  { value: "craftsmanship", label: "Inspirations" },
-  { value: "completed_work", label: "Completed Work" },
-] as const;
-
-const categoryLabel: Record<Category, string> = {
-  workshop: "Workshop",
-  craftsmanship: "Craftsmanship",
-  completed_work: "Completed Work",
+  id: string;
+  title: string;
+  imageUrl: string;
+  imagePublicId?: string;
+  category: string;
+  sortOrder: number;
+  isPublished: boolean;
 };
 
 export default function Gallery() {
-  const [activeTab, setActiveTab] =
-    useState<(typeof tabs)[number]["value"]>("all");
+  const [activeTab, setActiveTab] = useState("all");
 
-   const {
-     data: data,
-     isLoading: collectionLoading,
-     isError: collectionError,
-   } = useGallery();
- 
+  const {
+    data,
+    isLoading: collectionLoading,
+    isError: collectionError,
+  } = useGallery();
+
+  const gallery = data ?? [];
+
+  /*
+   * Build tabs from categories returned by the backend.
+   */
+  const tabs = useMemo(() => {
+    const categories = Array.from(
+      new Set(gallery.map((item) => item.category)),
+    );
+
+    return [
+      { value: "all", label: "All" },
+      ...categories.map((category) => ({
+        value: category,
+        label: category
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, (char) => char.toUpperCase()),
+      })),
+    ];
+  }, [gallery]);
+
   const images = useMemo(() => {
-    const gallery = data ?? [];
-
     if (activeTab === "all") {
-      return [...gallery].sort((a, b) => a.sortOrder - b.sortOrder);
+      return [...gallery].sort(
+        (a, b) => a.sortOrder - b.sortOrder,
+      );
     }
 
     return gallery
       .filter((item) => item.category === activeTab)
       .sort((a, b) => a.sortOrder - b.sortOrder);
-  }, [data, activeTab]);
+  }, [gallery, activeTab]);
 
-//   if (isLoading) return <GalleryLoading />;
+  if (collectionLoading) {
+    return (
+      <Container className="bg-[#F8F6F2] pt-[43px]">
+        <div className="py-24 text-center">
+          Loading gallery...
+        </div>
+      </Container>
+    );
+  }
 
-//   if (isError) return <GalleryError />;
+  if (collectionError) {
+    return (
+      <Container className="bg-[#F8F6F2] pt-[43px]">
+        <div className="py-24 text-center">
+          <h3 className="text-xl font-semibold text-[#1C1917]">
+            Unable to load gallery
+          </h3>
+
+          <p className="mt-3 text-sm text-[#78716C]">
+            Please try again later.
+          </p>
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <Container className="bg-[#F8F6F2] pt-[43px]">
-        <p className="text-[40px] font-black">We Capture Every Moment possible</p>
-      {/* Gallery */}
-      <section className="0">
+      <p className="text-[40px] font-black">
+        We Capture Every Moment possible
+      </p>
+
+      <section>
         <div className="mb-12 flex flex-col items-center justify-between gap-6 md:flex-row">
-       
-          <div className="flex mt-[18px] flex-wrap justify-center gap-3 rounded-full border border-[#E8E2D8] bg-white p-2">
+          <div className="mt-[18px] flex flex-wrap justify-center gap-3 rounded-full border border-[#E8E2D8] bg-white p-2">
             {tabs.map((tab) => (
               <button
                 key={tab.value}
@@ -115,22 +135,15 @@ export default function Gallery() {
                   <img
                     src={image.imageUrl}
                     alt={image.title}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                    className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-110"
                   />
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
 
                   <div className="absolute left-5 top-5">
                     <span className="rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
-                      {/* {categoryLabel[image.category]} */}
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-0 pb-10 left-0 right-0 translate-y-6 p-6 transition duration-500 group-hover:translate-y-0">
-                    <h3 className="font-display text-2xl font-semibold text-white">
                       {image.title}
-                    </h3>
-
+                    </span>
                   </div>
                 </div>
               );

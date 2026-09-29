@@ -352,6 +352,7 @@ import ReceiptStep from "./ReceiptStep";
 import { useCurrency } from "@/providers/currency-provider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import ErrorState from "@/components/shared/Error";
 type Step = "details" | "receipt";
 
 const CheckoutPage = () => {
@@ -582,7 +583,7 @@ console.log(profile, "prof")
       }
 
       toast.success("Order submitted");
-      router.push("/shop");
+      router.push("/checkout/success");
     } catch (error) {
       toast.error(
         error instanceof Error ? error.message : "Couldn't submit your order"
@@ -600,11 +601,12 @@ console.log(profile, "prof")
   }
 
   if (summaryItems.length === 0) {
-    return (
-      <div className="p-10 text-center text-sm text-gray-500">
-        Your cart is empty.
-      </div>
-    );
+    return   <ErrorState
+    title=""
+    text="Oops! Your bag is empty."
+    image="/empty-cart.png"
+    route="/shop"
+  />;
   }
 
   return (

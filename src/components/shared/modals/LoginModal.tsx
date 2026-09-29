@@ -218,24 +218,7 @@ const LoginModal = ({ open, onOpenChange }: LoginModalProps) => {
               </button>
             </form>
 
-            {/* <div className="my-6 flex items-center gap-4">
-              <div className="h-px flex-1 bg-gray-200" />
-              <span className="text-[11px] text-gray-400">OR</span>
-              <div className="h-px flex-1 bg-gray-200" />
-            </div>
-
-            <button
-              type="button"
-              className="flex h-12 w-full items-center justify-center gap-3 rounded-full border border-black bg-white text-sm font-medium text-black transition-all duration-300 hover:bg-black hover:text-white"
-            >
-              <Image
-                width={20}
-                height={20}
-                alt="google"
-                src="/google.png"
-              />
-              Continue with Google
-            </button> */}
+      
           </>
         )}
 
