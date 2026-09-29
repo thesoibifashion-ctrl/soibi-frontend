@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useGallery } from "@/api/features/gallery";
 import Container from "@/components/shared/Container";
+import GallerySkeleton from "./Skeleton";
 
 type GalleryImage = {
   id: string;
@@ -57,14 +58,9 @@ export default function Gallery() {
   }, [gallery, activeTab]);
 
   if (collectionLoading) {
-    return (
-      <Container className="bg-[#F8F6F2] pt-[43px]">
-        <div className="py-24 text-center">
-          Loading gallery...
-        </div>
-      </Container>
-    );
+    return <GallerySkeleton/>
   }
+
 
   if (collectionError) {
     return (
