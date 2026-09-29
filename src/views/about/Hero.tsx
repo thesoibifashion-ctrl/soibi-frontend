@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <div className="relative py-10 w-full overflow-hidden">
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+        className="absolute inset-0 bg-contain lg:bg-cover bg-center bg-no-repeat opacity-20"
         style={{ backgroundImage: "url('/about.jpg')" }}
       />
 

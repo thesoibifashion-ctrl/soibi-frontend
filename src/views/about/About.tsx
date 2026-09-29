@@ -37,17 +37,24 @@ const About = () => {
           Soibi-Ilate Ebenezar Wikina
         </p>
         <div className="flex lg:hidden mt-10 relative w-full h-98.5">
-        <Image
-          src={about?.options[0].imageUrl || "/soibi-about.jpg"}
-          alt="about"
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
+          <Image
+            src={about?.options[0].imageUrl || "/soibi-about.jpg"}
+            alt="about"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
         <div
           className="text-base text-justify mt-8 font-normal text-black leading-[40px]"
           dangerouslySetInnerHTML={{
-            __html: sanitizeDescription(about?.options[0].description || ""),
+            __html: sanitizeDescription(
+              about?.options?.[0]?.description ||
+                `SOIBI was founded by Soibi-ilate Wikina, whose love for fashion is rooted in a deep appreciation for femininity and ease. Her approach to design is guided by a desire to create beautifully considered pieces that take the complexity out of getting dressed, allowing women to feel polished without having to overthink what goes with what.
+
+She believes fashion should make dressing up feel exciting and effortless. Whether for a quiet afternoon or a special occasion, SOIBI pieces are designed to stand on their own, complete, stylish looks that make a statement without requiring the woman to do the work of figuring out how to style them.
+
+Her perspective shapes SOIBI’s designs, from coordinated sets to dresses and jumpsuits, each created to offer femininity, ease, and presence. The result is clothing that feels effortless to wear, yet impossible to overlook`
+            ),
           }}
         />
       </div>

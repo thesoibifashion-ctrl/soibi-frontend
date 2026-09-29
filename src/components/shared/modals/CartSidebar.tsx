@@ -34,6 +34,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import AnimatedButton from "../AnimatedButton";
 
 interface isActive {
   active: boolean;
@@ -253,11 +254,31 @@ const CartSidebar = ({ active }: isActive) => {
             {isLoading ? (
               <CartSidebarSkeleton />
             ) : displayItems.length === 0 ? (
-              <ErrorState
-                title=""
-                text="Oops! Your bag is empty."
-                image="/empty-cart.png"
-              />
+              <div className="h-screen mt-25">
+                <p className="text-[50px] text-black"></p>
+
+                <div className="w-full flex flex-col justify-center items-center">
+                  <img
+                    className="max-h-34 lg:max-h-95.25 mt-8 lg:mt-0"
+                    src="/empty-cart.png"
+                    alt="Empty cart"
+                  />
+
+                  <p className="text-[18px] mt-2  font-normal font-sans text-[#0D0D0D]">
+                    Oops! Your bag is empty.
+                  </p>
+
+                  <div className="mt-2">
+                    <AnimatedSubmitButton
+                      text="Back to shop"
+                      onClick={() => {
+                        setOpen(false);
+                        router.push("/shop");
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
             ) : (
               <div className="space-y-4">
                 {displayItems.map((item, idx) => (
@@ -429,17 +450,15 @@ const CartSidebar = ({ active }: isActive) => {
                     text={"Checkout"}
                   />
                 </div>
-
-             
               </div>
             </SheetFooter>
           )}
         </SheetContent>
       </Sheet>
       <CheckoutButton
-                  open={openCheckoutModal}
-                  onOpenChange={setOpenCheckoutModal}
-                />
+        open={openCheckoutModal}
+        onOpenChange={setOpenCheckoutModal}
+      />
     </>
   );
 };

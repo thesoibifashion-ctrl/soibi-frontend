@@ -35,7 +35,7 @@ const Memory = () => {
             <Link className="text-sm text-[#000000] underline hidden lg:block " href="/about">
               OUR STORY
             </Link>
-            <button   className={`group w-fit relative lg:hidden inline-flex items-center justify-center overflow-hidden rounded-[50px] border px-3 md:px-6 py-2 md:py-4 font-[var(--font-inter)] text-xs font-medium tracking-wide border-black`}>OUR STORY</button>
+            <Link  href={"/about"}  className={`group w-fit relative lg:hidden inline-flex items-center justify-center overflow-hidden rounded-[50px] border px-3 md:px-6 py-2 md:py-4 font-[var(--font-inter)] text-xs font-medium tracking-wide border-black`}>OUR STORY</Link>
 
           </div>
         </div>

@@ -45,8 +45,8 @@ const Hero = ({ customization }: HeroProps) => {
   return (
     <div className="mt-8 lg::mt-32 ">
       <Container className="">
-        <hr className="lg:border-t lg:border-[#00000040] border-dotted" />
-        <p className="text-[#000000] text-[30px] lg:mt-24  md:text-[66px] lg:text-[55px]">
+        <hr className="lg:border-t border-[#000000] " />
+        <p className="text-[#000000] text-[30px] mt-8 lg:mt-24  md:text-[66px] lg:text-[55px]">
           Our Latest Collection
         </p>
       </Container>

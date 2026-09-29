@@ -32,8 +32,8 @@ const OtherCollection = ({ collection }: Collections) => {
 
             <Link className="self-end w-full" href={`/collection/${item.slug}`}>
               <div className="flex  mt-2  justify-end  items-center gap-2 cursor-pointer">
-                <p className="text-[15px] flex gap-1 items-center font-sans">
-                  {item.productCount} <span>Pieces</span>
+                <p className="text-[15px] text-[#765996] flex gap-1 items-center font-sans">
+                  {item.productCount} <span >{item.productCount > 1 ? "Pieces" : "Piece"}</span>
                 </p>
                 <ArrowRight size={14} />
               </div>

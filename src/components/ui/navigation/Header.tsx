@@ -41,6 +41,7 @@ export const Navbar = () => {
     pathname.startsWith("/favorites") ||
     pathname.startsWith("/404") ||
     pathname.startsWith("/tracking") ||
+    pathname.startsWith("/blog") ||
     pathname.startsWith("/profile");
     
 
