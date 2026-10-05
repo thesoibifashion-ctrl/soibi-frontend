@@ -31,7 +31,7 @@ const FormInput = ({
           value={value}
           placeholder={placeholder}
           rows={rows}
-          className="px-[10px] py-3 mt-3 text-sm bg-[#F3F3F6] rounded-[10px] w-full resize-none outline-none"
+          className="px-[10px] py-3 lg:mt-3 text-sm bg-[#F3F3F6] rounded-[10px] w-full resize-none outline-none"
         />
       ) : (
         <input
@@ -39,7 +39,7 @@ const FormInput = ({
           type={type}
           value={value}
           placeholder={placeholder}
-          className="px-[10px] mt-3 h-12 text-sm bg-[#F3F3F6] rounded-[10px] w-full outline-none"
+          className="px-[10px] lg:mt-3 h-12 text-sm bg-[#F3F3F6] rounded-[10px] w-full outline-none"
         />
       )}
     </div>

@@ -181,7 +181,7 @@ const DetailsStep = ({
         </p>
 
         <div className="space-y-2 ">
-          <div className="w-1/2">
+          <div className="w-full lg:w-1/2">
           <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.14em]">
           Country
             </label>
@@ -243,10 +243,10 @@ const DetailsStep = ({
           </div>
         </div>
 
-        <div className="flex gap-3 mt-5">
-          <div className="w-1/2">
+        <div className="lg:flex-row flex-col flex gap-3 mt-5">
+          <div className="w-full lg:w-1/2">
             <FormInput
-              label="State / Province / Region"
+              label="State / Province"
               placeholder=""
               value={
                 state.includes(", ")
@@ -265,7 +265,7 @@ const DetailsStep = ({
               type="text"
             />
           </div>
-          <div className="w-1/2">
+          <div className="w-full  lg:w-1/2">
             <FormInput
               label="City"
               placeholder=""

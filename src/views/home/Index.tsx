@@ -103,7 +103,6 @@ const HomePage = () => {
         <Heritage />
       </div> */}
       <InstagramCarousel images={images} />
-      <CurrencyPicker />
     </div>
   );
 };

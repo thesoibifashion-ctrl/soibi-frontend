@@ -35,7 +35,7 @@ const OtherCollection = ({ collection }: Collections) => {
                 <p className="text-[15px] text-[#765996] flex gap-1 items-center font-sans">
                   {item.productCount} <span >{item.productCount > 1 ? "Pieces" : "Piece"}</span>
                 </p>
-                <ArrowRight size={14} />
+                <ArrowRight size={14} color="#765996" />
               </div>
             </Link>
           </div>

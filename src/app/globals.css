@@ -176,3 +176,7 @@ select {
 .animate-subtle-bounce {
   animation: subtle-bounce 3s ease-in-out infinite;
 }
+
+label{
+  text-transform: uppercase;
+}

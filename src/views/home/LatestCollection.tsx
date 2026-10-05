@@ -145,11 +145,13 @@ const Hero = ({ customization }: HeroProps) => {
                 </div>
               )}
 
-              <AnimatedButton
+            <Container>
+            <AnimatedButton
                 text="Explore our Collections"
                 route="/collection"
                 variant="black"
               />
+            </Container>
             </div>
           </div>
         </div>

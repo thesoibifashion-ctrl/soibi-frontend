@@ -6,6 +6,7 @@ import Navbar from "@/components/ui/navigation/Header";
 import { Toaster } from "sonner";
 import { CurrencyProvider } from "@/providers/currency-provider";
 import NextTopLoader from "nextjs-toploader";
+import Footer from "@/components/ui/navigation/Footer";
 
 const prata = Prata({
   variable: "--font-prata",
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
             {children}
           </CurrencyProvider>
+          <Footer/>
         </QueryProvider>
       </body>
     </html>

@@ -328,7 +328,7 @@ const ProfilePage = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 px-6 py-7 sm:grid-cols-2 md:px-8">
+            <div className="grid grid-cols-1 gap-6 px-6 py-7 lg:grid-cols-2 md:px-8">
               <div className="space-y-2">
                 <Label
                   htmlFor="country"
@@ -400,7 +400,7 @@ const ProfilePage = () => {
                   htmlFor="state"
                   className="text-xs font-medium text-black/60"
                 >
-                  State / Province / Region
+                  State / Province
                 </Label>
 
                 <Input

@@ -61,17 +61,29 @@ interface HeroProps {
 const Hero = ({ imageUrl }: HeroProps) => {
   return (
     <div className="relative h-screen w-full overflow-hidden pb-12.5">
+      {/* Image for laptop */}
       {imageUrl && (
         <Image
           src={imageUrl || `/hero.jpg`}
           alt="Hero"
           fill
           priority
-          className="object-cover object-top"
+          className="hidden object-cover object-top lg:block"
         />
       )}
 
-      <div className="relative z-10 h-full">
+      {/* Video for mobile and tablet */}
+      <video
+        src="/soibif.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover object-top lg:hidden"
+      />
+
+<div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent lg:hidden" />      
+<div className="relative z-10 h-full">
         <Container className="h-full">
           <div className="flex h-full w-full items-end justify-end lg:w-201">
             <div>
@@ -97,5 +109,4 @@ const Hero = ({ imageUrl }: HeroProps) => {
     </div>
   );
 };
-
 export default Hero;
