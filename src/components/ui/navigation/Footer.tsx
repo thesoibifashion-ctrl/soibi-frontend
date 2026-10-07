@@ -1,25 +1,24 @@
-
 "use client";
 import Container from "@/components/shared/Container";
 import { useIsMobile } from "@/hooks/use-isMobile";
 import Image from "next/image";
 import Link from "next/link";
 const Footer = () => {
-    const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
   return (
-    <footer className="mt-20 bg-black py-16 text-white">
+    <footer className=" bg-black py-16 text-white">
       <Container>
         <div className="flex flex-col gap-12 lg:flex-row lg:gap-40">
           <div className="w-full lg:w-[30%]">
-             <Image
-                              src="/soibi.svg"
-                              alt="Logo"
-                              width={isMobile ? 70 : 100}
-                              height={isMobile ? 70 : 100}
-                            />
+            <Image
+              src="/soibi.svg"
+              alt="Logo"
+              width={isMobile ? 70 : 100}
+              height={isMobile ? 70 : 100}
+            />
             <p className="mt-4 max-w-xs font-sans text-sm leading-6 text-[#A5A9A7]">
-              Fashion with a purpose. Beautifully crafted, ethically made, and
-              designed to last. Wear your values every single day.
+              A contemporary ode to femininity, heritage, craftsmanship, and
+              timeless elegance.
             </p>
           </div>
 
@@ -42,8 +41,8 @@ const Footer = () => {
               </h3>
 
               <div className="flex flex-col gap-3 font-sans text-sm text-[#A5A9A7]">
-                <Link href="/faqs">Blog</Link>
-                <Link href="/tracking">Gallery</Link>
+                <Link href="/blog">Blog</Link>
+                <Link href="/gallery">Gallery</Link>
               </div>
             </div>
 
@@ -53,10 +52,10 @@ const Footer = () => {
               </h3>
 
               <div className="flex flex-col gap-3 font-sans text-sm text-[#A5A9A7]">
-                <Link href="/profile">Shop</Link>
-                <Link href="/cart">Collection</Link>
-                <Link href="/wishlist">History</Link>
-                <Link href="/privacy-policy">Favorites</Link>
+                <Link href="/shop">Shop</Link>
+                <Link href="/collection">Collection</Link>
+                {/* <Link href="/wishlist">History</Link> */}
+                {/* <Link href="/privacy-policy">Favorites</Link> */}
               </div>
             </div>
           </div>

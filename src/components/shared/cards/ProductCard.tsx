@@ -37,7 +37,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
             className="absolute inset-0 h-full w-full object-cover rounded-lg opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105"
           />
         )}
-          <div className="absolute inset-0 flex md:hidden items-end justify-end right-3 ">
+          <div className="absolute inset-0 flex xl:hidden items-end justify-end right-3 ">
           <Button
               size="sm"
               className="mb-4 h-8 gap-1.5  rounded-full bg-white/90 px-4 text-xs font-medium text-black shadow-lg backdrop-blur-sm "
@@ -51,7 +51,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
             </Button>
         </div>
 
-        <div className="hidden md:flex items-center justify-between">
+        <div className="hidden xl:flex items-center justify-between">
           <div className="absolute inset-0 flex items-end justify-center bg-linear-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100">
             <Button
               size="sm"

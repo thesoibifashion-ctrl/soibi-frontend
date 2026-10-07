@@ -7,7 +7,7 @@ const ContactPage = () => {
       <HeroSection
         title={"Contact Us"}
         text={
-          "Each pieces, each made with intention."
+          "Each piece,  made with intention."
         }
         image={"/collection.jpg"}
       />

@@ -61,7 +61,6 @@ export default function Gallery() {
     return <GallerySkeleton/>
   }
 
-
   if (collectionError) {
     return (
       <Container className="bg-[#F8F6F2] pt-[43px]">

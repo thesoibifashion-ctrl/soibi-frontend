@@ -40,6 +40,7 @@ const Index = () => {
     null
   );
   const [selectedStyle, setSelectedStyle] = useState<string>("");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   // Build the query string for the filtered fetch. If no category is
   // selected yet, default to "Clothes" rather than sending an empty filter.
@@ -101,7 +102,7 @@ const Index = () => {
 
         <div>
           <div className="mb-6 flex sticky top-20 z-10 lg:hidden">
-            <Sheet>
+            <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
               <SheetTrigger>
                 <div className="flex items-center gap-2 border border-input mt-2 mx-4 bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 rounded-md text-sm font-medium cursor-pointer">
                   <SlidersHorizontal className="h-4 w-4" />
@@ -120,6 +121,7 @@ const Index = () => {
                     products={allProducts}
                     isLoading={isLoading}
                     error={!!error}
+                    onSelect={() => setFiltersOpen(false)}
                   />
                 </div>
               </SheetContent>
@@ -162,7 +164,7 @@ const Index = () => {
           )}
 
           {isLoading ? (
-            <div className="flex h-1/2 justify-center items-center">
+            <div className="flex min-h-[300px] lg:h-1/2 justify-center items-center">
               <Loader2 className="animate-spin" />
             </div>
           ) : (

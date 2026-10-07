@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -19,16 +22,24 @@ export function QuickViewModal({
   open,
   onOpenChange,
 }: QuickViewModalProps) {
+  const [loading, setLoading] = useState(false);
+
   if (!product) return null;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={open}
+      onOpenChange={(open) => {
+        if (!open) setLoading(false);
+        onOpenChange(open);
+      }}
+    >
       <DialogContent className="lg:max-w-[70vw]! max-h-[90vh]! lg:max-h-[80vh]! overflow-scroll p-0 gap-0!">
         <DialogHeader className="p-0!">
           <DialogTitle className="hidden" />
         </DialogHeader>
 
-        <div className="grid h-[80vh] grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-13.25">
+        <div className="grid h-[80vh] grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-13.25">
           <div className="h-full overflow-auto lg:overflow-hidden">
             <img
               src={product.images?.[0]?.imageUrl}
@@ -40,7 +51,7 @@ export function QuickViewModal({
           <div className="h-full overflow-y-auto pr-6">
             <div className="flex min-h-full flex-col justify-between p-4 lg:p-8 lg:pt-20">
               <div>
-                <p className="text-3xl lg:text-[65px] lg:leading-20 text-black">
+                <p className="text-3xl text-black lg:text-[65px] lg:leading-20">
                   {product.name}
                 </p>
 
@@ -55,15 +66,17 @@ export function QuickViewModal({
                   <p className="text-[15px] text-black">Price</p>
 
                   <p className="text-[15px] text-black">
-                    <DynamicPrice prices={product.prices}/>
+                    <DynamicPrice prices={product.prices} />
                   </p>
                 </div>
 
                 <div className="mx-auto mt-5">
-                  <AnimatedButton
-                    text="View Full Details"
-                    route={`/shop/${product.slug}`}
-                  />
+                  <div onClick={() => setLoading(true)}>
+                    <AnimatedButton
+                      text={loading ? "Loading..." : "View Full Details"}
+                      route={`/shop/${product.slug}`}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

@@ -15,7 +15,7 @@ const Blog = () => {
   if (collectionLoading) {
     return <GallerySkeleton />;
   }
-
+console.log(data, "data");
   if (collectionError) {
     return (
       <Container className="bg-[#F8F6F2] pt-[43px]">

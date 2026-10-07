@@ -13,7 +13,7 @@ const AnimatedButton = ({ text, route, variant = "black",textColor= "white" }: B
   return (
     <Link
       href={route}
-      className={`group w-full md:w-fit relative inline-flex items-center justify-center overflow-hidden rounded-[50px] border px-3 md:px-6 py-2 md:py-4 font-[var(--font-inter)] text-sm font-medium tracking-wide ${
+      className={`group w-full md:w-fit relative active:text-[red] inline-flex items-center justify-center overflow-hidden rounded-[50px] border px-3 md:px-6 py-2 md:py-4 font-[var(--font-inter)] text-sm font-medium tracking-wide ${
         isBlack
           ? "border-none bg-black text-white"
           : "border-white bg-transparent text-white"

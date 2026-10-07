@@ -6,7 +6,7 @@ const ShopPage = () => {
     <div>  <HeroSection
     title={"All Products"}
     text={
-      "Each pieces, each made with intention."
+      "Each piece,  made with intention."
     }
     image={"/collection.jpg"}
   /><FilterIndex/></div>

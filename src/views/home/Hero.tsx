@@ -77,8 +77,11 @@ const Hero = ({ imageUrl }: HeroProps) => {
         src="/soibif.mp4"
         autoPlay
         loop
+        controls={false}
         muted
+        aria-hidden="true"
         playsInline
+        preload="auto"
         className="absolute inset-0 h-full w-full object-cover object-top lg:hidden"
       />
 

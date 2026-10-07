@@ -14,7 +14,7 @@ export function InstagramCarousel({ images }: InstagramCarouselProps) {
 
   const isMobile = useIsMobile()
 
-  const VISIBLE_COUNT = isMobile ? 1.2 : 5;
+  const VISIBLE_COUNT = isMobile ? 2 : 5;
   const AUTOPLAY_INTERVAL = 3000;
   const TRANSITION_DURATION = 0.4;
 

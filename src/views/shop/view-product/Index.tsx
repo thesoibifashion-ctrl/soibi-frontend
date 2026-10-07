@@ -218,7 +218,7 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
                 <img
                   src={images[selectedImage]?.imageUrl}
                   alt={images[selectedImage]?.altText || product.name}
-                  className="w-full h-auto lg:h-[85%] object-cover object-top"
+                  className="w-full h-auto lg:h-[80%] object-cover object-top"
                 />
               )}
             </div>
@@ -249,7 +249,7 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
         </div>
       </div>
   
-      <div className="h-full w-full">
+      <div className="h-full w-full pb-28">
         <div className="flex flex-col justify-between gap-6 lg:gap-12 mt-4 lg:p-10">
           <div>
             <p className="text-2xl lg:text-[95px] leading-tight lg:leading-[120px] text-black">

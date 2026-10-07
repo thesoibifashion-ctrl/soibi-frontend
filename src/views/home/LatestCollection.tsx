@@ -43,6 +43,7 @@ const Hero = ({ customization }: HeroProps) => {
   if (!activeOption?.imageUrl) return null;
 
   return (
+    <>
     <div className="mt-8 lg::mt-32 ">
       <Container className="">
         <hr className="lg:border-t border-[#000000] " />
@@ -94,7 +95,7 @@ const Hero = ({ customization }: HeroProps) => {
                 </div>
               </Container>
 
-              <div className="h-full mt-16 backdrop-blur-lg py-5 lg:py-8  border-white/20 bg-white/10 md:mt-70 flex justify-center items-center">
+              <div className="h-full mt-16 backdrop-blur-[4px] py-5 lg:py-8  border-white/20 bg-white/10 md:mt-70 flex justify-center items-center">
                 <Container>
                   <AnimatePresence mode="wait">
                     <motion.p
@@ -157,6 +158,9 @@ const Hero = ({ customization }: HeroProps) => {
         </div>
       </div>
     </div>
+
+
+    </>
   );
 };
 
