@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import { CurrencyProvider } from "@/providers/currency-provider";
 import NextTopLoader from "nextjs-toploader";
 import Footer from "@/components/ui/navigation/Footer";
+import WhatsAppButton from "@/components/shared/Whatsapp";
 
 const prata = Prata({
   variable: "--font-prata",
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <NextTopLoader height={3} color="#A56423" showSpinner={false} />
 
             {children}
+            <WhatsAppButton/>
           </CurrencyProvider>
           <Footer/>
         </QueryProvider>

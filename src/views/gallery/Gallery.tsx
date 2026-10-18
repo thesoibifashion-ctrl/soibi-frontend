@@ -63,7 +63,7 @@ export default function Gallery() {
 
   if (collectionError) {
     return (
-      <Container className="bg-[#F8F6F2] pt-[43px]">
+      <Container className="bg-[#F8F6F2] py-[43px]">
         <div className="py-24 text-center">
           <h3 className="text-xl font-semibold text-[#1C1917]">
             Unable to load gallery
@@ -78,29 +78,25 @@ export default function Gallery() {
   }
 
   return (
-    <Container className="bg-[#F8F6F2] pt-[43px]">
-      <p className="text-[40px] font-black">
+    <Container className="bg-[#F8F6F2] py-[43px]">
+      <p className="text-lg lg:text-[40px] font-black">
         We Capture Every Moment possible
       </p>
 
       <section>
-        <div className="mb-12 flex flex-col items-center justify-between gap-6 md:flex-row">
-          <div className="mt-[18px] flex flex-wrap justify-center gap-3 rounded-full border border-[#E8E2D8] bg-white p-2">
-            {tabs.map((tab) => (
-              <button
-                key={tab.value}
-                onClick={() => setActiveTab(tab.value)}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
-                  activeTab === tab.value
-                    ? "bg-[#1C1917] text-white"
-                    : "text-[#6B645D] hover:bg-[#F4EFE8]"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
+      <div className="mb-12 flex flex-col  justify-between gap-6 md:flex-row">
+  <select
+    value={activeTab}
+    onChange={(e) => setActiveTab(e.target.value)}
+    className="mt-[18px] rounded-full border border-[#E8E2D8] bg-white px-5 py-3 text-sm font-medium text-[#6B645D] outline-none"
+  >
+    {tabs.map((tab) => (
+      <option key={tab.value} value={tab.value}>
+        {tab.label}
+      </option>
+    ))}
+  </select>
+</div>
 
         {images.length === 0 ? (
           <div className="py-24 text-center">

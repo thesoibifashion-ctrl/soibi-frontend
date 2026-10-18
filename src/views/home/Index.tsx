@@ -52,11 +52,17 @@ const HomePage = () => {
   const isHomeLoading = customizationsLoading || carouselLoading || isLoading;
 
   const products = data?.filter((item) => item.category === "Clothes");
+  const hero = customizations?.find(
+    (item) => item.slug.toLowerCase() === "hero"
+  );
+  const activeHero = hero?.options.filter((o) => o.status === "active");
+  const desktopUrl = activeHero?.find((o) => o.name === "desktop")?.imageUrl;
+  const mobileUrl = activeHero?.find((o) => o.name === "mobile")?.imageUrl;
+  const text = activeHero?.find((o) => o.name === "mobile")?.description;
   if (isHomeLoading) return <HomeLoader />;
   return (
     <div className=" bg-[#EEEEEE]">
-      <Hero imageUrl={carouselImage[0]?.imageUrl || "/heros.jpg"} />
-
+<Hero desktopUrl={desktopUrl} mobileUrl={mobileUrl} text={text}/>
       {products && products.length > 0 && (
         <>
           <Featured />

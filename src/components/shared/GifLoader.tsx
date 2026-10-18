@@ -29,7 +29,7 @@ export default function LoadingAnimation() {
   const currentStep = loadingSteps[step];
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 py-12">
+    <div className="flex flex-col items-center justify-center min-h-[75vh] gap-4 py-12">
       <img
         src={currentStep.gif}
         alt=""
