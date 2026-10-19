@@ -381,7 +381,6 @@ const CheckoutPage = () => {
     enabled: authenticated,
   });
 
-  // Authenticated profile — source of truth for name/phone/address once logged in
   const { data: profile } = useGetAuth(authChecked && authenticated);
   const updateProfileMutation = useUpdateProfile();
 console.log(profile, "prof")
