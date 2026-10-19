@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useIsMobile } from "@/hooks/use-isMobile";
 
 interface InstagramCarouselProps {
@@ -11,8 +12,7 @@ interface InstagramCarouselProps {
 }
 
 export function InstagramCarousel({ images }: InstagramCarouselProps) {
-
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
 
   const VISIBLE_COUNT = isMobile ? 2 : 5;
   const AUTOPLAY_INTERVAL = 3000;
@@ -43,7 +43,6 @@ export function InstagramCarousel({ images }: InstagramCarouselProps) {
     setIndex((i) => i - 1);
   };
 
-  // Reset after reaching cloned images
   useEffect(() => {
     if (!isCarousel || index !== images.length) return;
 
@@ -55,7 +54,6 @@ export function InstagramCarousel({ images }: InstagramCarouselProps) {
     return () => clearTimeout(timeout);
   }, [index, images.length, isCarousel]);
 
-  // Re-enable animation after reset
   useEffect(() => {
     if (animate) return;
 
@@ -64,7 +62,6 @@ export function InstagramCarousel({ images }: InstagramCarouselProps) {
     return () => cancelAnimationFrame(raf);
   }, [animate]);
 
-  // Autoplay
   useEffect(() => {
     if (!isCarousel || isHovered) {
       if (intervalRef.current) {
@@ -111,15 +108,21 @@ export function InstagramCarousel({ images }: InstagramCarouselProps) {
                 className="relative shrink-0 pr-4"
                 style={{ width: `${itemWidthPercent}%` }}
               >
-                <div className="relative aspect-3/4 w-full overflow-hidden">
-                  <Image src={image} alt="" fill className="object-cover" />
-                </div>
+                <Link
+                  href="https://www.instagram.com/thesoibi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View Soibi on Instagram"
+                >
+                  <div className="relative aspect-3/4 w-full overflow-hidden">
+                    <Image src={image} alt="" fill className="object-cover" />
+                  </div>
+                </Link>
               </div>
             ))}
           </motion.div>
         </div>
 
-        {/* Previous */}
         {index > 0 && (
           <button
             onClick={goPrev}
@@ -130,7 +133,6 @@ export function InstagramCarousel({ images }: InstagramCarouselProps) {
           </button>
         )}
 
-        {/* Next */}
         <button
           onClick={goNext}
           className="absolute right-10 top-1/2 translate-x-4 -translate-y-1/2 rounded-full bg-background p-2 shadow-md hover:bg-accent"

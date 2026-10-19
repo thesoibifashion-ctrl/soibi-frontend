@@ -320,14 +320,14 @@ const CartSidebar = ({ active }: isActive) => {
                             </h3>
 
                             <div className="mt-2 flex flex-wrap gap-1.5">
-                              {item.selectedSize && (
+                              {/* {item.selectedSize && (
                                 <Badge
                                   variant="secondary"
                                   className="bg-off-white text-[9px] text-[#666]"
                                 >
                                   {item.selectedSize}
                                 </Badge>
-                              )}
+                              )} */}
 
                               {item.selectedMaterial && (
                                 <Badge

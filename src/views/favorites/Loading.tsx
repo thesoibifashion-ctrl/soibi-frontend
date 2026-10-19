@@ -2,8 +2,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const LoadingState = () => {
  return(
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-32 max-w-[90%] mx-auto gap-3 mt-8">
-    {Array.from({ length: 8 }).map((_, i) => (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-32 max-w-[90%] mx-auto gap-3 mt-8">
+    {Array.from({ length: 4 }).map((_, i) => (
       <div key={i} className="h-fit rounded-lg">
         <Skeleton className="aspect-3/4 w-full rounded-lg" />
 
