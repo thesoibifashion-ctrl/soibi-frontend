@@ -125,7 +125,7 @@ export const countries = [
     { code: "NL", name: "Netherlands" },
     { code: "NZ", name: "New Zealand" },
     { code: "NI", name: "Nicaragua" },
-    { code: "NE", name: "Niger" },
+    // { code: "NE", name: "Niger" },
     { code: "NG", name: "Nigeria" },
     { code: "MK", name: "North Macedonia" },
     { code: "NO", name: "Norway" },

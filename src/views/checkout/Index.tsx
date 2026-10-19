@@ -499,7 +499,7 @@ console.log(profile, "prof")
       setIsSavingDetails(true);
       try {
         await updateProfileMutation.mutateAsync({
-          phone: whatsappOverride || undefined,
+          phone: guestPhone || undefined,
           state: state || undefined,
           city: city || undefined,
           address: address || undefined,
@@ -668,6 +668,7 @@ console.log(profile, "prof")
                 address={address}
                 onAddressChange={setAddress}
                 onContinue={handleContinueToReceipt}
+                profileSaving={isSavingDetails}
               />
             )}
 

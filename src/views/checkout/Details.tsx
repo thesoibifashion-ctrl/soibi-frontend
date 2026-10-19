@@ -40,6 +40,7 @@ interface DetailsStepProps {
   address: string;
   onAddressChange: (v: string) => void;
   onContinue: () => void;
+  profileSaving:boolean
 }
 
 
@@ -62,6 +63,7 @@ const DetailsStep = ({
   address,
   onAddressChange,
   onContinue,
+  profileSaving
 }: DetailsStepProps) => {
   const [countryOpen, setCountryOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(
@@ -248,23 +250,12 @@ const DetailsStep = ({
             <FormInput
               label="State / Province"
               placeholder=""
-              value={
-                state.includes(", ")
-                  ? state.substring(state.indexOf(", ") + 2)
-                  : state
-              }
-              onChange={(e) => {
-                const countryName = selectedCountry?.name;
-
-                onStateChange(
-                  countryName
-                    ? `${countryName}, ${e.target.value}`
-                    : e.target.value
-                );
-              }}
+              value={state}
+              onChange={(e) => onStateChange(e.target.value)}
               type="text"
             />
           </div>
+          {/* <input  hidden/> */}
           <div className="w-full  lg:w-1/2">
             <FormInput
               label="City"
@@ -293,7 +284,7 @@ const DetailsStep = ({
         <div className="w-fit">
           <AnimatedSubmitButton
             onClick={onContinue}
-            text="Proceed to Payment"
+            text={profileSaving ? "loading " : "Proceed to Payment"}
           />
         </div>
       </div>
