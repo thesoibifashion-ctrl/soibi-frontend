@@ -55,11 +55,12 @@ const Hero = ({ customization }: HeroProps) => {
     <>
       <div className="mt-8 lg::mt-32 ">
         <Container className="">
-        <div className="flex items-center gap-4" aria-hidden="true">
-  <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#7B3C10]" />
-  <span className="h-2.5 w-2.5 rotate-45 border border-[#7B3C10]" />
-  <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#7B3C10]" />
-</div>          <p className="text-[#000000] text-[30px] mt-8 lg:mt-24  md:text-[66px] lg:text-[55px]">
+          <div className="flex items-center md:gap-4" aria-hidden="true">
+            <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[black] md:to-[#7B3C10]" />
+            <span className="hidden lg:flex h-2.5 w-2.5 rotate-45 border border-[#7B3C10]" />
+            <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[black] md:to-[#7B3C10]" />
+          </div>
+          <p className="text-[#000000] text-[30px] mt-8 lg:mt-24  md:text-[66px] lg:text-[55px]">
             Our Latest Collection
           </p>
         </Container>

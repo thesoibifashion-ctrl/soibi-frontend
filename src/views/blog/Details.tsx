@@ -119,7 +119,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
             <p className="font-normal text-[32px] text-[#000000]">Blogs</p>
             <Link href={"/blog"} className="font-semibold text-base text-[#A56423]">View All Posts</Link>
           </div>
-            <div className="mt-15 grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <div className="mt-15 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-4 gap-10">
               {data?.map((item) => (
                 <BlogCard key={item.id} post={item} />
               ))}

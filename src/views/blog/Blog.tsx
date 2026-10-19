@@ -34,7 +34,7 @@ console.log(data, "data");
 
   return (
     <div className="bg-[#F7F0E8] min-h-screen">
-      <Container className="pt-[120px]">
+      <Container className="py-[120px]">
         <div>
           <p className="text-[50px]">Blogs</p>
 
@@ -44,7 +44,7 @@ console.log(data, "data");
           </p>
         </div>
 
-        <div className="mt-15 grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="mt-15 grid grid-cols-1   md:grid-cols-2 lg:grid-cols-3 gap-10">
           {data?.map((item) => (
             <BlogCard key={item.id} post={item} />
           ))}

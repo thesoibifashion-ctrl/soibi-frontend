@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogClose
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { ProductMeasurement } from "@/types/Index";
@@ -122,7 +123,10 @@ const MeasurementGuideModal = ({
             </div>
           ))}
         </div>
+      <DialogClose className="flex  font-semibold self-end w-full "><span className="px-5 py-1 rounded-lg bg-black text-white">Done</span></DialogClose>
+
       </DialogContent>
+
     </Dialog>
   );
 };

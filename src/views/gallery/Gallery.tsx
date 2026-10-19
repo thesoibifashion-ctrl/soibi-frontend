@@ -131,11 +131,11 @@ export default function Gallery() {
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
 
-                  <div className="absolute left-5 top-5">
+                  {/* <div className="absolute left-5 top-5">
                     <span className="rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
                       {image.title}
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               );
             })}

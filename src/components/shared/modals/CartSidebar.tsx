@@ -125,7 +125,13 @@ const CartSidebar = ({ active }: isActive) => {
     onError: () => toast.error("Couldn't update quantity"),
   });
 
-  const { mutate: deleteItem, isPending: isRemoving } = useMutation({
+  // `variables` holds the id of the item currently being removed, so we can
+  // show the loading state on that one item only.
+  const {
+    mutate: deleteItem,
+    isPending: isRemoving,
+    variables: removingId,
+  } = useMutation({
     mutationFn: (id: string) => removeCartItem(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
@@ -154,7 +160,7 @@ const CartSidebar = ({ active }: isActive) => {
         imageUrlSnapshot: item.imageUrlSnapshot ?? null,
         quantity: item.quantity,
         selectedSize: item.selectedSize ?? null,
-        currency: item.currency ?? "",
+        currency: item.currency ,
         selectedColor: item.selectedColor ?? null,
         selectedMaterial: item.selectedMaterial ?? null,
         unitPriceSnapshot: item.unitPriceSnapshot,
@@ -206,7 +212,10 @@ const CartSidebar = ({ active }: isActive) => {
     if (authenticated) {
       deleteItem(item.id);
     } else {
-      setGuestItems(removeGuestCartItem(item.id));
+      // Remove only this item, then re-read the stored cart so state
+      // always matches what is actually saved.
+      removeGuestCartItem(item.id);
+      setGuestItems(getGuestCartItems());
       toast.success("Item removed");
     }
   };
@@ -281,124 +290,130 @@ const CartSidebar = ({ active }: isActive) => {
               </div>
             ) : (
               <div className="space-y-4">
-                {displayItems.map((item, idx) => (
-                  <div
-                    key={item.id || idx}
-                    className="overflow-hidden rounded-xl border border-border bg-white"
-                  >
-                    <div className="flex gap-4 p-4">
-                      {/* Image */}
-                      <div className="h-28 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-off-white">
-                        {item.imageUrlSnapshot && (
-                          <img
-                            src={item.imageUrlSnapshot}
-                            alt={item.productNameSnapshot ?? "Product"}
-                            className="h-full w-full object-cover"
-                          />
-                        )}
-                      </div>
+                {displayItems.map((item, idx) => {
+                  // Only the item being removed shows the spinner
+                  const isRemovingThisItem =
+                    authenticated && isRemoving && removingId === item.id;
 
-                      {/* Details */}
-                      <div className="flex min-w-0 flex-1 flex-col justify-between">
-                        <div>
-                          <h3 className="line-clamp-2 font-display text-sm font-bold text-near-black">
-                            {item.productNameSnapshot ?? "Custom item"}
-                          </h3>
+                  return (
+                    <div
+                      key={item.id || idx}
+                      className="overflow-hidden rounded-xl border border-border bg-white"
+                    >
+                      <div className="flex gap-4 p-4">
+                        {/* Image */}
+                        <div className="h-28 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-off-white">
+                          {item.imageUrlSnapshot && (
+                            <img
+                              src={item.imageUrlSnapshot}
+                              alt={item.productNameSnapshot ?? "Product"}
+                              className="h-full w-full object-cover"
+                            />
+                          )}
+                        </div>
 
-                          <div className="mt-2 flex flex-wrap gap-1.5">
-                            {item.selectedSize && (
-                              <Badge
-                                variant="secondary"
-                                className="bg-off-white text-[9px] text-[#666]"
+                        {/* Details */}
+                        <div className="flex min-w-0 flex-1 flex-col justify-between">
+                          <div>
+                            <h3 className="line-clamp-2 font-display text-sm font-bold text-near-black">
+                              {item.productNameSnapshot ?? "Custom item"}
+                            </h3>
+
+                            <div className="mt-2 flex flex-wrap gap-1.5">
+                              {item.selectedSize && (
+                                <Badge
+                                  variant="secondary"
+                                  className="bg-off-white text-[9px] text-[#666]"
+                                >
+                                  {item.selectedSize}
+                                </Badge>
+                              )}
+
+                              {item.selectedMaterial && (
+                                <Badge
+                                  variant="secondary"
+                                  className="bg-off-white text-[9px] text-[#666]"
+                                >
+                                  {item.selectedMaterial}
+                                </Badge>
+                              )}
+
+                              {item.selectedColor && (
+                                <Badge
+                                  variant="secondary"
+                                  className="flex items-center gap-1 bg-off-white text-[9px] text-[#666]"
+                                >
+                                  <span
+                                    className="h-1.5 w-1.5 rounded-full border border-black/10"
+                                    style={{
+                                      backgroundColor: item.selectedColor,
+                                    }}
+                                  />
+                                  {item.selectedColor}
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="mt-3 flex items-center justify-between gap-3">
+                            {/* Quantity */}
+                            <div className="flex items-center gap-2">
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="icon"
+                                disabled={item.quantity <= 1}
+                                onClick={() => handleDecrease(item)}
+                                className="h-7 w-7 border-black"
                               >
-                                {item.selectedSize}
-                              </Badge>
-                            )}
+                                <Minus size={12} color="black" />
+                              </Button>
 
-                            {item.selectedMaterial && (
-                              <Badge
-                                variant="secondary"
-                                className="bg-off-white text-[9px] text-[#666]"
-                              >
-                                {item.selectedMaterial}
-                              </Badge>
-                            )}
+                              <span className="min-w-4 text-center text-xs font-bold text-black">
+                                {item.quantity}
+                              </span>
 
-                            {item.selectedColor && (
-                              <Badge
-                                variant="secondary"
-                                className="flex items-center gap-1 bg-off-white text-[9px] text-[#666]"
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="icon"
+                                onClick={() => handleIncrease(item)}
+                                className="h-7 w-7 border-black"
                               >
-                                <span
-                                  className="h-1.5 w-1.5 rounded-full border border-black/10"
-                                  style={{
-                                    backgroundColor: item.selectedColor,
-                                  }}
-                                />
-                                {item.selectedColor}
-                              </Badge>
-                            )}
+                                <Plus size={12} color="black" />
+                              </Button>
+                            </div>
+
+                            <p className="font-display text-sm font-bold text-near-black">
+                              {item.pricesSnapshot
+                                ?.find(
+                                  (price) =>
+                                    price.currency === cart?.selectedCurrency
+                                )
+                                ?.amount?.toLocaleString()}
+                            </p>
                           </div>
                         </div>
 
-                        <div className="mt-3 flex items-center justify-between gap-3">
-                          {/* Quantity */}
-                          <div className="flex items-center gap-2">
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="icon"
-                              disabled={item.quantity <= 1}
-                              onClick={() => handleDecrease(item)}
-                              className="h-7 w-7 border-black"
-                            >
-                              <Minus size={12} color="black" />
-                            </Button>
-
-                            <span className="min-w-4 text-center text-xs font-bold text-black">
-                              {item.quantity}
-                            </span>
-
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="icon"
-                              onClick={() => handleIncrease(item)}
-                              className="h-7 w-7 border-black"
-                            >
-                              <Plus size={12} color="black" />
-                            </Button>
-                          </div>
-
-                          <p className="font-display text-sm font-bold text-near-black">
-                            {item.pricesSnapshot
-                              ?.find(
-                                (price) =>
-                                  price.currency === cart?.selectedCurrency
-                              )
-                              ?.amount?.toLocaleString()}
-                          </p>
-                        </div>
+                        {/* Delete */}
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleRemove(item)}
+                          disabled={isRemovingThisItem}
+                          className="h-7 w-7 flex-shrink-0 self-start text-red-500 hover:bg-red-50"
+                        >
+                          {isRemovingThisItem ? (
+                            <Loader2 size={13} className="animate-spin" />
+                          ) : (
+                            <Trash2 size={13} />
+                          )}
+                        </Button>
                       </div>
-
-                      {/* Delete */}
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleRemove(item)}
-                        disabled={isRemoving}
-                        className="h-7 w-7 flex-shrink-0 self-start text-red-500 hover:bg-red-50"
-                      >
-                        {isRemoving ? (
-                          <Loader2 size={13} className="animate-spin" />
-                        ) : (
-                          <Trash2 size={13} />
-                        )}
-                      </Button>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
