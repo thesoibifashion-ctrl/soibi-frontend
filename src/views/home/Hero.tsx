@@ -132,12 +132,12 @@ const Hero = ({ desktopUrl, mobileUrl,text }: HeroProps) => {
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent lg:hidden" />
       <div className="relative z-10 h-full">
   <Container className="flex h-full items-end">
-    <div className="lg:w-201">
+    <div className="w-full lg:w-201">
       <p
         className="text-[36px] leading-11.25 text-white md:text-[96px] md:leading-25"
         dangerouslySetInnerHTML={{ __html: text || "" }}
       />
-      <div className="mt-8 flex flex-col md:flex-row w-full items-center gap-3 md:gap-13">
+      <div className="mt-8 flex flex-col lg:flex-row w-full items-center gap-3 md:gap-13">
         <AnimatedButton
           text="Explore Collection"
           route="/collection"

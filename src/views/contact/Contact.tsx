@@ -5,11 +5,26 @@ import Container from "@/components/shared/Container";
 import { useState } from "react";
 import { toast } from "sonner";
 import Details from "./Details";
-import { AlarmClock, Mail, MapPin, Phone, SendHorizonal } from "lucide-react";
-// import { useSubmitContact } from "@/hooks/useSubmitContacts";
+import {
+  AlarmClock,
+  CheckCircle2,
+  Mail,
+  MapPin,
+  Phone,
+  SendHorizonal,
+} from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const Contacts = () => {
   const { mutate: submitContact, isPending } = useSubmitContact();
+  const [successOpen, setSuccessOpen] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -58,7 +73,7 @@ const Contacts = () => {
       },
       {
         onSuccess: () => {
-          toast.success("Message sent successfully");
+          setSuccessOpen(true);
 
           setForm({
             name: "",
@@ -95,7 +110,7 @@ const Contacts = () => {
               from you.
             </p>
           </div>
-           <Details />
+          <Details />
           <div className="lg:w-[60%] bg-white py-9.5 px-4 lg:px-12.5 rounded-[20px] mt-10 lg:mt-0 shadow-xl">
             <form onSubmit={handleSubmit}>
               <h2 className=" mb-8 text-[20px] lg:text-3xl font-bold text-near-black">
@@ -174,59 +189,88 @@ const Contacts = () => {
                 />
               </div>
 
-              {/* <button
-                type="submit"
-                disabled={isPending}
-                className="w-full rounded-xl bg-gold py-5 text-xs font-bold uppercase tracking-[0.15em] text-near-black disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isPending ? "Sending..." : "Send Message"}
-              </button> */}
-              {/* <AnimatedButton text={"Send Message"} route={""} /> */}
               <div className="w-full flex justify-center">
                 <div className="w-76.5">
-                  {" "}
-                 
                   <button
-                  className="flex items-center justify-center gap-2 bg-black text-white rounded-[50px] border px-6 py-4 font-sans text-sm font-medium  w-fit mx-auto "
+                    type="submit"
+                    disabled={isPending}
+                    className="flex items-center justify-center gap-2 bg-black text-white rounded-[50px] border px-6 py-4 font-sans text-sm font-medium w-fit mx-auto disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {isPending ? "Sending..." : "Send Message"}
                     <SendHorizonal size={16} />
-
                   </button>
                 </div>
               </div>
             </form>
           </div>
           <div className="lg:hidden">
-          <div className="mt-10 lg:mt-22.5 space-y-8 lg:space-y-10">
-        <div className="flex items-center gap-7.5">
-          <MapPin color="black" size={20} />
-          <p className="text-[18px] text-[#595959]">
-            Rivers State, Port Harcourt
-          </p>
-        </div>
-        <div className="flex items-center gap-7.5">
-          <Mail color="black" size={20} />
-          <p className="text-[18px] text-[#595959]">hello@soibifashion.com</p>
-        </div>
-        <div className="flex items-center gap-7.5">
-          <Phone color="black" size={20} />
-          <div>
-            <p className="text-[18px] text-[#595959]">+234 905 075 8912</p>
-            <p className="text-[18px] text-[#595959]">Mon-Fri, 9am-6pm WAT</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-7.5">
-          <AlarmClock color="black" size={20} />
-          <div>
-            <p className="text-[18px] text-[#595959]">Open Monday-Friday</p>
-            <p className="text-[18px] text-[#595959]">9am-6pm</p>
-          </div>
-        </div>
-      </div>
+            <div className="mt-10 lg:mt-22.5 space-y-8 lg:space-y-10">
+              <div className="flex items-center gap-7.5">
+                <MapPin color="black" size={20} />
+                <p className="text-[18px] text-[#595959]">
+                  Rivers State, Port Harcourt
+                </p>
+              </div>
+              <div className="flex items-center gap-7.5">
+                <Mail color="black" size={20} />
+                <p className="text-[18px] text-[#595959]">
+                  hello@soibifashion.com
+                </p>
+              </div>
+              <div className="flex items-center gap-7.5">
+                <Phone color="black" size={20} />
+                <div>
+                  <p className="text-[18px] text-[#595959]">
+                    +234 905 075 8912
+                  </p>
+                  <p className="text-[18px] text-[#595959]">
+                    Mon-Fri, 9am-6pm WAT
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-7.5">
+                <AlarmClock color="black" size={20} />
+                <div>
+                  <p className="text-[18px] text-[#595959]">
+                    Open Monday-Friday
+                  </p>
+                  <p className="text-[18px] text-[#595959]">9am-6pm</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </Container>
+
+      {/* Success modal */}
+      <Dialog open={successOpen} onOpenChange={setSuccessOpen}>
+        <DialogContent className="max-w-md rounded-[20px] p-8 text-center sm:max-w-md">
+          <DialogHeader className="items-center sm:text-center">
+            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#F3F3F6]">
+              <CheckCircle2 size={34} className="text-[#7B3C10]" />
+            </div>
+
+            <DialogTitle className="text-2xl font-bold">
+              Message Sent!
+            </DialogTitle>
+
+            <DialogDescription className="mt-2 text-base text-[#595959]">
+              Thank you for reaching out. We've received your message and will
+              get back to you as soon as possible.
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter className="mt-6 sm:justify-center">
+            <button
+              type="button"
+              onClick={() => setSuccessOpen(false)}
+              className="rounded-[50px] bg-black px-8 py-3 font-sans text-sm font-medium text-white transition hover:bg-black/90"
+            >
+              Done
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

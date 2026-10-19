@@ -1,7 +1,8 @@
 import { useCollections } from "@/api/features/collection";
+import { useCustomizations } from "@/api/features/home";
 import Container from "@/components/shared/Container";
+import Image from "next/image";
 import Link from "next/link";
-
 const Memory = () => {
   const {
     data: collection,
@@ -11,6 +12,13 @@ const Memory = () => {
   const collectionLength = collection?.filter(
     (item) => item.status === "published"
   );
+  const {
+      data: customizations,
+      isLoading: customizationsLoading,
+    } = useCustomizations();
+  
+    const about = customizations?.find((item) => item.slug === "about-page");
+  
 
   return (
     <Container className="lg:grid grid-cols-2 flex flex-col-reverse  items-center pb-10 md:pb-20 lg:pb-50 pt-8 md:pt-29.75 gap-15">
@@ -41,10 +49,16 @@ const Memory = () => {
         </div>
       </div>
       <div className="h-150 relative w-full">
-        <img
+        {/* <img
           src="/memory.png"
           className="h-full rounded-lg w-full object-cover"
-        />
+        /> */}
+          <Image
+                  src={about?.options?.[0]?.imageUrl || "/soibi-about.jpg"}
+                  alt="about"
+                  fill
+                  className="object-cover rounded-lg object-top"
+                />
         <div className="absolute -bottom-18 lg:-bottom-7 lg:-left-10 left-2 w-48.25 rounded-[10px] bg-black p-6 animate-subtle-bounce">
           <p className="flex items-baseline text-[50px] leading-none text-white">
             {collectionLength?.length}

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 // International format, digits only (no +, spaces or dashes).
 // e.g. Nigeria: 2348012345678
-const WHATSAPP_NUMBER = "234XXXXXXXXXX";
+const WHATSAPP_NUMBER = "2349050758912";
 const DEFAULT_MESSAGE = "Hello! I'd like to make an enquiry.";
 
 const WhatsAppButton = () => {

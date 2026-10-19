@@ -89,7 +89,7 @@ const Hero = ({ customization }: HeroProps) => {
             <div className="pt-10 min-h-screen md:min-h-250 flex flex-col justify-between">
               <div>
                 <Container className="">
-                  <div className="rounded-2xl border w-fit border-white/20 bg-white/10 py-3 md:py-0 h-20  px-5 md:p-6 backdrop-blur-lg">
+                  <div className="rounded-2xl border w-fit border-white/20 bg-white/10  p-3   md:p-5 backdrop-blur-lg">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={activeOption.name ?? activeIndex}
@@ -107,9 +107,7 @@ const Hero = ({ customization }: HeroProps) => {
                   </div>
                 </Container>
 
-                {/* Description: the blur band lives on the animated element,
-                    so it appears and disappears together with the text. */}
-                <div className="mt- md:mt-80">
+                <div className="mt-30 md:mt-80">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeOption.description ?? activeIndex}

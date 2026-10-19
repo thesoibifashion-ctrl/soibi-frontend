@@ -2,10 +2,18 @@ import Image from "next/image";
 
 const HomeLoader = () => {
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#F7F4EF]">
+    <div
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#F7F4EF]"
+      // style={{
+      //   backgroundImage: "url('/backimgg.jpg')",
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center",
+      //   backgroundRepeat: "no-repeat",
+      // }}
+    >
       {/* Sewing machine */}
       <div className="relative flex h-[180px] w-[180px] items-center justify-center">
-        <div className="absolute inset-0 rounded-full   animate-pulse" />
+        <div className="absolute inset-0 rounded-full animate-pulse" />
 
         <Image
           src="/sewing.gif"
@@ -18,8 +26,8 @@ const HomeLoader = () => {
       </div>
 
       {/* Text */}
-      <div className=" overflow-hidden text-center">
-        <p className="font-poller animate-pulse text-3xl uppercase tracking-[0.2em] text-[black]">
+      <div className="overflow-hidden text-center">
+        <p className="font-poller animate-pulse text-3xl uppercase tracking-[0.2em] text-black">
           Crafting
         </p>
 
@@ -28,9 +36,9 @@ const HomeLoader = () => {
         </p>
       </div>
 
-      {/* Little loading line */}
+      {/* Moving loading line */}
       <div className="mt-8 h-[2px] w-32 overflow-hidden bg-black/10">
-        <div className="h-full w-1/2 animate-loader-line bg-[black]" />
+        <div className="loader-line h-full w-1/2 bg-black" />
       </div>
     </div>
   );
