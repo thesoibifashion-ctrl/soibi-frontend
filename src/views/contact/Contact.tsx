@@ -214,7 +214,7 @@ const Contacts = () => {
               <div className="flex items-center gap-7.5">
                 <Mail color="black" size={20} />
                 <p className="text-[18px] text-[#595959]">
-                  hello@soibifashion.com
+                thesoibifashion@gmail.com
                 </p>
               </div>
               <div className="flex items-center gap-7.5">

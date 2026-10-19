@@ -69,13 +69,13 @@ const OrderSummary = ({ order }: OrderSummaryProps) => {
         </div>
       </div>
 
-      <Link
+      {/* <Link
         href="/history"
         className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-[#D9D4CA] bg-white py-3.5 text-xs font-semibold uppercase tracking-widest text-[#0E0E0E] transition hover:border-[#A56423]"
       >
         <ArrowLeft size={14} />
         Back to Order History
-      </Link>
+      </Link> */}
     </aside>
   );
 };
