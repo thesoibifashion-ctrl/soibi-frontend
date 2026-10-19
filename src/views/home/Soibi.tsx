@@ -25,7 +25,7 @@ const Hero = ({ customization }: HeroProps) => {
     <div className="mt-30">
       <Container>
         <p className="text-[#000000] text-[30px] md:text-[55px]">
-          Soibi In The World
+          SOIBI In The World
         </p>
       </Container>
 

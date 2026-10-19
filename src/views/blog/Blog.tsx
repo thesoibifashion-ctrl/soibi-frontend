@@ -39,7 +39,7 @@ console.log(data, "data");
           <p className="text-[50px]">Blogs</p>
 
           <p className="text-[15px] text-[#595959] w-full max-w-full lg:w-133.75">
-            A record of your Soibi orders, from the moment your selection was
+            A record of your SOIBI orders, from the moment your selection was
             submitted to its journey with us.
           </p>
         </div>

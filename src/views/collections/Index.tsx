@@ -18,7 +18,7 @@ const CollectionPage = () => {
       <HeroSection
         title={"Our Collections"}
         text={
-          "Each collection is a chapter in the Soibi story, distinct, yet woven from the same thread."
+          "Each collection is a chapter in the SOIBI story, distinct, yet woven from the same thread."
         }
         image={"/collection.jpg"}
       />
