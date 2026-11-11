@@ -186,7 +186,7 @@ const Index = () => {
         </div>
       </section>
       <InstagramCarousel images={images} />
-      <CurrencyPicker/>
+      {/* <CurrencyPicker/> */}
     </div>
   );
 };

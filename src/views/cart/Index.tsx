@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CircleMinus, CirclePlus, Trash2, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "@/providers/query-provider";
 
 import {
   getCart,
   updateCartItem,
   removeCartItem,
-  isAuthenticated,
   type CartItem,
 } from "@/api/features/cart";
 import {
@@ -48,15 +48,8 @@ const CartPage = () => {
   const queryClient = useQueryClient();
   const { selectedCurrency } = useCurrency();
 
-  // Hydration-safe auth check: start false (matches server render),
-  // only flip to the real value after mount, inside an effect.
-  const [authenticated, setAuthenticated] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
-
-  useEffect(() => {
-    setAuthenticated(isAuthenticated());
-    setAuthChecked(true);
-  }, []);
+  const { isAuthenticated: authenticated, isInitializing: authInitializing } = useAuth();
+  const authChecked = !authInitializing;
 
   const [guestItems, setGuestItems] = useState<GuestCartItem[]>([]);
 

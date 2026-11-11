@@ -1,7 +1,6 @@
 "use client";
 
 import { addCartItem, submitCart as submitCartRequest } from "@/api/features/cart";
-import { isAuthenticated } from "@/lib/auth-finder";
 import { toast } from "sonner";
 
 export const GUEST_CART_KEY = "guest-cart";
@@ -69,8 +68,8 @@ function isSameLineItem(a: CartItemPayload, b: CartItemPayload) {
  * (product cards, quick view, product detail page, etc).
  * Branches authenticated vs. guest internally so callers never think about it.
  */
-export async function addToCart(item: CartItemPayload) {
-  if (isAuthenticated()) {
+export async function addToCart(item: CartItemPayload, isAuthenticated: boolean) {
+  if (isAuthenticated) {
     await addCartItem(item);
     toast.success("Added to cart");
     return;

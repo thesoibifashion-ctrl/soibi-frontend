@@ -72,6 +72,7 @@
 import { apiClient } from "@/lib/api-client";
 import { apiGet, apiPost, apiDelete, apiPatch, apiPut } from "../requests/auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { authStorage } from "@/lib/auth-storage";
 
 type LoginPayload = {
   email: string;
@@ -142,17 +143,23 @@ export interface UpdateProfilePayload {
   address?: string;
 }
 
-export const login = (payload: LoginPayload) =>
-  apiClient<LoginResponse>("/api/auth/login", {
+export const login = async (payload: LoginPayload) => {
+  const result = await apiClient<LoginResponse>("/api/auth/login", {
     method: "POST",
     body: JSON.stringify(payload),
   });
+  if (result.data?.accessToken) authStorage.setToken(result.data.accessToken, result.data.user);
+  return result;
+};
 export const requestCode = (payload: { email: string }) => {
   return apiPost("/api/auth/request-code", payload);
 };
 
 export const verifyCode = (payload: { email: string; code: string }) => {
-  return apiPost<VerifyCodeResponse>("/api/auth/verify-code", payload);
+  return apiPost<VerifyCodeResponse["data"]>("/api/auth/verify-code", payload).then((session) => {
+    authStorage.setToken(session.accessToken, session.user);
+    return session;
+  });
 };
 
 export const getAuth = () => {

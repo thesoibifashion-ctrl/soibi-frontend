@@ -10,7 +10,7 @@ import { addCartItem, getCart } from "@/api/features/cart";
 import { toast } from "sonner";
 import SizeGuideModal from "@/components/shared/cards/modals/SizeGuide";
 import { ArrowLeft, InfoIcon, Minus, Plus } from "lucide-react";
-import { isAuthenticated } from "@/lib/auth-finder";
+import { useAuth } from "@/providers/query-provider";
 import CheckoutButton from "@/components/shared/modals/CheckoutModal";
 import DynamicPrice from "@/components/shared/Prices";
 import { useCurrency } from "@/providers/currency-provider";
@@ -50,17 +50,22 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
   const [hasCartItems, setHasCartItems] = useState(false);
 
   const queryClient = useQueryClient();
+  const { isAuthenticated, isInitializing } = useAuth();
   const { selectedCurrency } = useCurrency();
   const selectedPrice = getSelectedPrice(product?.prices, selectedCurrency);
   const { data: cart } = useQuery({
     queryKey: ["cart"],
     queryFn: getCart,
-    enabled: isAuthenticated(),
+    enabled: isAuthenticated && !isInitializing,
   });
-
+  const resetSelection = () => {
+    setSelectedSize(null);
+    setMeasurementValues({});
+    setSelectionError(null);
+  };
   useEffect(() => {
     const checkCart = () => {
-      if (isAuthenticated()) return;
+      if (isAuthenticated || isInitializing) return;
 
       try {
         const cart = JSON.parse(localStorage.getItem(GUEST_CART_KEY) || "[]");
@@ -76,9 +81,9 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
     return () => {
       window.removeEventListener("guest-cart-updated", checkCart);
     };
-  }, []);
+  }, [isAuthenticated, isInitializing]);
 
-  const showCheckout = isAuthenticated()
+  const showCheckout = isAuthenticated
     ? (cart?.items?.length ?? 0) > 0
     : hasCartItems;
 
@@ -139,16 +144,18 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
         selectedSize,
         selectedColor: null,
         selectedMaterial: product.materials?.[0]?.name ?? null,
-        unitPriceSnapshot: selectedPrice?.amount ?? 0,
+        unitPriceSnapshot: product.basePrice ?? 0,
         currency: selectedCurrency,
         pricesSnapshot: product.prices ?? [],
         customMeasurements,
       };
 
-      if (isAuthenticated()) {
+      if (isAuthenticated) {
         await addCartItem(cartItem);
         queryClient.invalidateQueries({ queryKey: ["cart"] });
         toast.success("Added to cart");
+        resetSelection();
+
         return true;
       }
 
@@ -184,6 +191,8 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
       window.dispatchEvent(new Event("guest-cart-updated"));
 
       toast.success("Added to cart");
+      resetSelection();
+
       return true;
     } catch (error) {
       console.error("Add to cart failed:", error);
@@ -201,7 +210,7 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
   };
 
   const handleCheckout = async () => {
-    isAuthenticated()
+    isAuthenticated
       ? (window.location.href = "/checkout")
       : setOpenCheckoutModal(true);
   };
@@ -225,10 +234,12 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
     (value) => value.trim() !== ""
   );
 
+  
   return (
-    <Container className="h-full lg:min-h-screen bg-[#EEEEEE] pt-28.75">
+    <div className="bg-[#EEEEEE]">
+    <Container className="h-full lg:min-h-screen  pt-28.75">
       <div className="lg:grid grid-cols-2 gap-13.25">
-        <div className="lg:sticky lg:top-25 lg:flex lg:h-[80vh] gap-1">
+        <div className=" lg:top-25 lg:flex lg:h-[80vh] gap-1">
           <div className="">
             <div>
               <Link
@@ -245,7 +256,7 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
                   <img
                     src={images[selectedImage]?.imageUrl}
                     alt={images[selectedImage]?.altText || product.name}
-                    className="w-full h-auto lg:h-[80%] object-cover object-top"
+                    className="w-full h-auto lg:h-full object-cover object-top"
                   />
                 )}
               </div>
@@ -279,14 +290,16 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
         <div className="h-full w-full pb-28">
           <div className="flex flex-col justify-between gap-6 lg:gap-12 mt-4 lg:p-10">
             <div>
-              <p className="text-2xl lg:text-[95px] leading-tight lg:leading-[120px] text-black">
+            <p className="text-2xl lg:text-[95px] leading-tight lg:leading-[120px] text-black">
                 {product.name}
+              </p>  <p className="text-xl lg:text-[20px] leading-tight  text-black">
+              ₦{product.basePrice}
               </p>
 
-              <DynamicPrice
+              {/* <DynamicPrice
                 prices={product.prices}
                 className="text-sm font-semibold"
-              />
+              /> */}
 
               {product.description && (
                 <ProductDescription description={product.description} />
@@ -332,7 +345,7 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
             )}
 
             <div className="flex items-center justify-between flex-wrap gap-3">
-              <div className="flex w-fit items-center gap-4 rounded-[5px] border border-black lg:px-2">
+              {/* <div className="flex w-fit items-center gap-4 rounded-[5px] border border-black lg:px-2">
                 <button
                   type="button"
                   onClick={decreaseQuantity}
@@ -351,19 +364,10 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
                 >
                   <Plus size={16} />
                 </button>
-              </div>
+              </div> */}
 
-              {measurements.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setMeasurementGuideOpen(true)}
-                  className="flex cursor-pointer items-center gap-1 text-left text-sm underline underline-offset-4"
-                >
-                  Show measurement guide
-                  <InfoIcon size={20} className="animate-bounce" />
-                </button>
-              )}
-            </div>
+       
+            </div> 
 
             {measurements.length > 0 && showMeasurements && (
               <div className="space-y-4">
@@ -397,29 +401,35 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
               <p className="text-sm text-red-600">{selectionError}</p>
             )}
 
-            <div className="flex flex-col sm:flex-row gap-2">
-              <div className="w-full sm:w-fit">
+            <div className="flex flex-col sm:flex-row gap-2 justify-between">
+            <div className="w-full sm:w-fit">
                 <AnimatedSubmitButton
                   onClick={handleAddToCart}
                   text={isAdding ? "Adding..." : "Add to cart"}
                 />
               </div>
+            {measurements.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setMeasurementGuideOpen(true)}
+                  className="flex cursor-pointer items-center gap-1 text-left text-sm underline underline-offset-4"
+                >
+                  Show measurement guide
+                  <InfoIcon size={20} className="animate-bounce" />
+                </button>
+              )}
+         
 
-              {showCheckout && (
+              {/* {showCheckout && (
                 <div className="w-full sm:w-fit">
                   <AnimatedSubmitButton
                     onClick={handleCheckout}
                     text="Checkout"
                   />
                 </div>
-              )}
+              )} */}
 
-              <div>
-                <CheckoutButton
-                  open={openCheckoutModal}
-                  onOpenChange={setOpenCheckoutModal}
-                />
-              </div>
+           
             </div>
           </div>
         </div>
@@ -441,8 +451,9 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
           onSizeSelect={setSelectedSize}
         />
       </div>
-      <CurrencyPicker />
+      {/* <CurrencyPicker /> */}
     </Container>
+    </div>
   );
 };
 

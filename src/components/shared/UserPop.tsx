@@ -4,33 +4,30 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { isAuthenticated } from "@/lib/auth-finder";
+import { useAuth } from "@/providers/query-provider";
 import { CircleUser, LogIn, RotateCcwClock, ShoppingBag, User, UserPen } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LoginModal from "./modals/LoginModal";
 import Link from "next/link";
+import { logout as logoutSession } from "@/lib/auth-storage";
 
 interface isScrolled {
   scrolled: boolean;
 }
 
 const UserPop = ({ scrolled }: isScrolled) => {
-  const [authenticated, setAuthenticated] = useState(false);
+  const { isAuthenticated: authenticated } = useAuth();
   const [openCheckoutModal, setOpenCheckoutModal] = useState(false);
 
-  useEffect(() => {
-    setAuthenticated(isAuthenticated());
-  }, []);
-
-  const { data, isLoading } = useGetAuth();
+  const { data, isLoading } = useGetAuth(authenticated);
 
   //   const handleLogin = async () => {
   //     authenticated
   //       ? (window.location.href = window.location.pathname)
   //       : setOpenCheckoutModal(true);
   //   };
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
+  const handleLogout = async () => {
+    await logoutSession();
     window.location.href = "/";
   };
   return (

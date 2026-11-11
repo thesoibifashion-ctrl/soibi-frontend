@@ -85,7 +85,7 @@ const SizeGuideModal = ({
       onOpenChange={onOpenChange}
       title=""
       description=""
-      className="max-w-[90vw]! lg:max-w-[80vw]!  p-8  lg:p-[72px] bg-[#EEEEEE]"
+      className="max-w-[90vw]! z-100 lg:max-w-[80vw]!  p-8  lg:p-[72px] bg-[#EEEEEE]"
     >
       <div className="space-y-6">
         {/* Size selector */}

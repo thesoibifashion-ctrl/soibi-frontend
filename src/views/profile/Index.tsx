@@ -33,15 +33,15 @@ import {
 } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useGetAuth, useUpdateProfile } from "@/api/features/auth";
-import { isAuthenticated } from "@/lib/auth-finder";
+import { useAuth } from "@/providers/query-provider";
 import LoginModal from "@/components/shared/modals/LoginModal";
 import { countries } from "@/country";
 import { cn } from "@/lib/utils";
 
 const ProfilePage = () => {
-  const { data: profile, isLoading } = useGetAuth();
+  const { isAuthenticated: authenticated, isInitializing } = useAuth();
+  const { data: profile, isLoading } = useGetAuth(authenticated);
   const updateProfileMutation = useUpdateProfile();
-  const [authenticated, setAuthenticated] = useState(false);
   const [openCheckoutModal, setOpenCheckoutModal] = useState(false);
   const [countryPickerOpen, setCountryPickerOpen] = useState(false);
 
@@ -64,10 +64,6 @@ const ProfilePage = () => {
 
   const selectedCountry =
     countries.find((item) => item.name === country) ?? null;
-
-  useEffect(() => {
-    setAuthenticated(isAuthenticated());
-  }, []);
 
   useEffect(() => {
     if (!profile) return;
@@ -131,6 +127,10 @@ const ProfilePage = () => {
     setCity(profile.city ?? "");
     setAddress(profile.address ?? "");
   };
+
+  if (isInitializing) {
+    return <div className="flex min-h-screen items-center justify-center bg-[#F7F5F2]"><Loader2 className="h-6 w-6 animate-spin text-black/50" /></div>;
+  }
 
   if (!authenticated) {
     return (

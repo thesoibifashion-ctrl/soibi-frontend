@@ -225,17 +225,6 @@ export const createGuestQuote = (payload: GuestQuotePayload) => {
 
 
 // ======================================================
-// AUTH STATE
-// ======================================================
-
-export const isAuthenticated = () => {
-  if (typeof window === "undefined") return false;
-
-  return !!localStorage.getItem("accessToken");
-};
-
-
-// ======================================================
 // FAVORITES
 // ======================================================
 

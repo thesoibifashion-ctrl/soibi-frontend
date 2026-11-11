@@ -67,12 +67,12 @@ const LoginModal = ({ open, onOpenChange }: LoginModalProps) => {
     mutationFn: verifyCode,
 
     onSuccess: async (response) => {
-      authStorage.setToken(response.accessToken);
+      authStorage.setToken(response.accessToken, response.user);
       await syncGuestCartToServer();
 
       onOpenChange(false);
-      window.location.href =
-        window.location.pathname + window.location.search;
+      // window.location.href =
+      //   window.location.pathname + window.location.search;
     },
 
     onError: (error) => {

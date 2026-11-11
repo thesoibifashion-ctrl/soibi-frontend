@@ -33,7 +33,7 @@ const CollectionPage = () => {
          {collection && collection?.length > 0 && (
             <OtherCollection collection={collection ?? []} />
           )} 
-          <CurrencyPicker />
+          {/* <CurrencyPicker /> */}
         </>
       )}
     </div>

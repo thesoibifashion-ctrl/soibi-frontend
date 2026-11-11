@@ -67,7 +67,7 @@ const CheckoutButton = ({ open, onOpenChange }: CheckoutButtonProps) => {
     mutationFn: verifyCode,
 
     onSuccess: async (response) => {
-      authStorage.setToken(response.accessToken);
+      authStorage.setToken(response.accessToken, response.user);
       await syncGuestCartToServer();
 
       onOpenChange(false);

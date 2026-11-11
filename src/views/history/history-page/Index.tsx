@@ -9,11 +9,12 @@ import OrderHistoryEmpty from "./OrderHistoryEmpty";
 import OrderHistoryList from "./OrderHistoryList";
 import Container from "@/components/shared/Container";
 import { CartHistory } from "@/types/cart.types";
-import { isAuthenticated } from "@/api/features/cart";
+import { useAuth } from "@/providers/query-provider";
 import { apiGet } from "@/api/requests/auth";
 
 
 const OrderHistoryPage = () => {
+  const { isAuthenticated, isInitializing } = useAuth();
   // const { session, isLoading: isSessionLoading } = useSession();
 
   const {
@@ -23,12 +24,12 @@ const OrderHistoryPage = () => {
   } = useQuery({
     queryKey: ["cart-history"],
     queryFn: () => apiGet<CartHistory[]>("/api/cart/history"),
-    enabled: !!isAuthenticated,
+    enabled: isAuthenticated && !isInitializing,
   });
 
   // const history: CartHistory[] = data ?? [];
 
-  if ( isHistoryLoading) {
+  if (isInitializing || (isAuthenticated && isHistoryLoading)) {
     return (
       <main className="min-h-screen bg-[#F8F6F2]">
         <Container>

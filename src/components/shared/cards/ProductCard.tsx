@@ -37,18 +37,18 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
             className="absolute inset-0 h-full w-full object-cover rounded-lg opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105"
           />
         )}
-          <div className="absolute inset-0 flex xl:hidden items-end justify-end right-3 ">
+        <div className="absolute inset-0 flex xl:hidden items-end justify-end right-3 ">
           <Button
-              size="sm"
-              className="mb-4 h-8 gap-1.5  rounded-full bg-white/90 px-4 text-xs font-medium text-black shadow-lg backdrop-blur-sm "
-              onClick={(e) => {
-                e.stopPropagation();
-                onQuickView(product);
-              }}
-            >
-              <Eye className="h-3.5 w-3.5" />
-              Quick View
-            </Button>
+            size="sm"
+            className="mb-4 h-8 gap-1.5  rounded-full bg-white/90 px-4 text-xs font-medium text-black shadow-lg backdrop-blur-sm "
+            onClick={(e) => {
+              e.stopPropagation();
+              onQuickView(product);
+            }}
+          >
+            <Eye className="h-3.5 w-3.5" />
+            Quick View
+          </Button>
         </div>
 
         <div className="hidden xl:flex items-center justify-between">
@@ -74,12 +74,13 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           {product.id && <FavoriteButton productId={product.id} />}
         </div>
         <div className=" flex items-center gap-2">
-          {product.prices && (
+          {/* {product.prices && (
             <DynamicPrice
               prices={product.prices}
               className="text-xs md:text-sm font-semibold"
             />
-          )}
+          )} */}
+          <p className="text-xs md:text-sm font-semibold">₦{product.basePrice}</p>
         </div>
       </div>
     </div>

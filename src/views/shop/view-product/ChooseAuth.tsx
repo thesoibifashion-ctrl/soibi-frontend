@@ -19,7 +19,7 @@ const ChooseAuth = () => {
     mutationFn: login,
 
     onSuccess: (response) => {
-      authStorage.setToken(response.data.accessToken);
+      authStorage.setToken(response.data.accessToken, response.data.user);
 
       setOpen(false);
       router.push("/");

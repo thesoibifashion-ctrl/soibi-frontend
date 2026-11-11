@@ -66,7 +66,8 @@ export function QuickViewModal({
                   <p className="text-[15px] text-black">Price</p>
 
                   <p className="text-[15px] text-black">
-                    <DynamicPrice prices={product.prices} />
+                    {/* <DynamicPrice prices={product.prices} /> */}
+                    ₦{product.basePrice}
                   </p>
                 </div>
 

@@ -7,7 +7,8 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { getCart, isAuthenticated, updateCartAddress } from "@/api/features/cart";
+import { getCart, updateCartAddress } from "@/api/features/cart";
+import { useAuth } from "@/providers/query-provider";
 import { getGuestCartItems } from "@/hooks/use-guest-cart";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -26,6 +27,7 @@ const GUEST_CART_CURRENCY_KEY = "guest-cart-currency";
 export function CurrencyProvider({ children }: { children: ReactNode }) {
   const [selectedCurrency, setSelectedCurrency] = useState("NGN");
   const queryClient = useQueryClient();
+  const { isAuthenticated, isInitializing } = useAuth();
 
   useEffect(() => {
     const savedCurrency = localStorage.getItem(STORAGE_KEY);
@@ -38,11 +40,11 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (!selectedCurrency) return;
+    if (!selectedCurrency || isInitializing) return;
 
     const syncCartCurrency = async () => {
       try {
-        if (isAuthenticated()) {
+        if (isAuthenticated) {
           const cart = await getCart();
 
           if (!cart?.items?.length) return;
@@ -72,7 +74,7 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
     };
 
     syncCartCurrency();
-  }, [selectedCurrency, queryClient]);
+  }, [selectedCurrency, queryClient, isAuthenticated, isInitializing]);
 
   const handleSetCurrency = (currency: string) => {
     if (!currency) return;
@@ -80,7 +82,6 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
     setSelectedCurrency(currency);
     localStorage.setItem(STORAGE_KEY, currency);
 
-    console.log("Currency changed to:", currency);
   };
 
   return (

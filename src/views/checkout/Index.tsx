@@ -328,7 +328,6 @@ import {
   submitCart,
   updateCartAddress,
   initializePaystackPayment,
-  isAuthenticated,
   type CartItem,
   verifyPaystackPayment,
 } from "@/api/features/cart";
@@ -353,6 +352,7 @@ import { useCurrency } from "@/providers/currency-provider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import ErrorState from "@/components/shared/Error";
+import { useAuth } from "@/providers/query-provider";
 type Step = "details" | "receipt";
 
 const CheckoutPage = () => {
@@ -360,13 +360,8 @@ const CheckoutPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const paymentReference = searchParams.get("reference");
-  const [authenticated, setAuthenticated] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
-
-  useEffect(() => {
-    setAuthenticated(isAuthenticated());
-    setAuthChecked(true);
-  }, []);
+  const { isAuthenticated: authenticated, isInitializing } = useAuth();
+  const authChecked = !isInitializing;
 
   const [guestItems, setGuestItems] = useState<GuestCartItem[]>([]);
 

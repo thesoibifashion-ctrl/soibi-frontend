@@ -8,7 +8,7 @@ import Image from "next/image";
 import Container from "@/components/shared/Container";
 import Link from "next/link";
 import CartSidebar from "@/components/shared/modals/CartSidebar";
-import { isAuthenticated } from "@/lib/auth-finder";
+import { useAuth } from "@/providers/query-provider";
 import UserPop from "@/components/shared/UserPop";
 import { useIsMobile } from "@/hooks/use-isMobile";
 import ProductSearchModal from "@/components/shared/modals/SearchModal";
@@ -24,12 +24,8 @@ const NAV_LINKS = [
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false);
+  const { isAuthenticated: authenticated } = useAuth();
   const pathname = usePathname();
-
-  useEffect(() => {
-    setAuthenticated(isAuthenticated());
-  }, []);
 
   // Product detail pages like /shop/:slug have a white background.
   // /shop itself remains unchanged.

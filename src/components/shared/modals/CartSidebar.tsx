@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Minus, Plus, Trash2, Loader2, ShoppingCart } from "lucide-react";
+import { Minus, Plus, Trash2, Loader2, ShoppingCart, ArrowDown } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "@/providers/query-provider";
 
 import {
   getCart,
   updateCartItem,
   removeCartItem,
-  isAuthenticated,
   type CartItem,
 } from "@/api/features/cart";
 import {
@@ -34,7 +34,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import AnimatedButton from "../AnimatedButton";
+import { Popover, PopoverContent,PopoverTrigger } from "@/components/ui/popover";
 
 interface isActive {
   active: boolean;
@@ -88,15 +88,9 @@ const CartSidebar = ({ active }: isActive) => {
 
   const [open, setOpen] = useState(false);
 
-  // Hydration-safe auth check: start false (matches server render),
-  // only flip to the real value after mount, inside an effect.
-  const [authenticated, setAuthenticated] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
-
-  useEffect(() => {
-    setAuthenticated(isAuthenticated());
-    setAuthChecked(true);
-  }, []);
+  const { isAuthenticated: authenticated, isInitializing: authInitializing } =
+    useAuth();
+  const authChecked = !authInitializing;
 
   const [guestItems, setGuestItems] = useState<GuestCartItem[]>([]);
 
@@ -160,7 +154,7 @@ const CartSidebar = ({ active }: isActive) => {
         imageUrlSnapshot: item.imageUrlSnapshot ?? null,
         quantity: item.quantity,
         selectedSize: item.selectedSize ?? null,
-        currency: item.currency ,
+        currency: item.currency,
         selectedColor: item.selectedColor ?? null,
         selectedMaterial: item.selectedMaterial ?? null,
         unitPriceSnapshot: item.unitPriceSnapshot,
@@ -182,7 +176,7 @@ const CartSidebar = ({ active }: isActive) => {
   // };
 
   const handleCheckout = async () => {
-    if (isAuthenticated()) {
+    if (authenticated) {
       window.location.href = "/checkout";
     } else {
       setOpen(false);
@@ -294,7 +288,7 @@ const CartSidebar = ({ active }: isActive) => {
                   // Only the item being removed shows the spinner
                   const isRemovingThisItem =
                     authenticated && isRemoving && removingId === item.id;
-
+                  console.log(displayItems, "dispa");
                   return (
                     <div
                       key={item.id || idx}
@@ -318,6 +312,46 @@ const CartSidebar = ({ active }: isActive) => {
                             <h3 className="line-clamp-2 font-display text-sm font-bold text-near-black">
                               {item.productNameSnapshot ?? "Custom item"}
                             </h3>
+                            {item.selectedSize && (
+                              <p className="line-clamp-2 font-display text-xs text-near-black">
+                                <strong>Selected size:</strong> UK
+                                {item.selectedSize}
+                              </p>
+                            )}
+                            {item.customMeasurements &&
+                              Object.entries(item.customMeasurements).some(
+                                ([, value]) => String(value).trim() !== ""
+                              ) && (
+                                <Popover>
+                                <PopoverTrigger className="mt-1 flex items-center gap-1 text-xs font-bold text-near-black">
+                                  Custom measurements
+                                  <ArrowDown size={12} />
+                                </PopoverTrigger>
+                              
+                                <PopoverContent
+                                  align="start"
+                                  className="z-[1100] max-h-60 w-56 overflow-y-auto p-3"
+                                >
+                                  <p className="mb-2 text-xs font-bold text-near-black">
+                                    Custom measurements
+                                  </p>
+                              
+                                  <ul className="space-y-1">
+                                    {Object.entries(item.customMeasurements)
+                                      .filter(([, value]) => String(value).trim() !== "")
+                                      .map(([title, value]) => (
+                                        <li
+                                          key={title}
+                                          className="flex justify-between gap-3 text-xs capitalize text-near-black"
+                                        >
+                                          <span>{title}</span>
+                                          <span className="font-medium">{value}</span>
+                                        </li>
+                                      ))}
+                                  </ul>
+                                </PopoverContent>
+                              </Popover>
+                              )}
 
                             <div className="mt-2 flex flex-wrap gap-1.5">
                               {/* {item.selectedSize && (
@@ -356,8 +390,7 @@ const CartSidebar = ({ active }: isActive) => {
                           </div>
 
                           <div className="mt-3 flex items-center justify-between gap-3">
-                            {/* Quantity */}
-                            <div className="flex items-center gap-2">
+                            {/* <div className="flex items-center gap-2">
                               <Button
                                 type="button"
                                 variant="outline"
@@ -382,15 +415,10 @@ const CartSidebar = ({ active }: isActive) => {
                               >
                                 <Plus size={12} color="black" />
                               </Button>
-                            </div>
+                            </div> */}
 
                             <p className="font-display text-sm font-bold text-near-black">
-                              {item.pricesSnapshot
-                                ?.find(
-                                  (price) =>
-                                    price.currency === cart?.selectedCurrency
-                                )
-                                ?.amount?.toLocaleString()}
+                              ₦ {item.unitPriceSnapshot}
                             </p>
                           </div>
                         </div>
@@ -425,23 +453,17 @@ const CartSidebar = ({ active }: isActive) => {
                 <>
                   <div className="flex w-full items-center justify-between">
                     <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#999]">
-                      Total ({cart.selectedCurrency})
+                      Total:
                     </span>
 
                     <span className="font-display text-xl font-bold text-near-black">
-                      {cart.selectedCurrency}{" "}
+                      ₦
                       {cart.items
-                        .reduce((total, item) => {
-                          const selectedPrice = item.pricesSnapshot?.find(
-                            (price) => price.currency === cart.selectedCurrency
-                          );
-
-                          return (
-                            total +
-                            (selectedPrice?.amount ?? item.unitPriceSnapshot) *
-                              item.quantity
-                          );
-                        }, 0)
+                        .reduce(
+                          (total, item) =>
+                            total + item.unitPriceSnapshot * item.quantity,
+                          0
+                        )
                         .toLocaleString()}
                     </span>
                   </div>

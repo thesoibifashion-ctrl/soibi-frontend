@@ -2,7 +2,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useState } from "react";
 import { addCartItem } from "@/api/features/cart";
 import { toast } from "sonner";
-import { isAuthenticated } from "@/lib/auth-finder";
+import { useAuth } from "@/providers/query-provider";
 import DynamicPrice from "@/components/shared/Prices";
 import { useCurrency } from "@/providers/currency-provider";
 import { getSelectedPrice } from "@/lib/get-price";
@@ -105,6 +105,7 @@ interface ReferencedProductProps {
 }
 
 const ReferencedProduct = ({ slug, onClose }: ReferencedProductProps) => {
+  const { isAuthenticated } = useAuth();
   const { data: product, isLoading, isError } = useProductBySlug(slug);
 
   const [isAdding, setIsAdding] = useState(false);
@@ -128,13 +129,13 @@ const ReferencedProduct = ({ slug, onClose }: ReferencedProductProps) => {
         selectedSize: null,
         selectedColor: null,
         selectedMaterial: product.materials?.[0]?.name ?? null,
-        unitPriceSnapshot: selectedPrice?.amount ?? 0,
+        unitPriceSnapshot: product.basePrice ?? 0,
         currency: selectedPrice?.currency ?? "",
         pricesSnapshot: product.prices ?? [],
         customMeasurements: null,
       };
 
-      if (isAuthenticated()) {
+      if (isAuthenticated) {
         await addCartItem(cartItem);
       } else {
         let guestItems: (typeof cartItem)[] = [];

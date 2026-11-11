@@ -1,4 +1,5 @@
 const VITE_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { authStorage, isAuthSessionEndpoint, refreshSession } from "@/lib/auth-storage";
 
 export interface ApiResponse<T> {
   success: boolean;
@@ -10,22 +11,22 @@ const apiRequest = async <T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> => {
-  const accessToken = localStorage.getItem("accessToken");
-
-  const response = await fetch(`${VITE_API_BASE_URL}${endpoint}`, {
+  const send = (token: string | null) => fetch(`${VITE_API_BASE_URL}${endpoint}`, {
     ...options,
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      ...(accessToken
-        ? {
-            Authorization: `Bearer ${accessToken}`,
-          }
-        : {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...options.headers,
     },
   });
 
-  const result: ApiResponse<T> = await response.json();
+  let response = await send(authStorage.getToken());
+  if (response.status === 401 && !isAuthSessionEndpoint(endpoint)) {
+    if (await refreshSession()) response = await send(authStorage.getToken());
+  }
+
+  const result: ApiResponse<T> = await response.json().catch(() => ({ success: false, message: "Request failed", data: undefined as T }));
 
   if (!response.ok || !result.success) {
     throw new Error(result.message || "Something went wrong");

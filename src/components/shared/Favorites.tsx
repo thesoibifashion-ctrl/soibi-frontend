@@ -5,7 +5,7 @@ import { Heart, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { addFavorite, getFavorites, removeFavorite } from "@/api/features/cart";
-import { isAuthenticated } from "@/lib/auth-finder";
+import { useAuth } from "@/providers/query-provider";
 
 interface FavoriteButtonProps {
   productId: string;
@@ -17,10 +17,11 @@ const FavoriteButton = ({ productId, className = "" }: FavoriteButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const queryClient = useQueryClient();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const checkFavorite = async () => {
-      if (!isAuthenticated()) return;
+      if (!isAuthenticated) return;
 
       try {
         const favorites = await getFavorites();
@@ -34,10 +35,10 @@ const FavoriteButton = ({ productId, className = "" }: FavoriteButtonProps) => {
     };
 
     checkFavorite();
-  }, [productId]);
+  }, [productId, isAuthenticated]);
 
   const handleFavorite = async () => {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated) {
       toast.error("Please log in to add favorites");
       return;
     }
