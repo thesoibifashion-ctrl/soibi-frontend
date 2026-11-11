@@ -16,6 +16,7 @@ import { authStorage } from "@/lib/auth-storage";
 import { syncGuestCartToServer } from "@/hooks/use-cart";
 import Image from "next/image";
 import { toast } from "sonner";
+import Link from "next/link";
 
 type ModalView = "choice" | "email" | "code";
 
@@ -32,7 +33,7 @@ const CheckoutButton = ({ open, onOpenChange }: CheckoutButtonProps) => {
   const [email, setEmail] = useState("");
   const [digits, setDigits] = useState(["", "", "", "","",""]);
   const [countdown, setCountdown] = useState(0);
-
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
@@ -165,29 +166,65 @@ const CheckoutButton = ({ open, onOpenChange }: CheckoutButtonProps) => {
                 Choose how you'd like to continue with your order.
               </DialogDescription>
             </DialogHeader>
-
             <div className="mt-8 space-y-3">
-              <button
-                type="button"
-                onClick={handleGuestCheckout}
-                className="flex h-12 w-full items-center justify-center rounded-full bg-black text-sm font-medium text-white transition-all duration-300 hover:bg-black/85"
-              >
-                Continue as Guest
-              </button>
+  <button
+    type="button"
+    disabled={!acceptedTerms}
+    onClick={handleGuestCheckout}
+    className={`flex h-12 w-full items-center justify-center rounded-full text-sm font-medium text-white transition-all duration-300 ${
+      acceptedTerms
+        ? "bg-black hover:bg-black/85"
+        : "cursor-not-allowed bg-[#00000082]"
+    }`}
+  >
+    Continue as Guest
+  </button>
 
-              <button
-                type="button"
-                onClick={() => setView("email")}
-                className="flex h-12 w-full items-center justify-center rounded-full border border-black bg-white text-sm font-medium text-black transition-all duration-300 hover:bg-black hover:text-white"
-              >
-                Log in to Continue
-              </button>
-            </div>
-
+  <button
+    type="button"
+    disabled={!acceptedTerms}
+    onClick={() => setView("email")}
+    className={`flex h-12 w-full items-center justify-center rounded-full border border-black bg-white text-sm font-medium text-black transition-all duration-300 ${
+      !acceptedTerms ? "cursor-not-allowed opacity-50" : ""
+    }`}
+  >
+    Log in to Continue
+  </button>
+</div>
             <p className="mt-6 text-center text-[11px] leading-5 text-gray-400">
               You can check out as a guest and still track your order using your
               tracking number.
             </p>
+
+            <div className="flex items-start gap-3">
+  <input
+    id="accept-terms"
+    type="checkbox"
+    checked={acceptedTerms}
+    onChange={(e) => setAcceptedTerms(e.target.checked)}
+    className="mt-1 h-4 w-4 accent-[#A56423]"
+  />
+
+  <label htmlFor="accept-terms" className="text-sm font-sans text-black">
+    I have read and agree to the{" "}
+    <Link
+      href="/terms"
+      target="_blank"
+      className="font-semibold text-[blue] text-xs underline"
+    >
+      Terms and Conditions
+    </Link>{" "}
+    and{" "}
+    <Link
+      href="/privacy"
+      target="_blank"
+      className="font-semibold text-[blue] text-xs underline"
+    >
+      Privacy Policy
+    </Link>
+    .
+  </label>
+</div>
           </>
         )}
 

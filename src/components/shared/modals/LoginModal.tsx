@@ -15,6 +15,7 @@ import { authStorage } from "@/lib/auth-storage";
 import { syncGuestCartToServer } from "@/hooks/use-cart";
 import Image from "next/image";
 import { toast } from "sonner";
+import Link from "next/link";
 
 type ModalView = "email" | "code";
 
@@ -30,7 +31,7 @@ const LoginModal = ({ open, onOpenChange }: LoginModalProps) => {
   const [email, setEmail] = useState("");
   const [digits, setDigits] = useState(["", "", "", "", "", ""]);
   const [countdown, setCountdown] = useState(0);
-
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
@@ -176,50 +177,75 @@ const LoginModal = ({ open, onOpenChange }: LoginModalProps) => {
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="md:min-w-112 w-full rounded-3xl border-0 bg-white p-4 md:p-8 shadow-2xl">
         {view === "email" && (
-          <>
-            <DialogHeader>
-              <DialogTitle className="font-(--font-prata) text-3xl text-black">
-                Welcome back
-              </DialogTitle>
-
-              <DialogDescription className="mt-2 text-sm leading-6 text-gray-500">
-                Enter your email and we'll send you a login code.
-              </DialogDescription>
-            </DialogHeader>
-
-            <form onSubmit={handleSendCode} className="mt-7 space-y-5">
-              <div>
-                <label className="mb-2 block text-sm font-medium text-black">
-                  Email
-                </label>
-
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  autoFocus
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="h-12 w-full rounded-xl border border-[#E5E7EB] bg-[#FAFAFA] px-4 text-sm outline-none transition focus:border-black"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={requestCodeMutation.isPending}
-                className="flex h-12 w-full items-center justify-center rounded-full bg-black text-sm font-medium text-white transition-all duration-300 hover:bg-black/85 disabled:opacity-60"
-              >
-                {requestCodeMutation.isPending ? (
-                  <Loader2 className="animate-spin" />
-                ) : (
-                  "Send Code"
-                )}
-              </button>
-            </form>
-
+        <>
+        <DialogHeader>
+          <DialogTitle className="font-(--font-prata) text-3xl text-black">
+            Welcome back
+          </DialogTitle>
       
-          </>
+          <DialogDescription className="mt-2 text-sm leading-6 text-gray-500">
+            Enter your email and we'll send you a login code.
+          </DialogDescription>
+        </DialogHeader>
+      
+        <form onSubmit={handleSendCode} className="mt-7 space-y-5">
+          <div>
+            <label className="mb-2 block text-sm font-sans font-medium text-black">
+              Email
+            </label>
+      
+            <input
+              type="email"
+              name="email"
+              required
+              autoFocus
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="h-12 w-full rounded-xl border border-[#E5E7EB] bg-[#FAFAFA] px-4 text-sm outline-none transition focus:border-black"
+            />
+          </div>
+      
+          <div className="flex items-start gap-3">
+            <input
+              id="accept-terms"
+              type="checkbox"
+              checked={acceptedTerms}
+              onChange={(e) => setAcceptedTerms(e.target.checked)}
+              required
+              className="mt-1 h-4 w-4 accent-[#A56423]"
+            />
+      
+            <label htmlFor="accept-terms" className="text-sm font-sans text-black">
+              I have read and agree to the{" "}
+              <Link href="/terms" target="_blank" className="font-semibold text-[blue] text-xs underline">
+                Terms and Conditions
+              </Link>{" "}
+              and{" "}
+              <Link href="/privacy" target="_blank" className="font-semibold text-[blue] text-xs underline">
+                Privacy Policy
+              </Link>
+              .
+            </label>
+          </div>
+      
+          <button
+            type="submit"
+            disabled={
+              requestCodeMutation.isPending ||
+              !acceptedTerms ||
+              !email.trim() ||
+              !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+            }            className="flex h-12 w-full items-center justify-center rounded-full bg-black text-sm font-medium text-white transition-all duration-300 hover:bg-black/85 disabled:opacity-60"
+          >
+            {requestCodeMutation.isPending ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              "Send Code"
+            )}
+          </button>
+        </form>
+      </>
         )}
 
         {view === "code" && (

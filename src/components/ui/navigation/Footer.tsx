@@ -22,7 +22,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="grid w-full grid-cols-2 gap-10 sm:grid-cols-3 lg:w-[70%] lg:gap-0">
+          <div className="grid w-full grid-cols-2 gap-10 sm:grid-cols-4 lg:w-[70%] lg:gap-0">
             <div>
               <h3 className="mb-5 font-sans text-sm font-medium uppercase">
                 Quick Links
@@ -58,6 +58,19 @@ const Footer = () => {
                 {/* <Link href="/privacy-policy">Favorites</Link> */}
               </div>
             </div>
+            <div>
+              <h3 className="mb-5 font-sans text-sm font-medium uppercase">
+                Legal
+              </h3>
+
+              <div className="flex flex-col gap-3 font-sans text-sm text-[#A5A9A7]">
+                <Link href="/terms">Terms and Conditions</Link>
+                <Link href="/policy">Privacy Policy</Link>
+                {/* <Link href="/wishlist">History</Link> */}
+                {/* <Link href="/privacy-policy">Favorites</Link> */}
+              </div>
+            </div>
+
           </div>
         </div>
 

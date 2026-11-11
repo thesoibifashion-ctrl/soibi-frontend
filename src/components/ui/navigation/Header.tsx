@@ -38,6 +38,8 @@ export const Navbar = () => {
     pathname.startsWith("/404") ||
     pathname.startsWith("/tracking") ||
     pathname.startsWith("/blog") ||
+    pathname.startsWith("/privacy") ||
+    pathname.startsWith("/terms") ||
     pathname.startsWith("/profile");
     
 
