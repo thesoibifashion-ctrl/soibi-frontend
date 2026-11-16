@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Product } from "@/types/Index";
 import { useCurrency } from "@/providers/currency-provider";
 import { getSelectedPrice } from "@/lib/get-price";
+import { formatPrice } from "@/lib/format-price";
 
 interface products {
   products: Product[];
@@ -70,11 +71,8 @@ const ProductFiltersSidebar = ({ products, onSelect }: products) => {
   const { selectedCurrency } = useCurrency();
 
   const availablePrices = products
-    .map((product) =>
-      getSelectedPrice(product.prices ?? [], selectedCurrency)
-    )
-    .filter((price) => price && typeof price.amount === "number")
-    .map((price) => price!.amount);
+    .map((product) => product.basePrice)
+    .filter((price) => typeof price === "number");
 
   const minAvailable = availablePrices.length
     ? Math.min(...availablePrices)
@@ -285,15 +283,14 @@ const ProductFiltersSidebar = ({ products, onSelect }: products) => {
 
         {/* <Separator /> */}
 
-        {/* <section>
+        <section>
           <h3 className="mb-3 font-medium">Price Range</h3>
 
           {availablePrices.length > 0 ? (
             <>
               <p className="mb-3 text-xs text-gray-500">
-                Available prices: {currencySymbol}
-                {minAvailable.toLocaleString()} – {currencySymbol}
-                {maxAvailable.toLocaleString()}
+                Available prices: {formatPrice(minAvailable)} –{" "}
+                {formatPrice(maxAvailable)}
               </p>
 
               <div className="grid grid-cols-2 gap-3">
@@ -320,19 +317,19 @@ const ProductFiltersSidebar = ({ products, onSelect }: products) => {
 
               <Button
                 onClick={applyPriceRange}
-                className="mt-3 w-full bg-near-black text-gold hover:bg-near-black/90"
+                className="mt-3 w-full cursor-pointer bg-near-black text-gold hover:bg-near-black/90"
               >
                 Apply Price
               </Button>
             </>
           ) : (
             <p className="text-xs text-gray-500">
-              No prices available in {selectedCurrency}.
+              No prices available.
             </p>
           )}
-        </section> */}
+        </section>
 
-        {/* <Separator /> */}
+        <Separator />
       </div>
     </aside>
   );
