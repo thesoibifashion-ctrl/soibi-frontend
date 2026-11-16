@@ -84,12 +84,12 @@ const HomePage = () => {
         </>
       )}
 
-      <div className="mt-11.25 md:mt-23.5">
+      {/* <div className="mt-11.25 md:mt-23.5">
         <Marquee
           items={["Colour", "Craft", "Movement", "Timeless"]}
           speed={25}
         />
-      </div>
+      </div> */}
 
       <Memory />
 

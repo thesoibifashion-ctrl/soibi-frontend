@@ -1,4 +1,4 @@
-import TermsAndConditionsPage from "./Privacy"
+import TermsAndConditionsPage from "./terms"
 
 const TermsPage = () => {
   return <TermsAndConditionsPage/>

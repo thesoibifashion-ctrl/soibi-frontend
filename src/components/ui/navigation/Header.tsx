@@ -40,6 +40,7 @@ export const Navbar = () => {
     pathname.startsWith("/blog") ||
     pathname.startsWith("/privacy") ||
     pathname.startsWith("/terms") ||
+    pathname.startsWith("/return-refund") ||
     pathname.startsWith("/profile");
     
 

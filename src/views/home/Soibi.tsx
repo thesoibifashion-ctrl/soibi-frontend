@@ -23,6 +23,7 @@ const Hero = ({ customization }: HeroProps) => {
 
   return (
     <div className="mt-30">
+      
       <Container>
         <p className="text-[#000000] text-[30px] md:text-[55px]">
           SOIBI In The World

@@ -45,9 +45,9 @@ const WhatsAppButton = () => {
         <Image
           src="/whatsapp.png"
           alt="WhatsApp"
-          width={56}
-          height={56}
-          className="h-14 rounded-full w-14 drop-shadow-xl"
+          width={26}
+          height={26}
+          className="h-12 rounded-full w-12 drop-shadow-xl"
         />
       </motion.a>
     </div>

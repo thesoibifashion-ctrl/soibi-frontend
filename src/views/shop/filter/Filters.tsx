@@ -285,7 +285,7 @@ const ProductFiltersSidebar = ({ products, onSelect }: products) => {
 
         {/* <Separator /> */}
 
-        <section>
+        {/* <section>
           <h3 className="mb-3 font-medium">Price Range</h3>
 
           {availablePrices.length > 0 ? (
@@ -330,9 +330,9 @@ const ProductFiltersSidebar = ({ products, onSelect }: products) => {
               No prices available in {selectedCurrency}.
             </p>
           )}
-        </section>
+        </section> */}
 
-        <Separator />
+        {/* <Separator /> */}
       </div>
     </aside>
   );

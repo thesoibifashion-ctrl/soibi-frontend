@@ -20,6 +20,7 @@ import ProductDescription from "./ProductImage";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import CurrencyPicker from "@/components/shared/CurrencyPicker";
+import { formatPrice } from "@/lib/format-price";
 
 interface ViewProductPageProps {
   slug: string;
@@ -250,7 +251,7 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
                 Back to shop
               </Link>
             </div>
-            <div className="lg:flex gap-1 mt-3">
+            <div className="lg:flex  gap-1 mt-3">
               <div className="w-full lg:w-[80%]">
                 {images.length > 0 && (
                   <img
@@ -288,12 +289,12 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
         </div>
 
         <div className="h-full w-full pb-28">
-          <div className="flex flex-col justify-between gap-6 lg:gap-12 mt-4 lg:p-10">
+          <div className="flex flex-col justify-between gap-6  mt-4 lg:p-10">
             <div>
             <p className="text-2xl lg:text-[95px] leading-tight lg:leading-[120px] text-black">
                 {product.name}
               </p>  <p className="text-xl lg:text-[20px] leading-tight  text-black">
-              ₦{product.basePrice}
+              {formatPrice(product.basePrice || 0)}
               </p>
 
               {/* <DynamicPrice

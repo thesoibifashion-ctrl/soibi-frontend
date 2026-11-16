@@ -65,7 +65,8 @@ const Footer = () => {
 
               <div className="flex flex-col gap-3 font-sans text-sm text-[#A5A9A7]">
                 <Link href="/terms">Terms and Conditions</Link>
-                <Link href="/policy">Privacy Policy</Link>
+                <Link href="/privacy">Privacy Policy</Link>
+                <Link href="/return-refund">Returns & Refunds</Link>
                 {/* <Link href="/wishlist">History</Link> */}
                 {/* <Link href="/privacy-policy">Favorites</Link> */}
               </div>

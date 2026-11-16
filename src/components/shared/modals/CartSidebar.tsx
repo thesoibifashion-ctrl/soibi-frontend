@@ -35,6 +35,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Popover, PopoverContent,PopoverTrigger } from "@/components/ui/popover";
+import { formatPrice } from "@/lib/format-price";
 
 interface isActive {
   active: boolean;
@@ -418,7 +419,7 @@ const CartSidebar = ({ active }: isActive) => {
                             </div> */}
 
                             <p className="font-display text-sm font-bold text-near-black">
-                              ₦ {item.unitPriceSnapshot}
+                               {formatPrice(item.unitPriceSnapshot|| 0)}
                             </p>
                           </div>
                         </div>
@@ -457,15 +458,14 @@ const CartSidebar = ({ active }: isActive) => {
                     </span>
 
                     <span className="font-display text-xl font-bold text-near-black">
-                      ₦
-                      {cart.items
-                        .reduce(
-                          (total, item) =>
-                            total + item.unitPriceSnapshot * item.quantity,
-                          0
-                        )
-                        .toLocaleString()}
-                    </span>
+  {formatPrice(
+    cart.items.reduce(
+      (total, item) =>
+        total + item.unitPriceSnapshot * item.quantity,
+      0
+    )
+  )}
+</span>
                   </div>
 
                   <Separator />

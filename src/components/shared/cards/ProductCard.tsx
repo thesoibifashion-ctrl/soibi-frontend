@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import DynamicPrice from "../Prices";
 import FavoriteButton from "../Favorites";
+import { formatPrice } from "@/lib/format-price";
 
 interface ProductCardProps {
   product: Product;
@@ -80,7 +81,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
               className="text-xs md:text-sm font-semibold"
             />
           )} */}
-          <p className="text-xs md:text-sm font-semibold">₦{product.basePrice}</p>
+          <p className="text-xs md:text-sm font-semibold">{formatPrice(product.basePrice || 0)}</p>
         </div>
       </div>
     </div>

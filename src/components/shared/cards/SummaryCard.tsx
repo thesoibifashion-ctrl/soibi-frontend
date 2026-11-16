@@ -88,7 +88,7 @@
 "use client";
 
 import { type PricedItem } from "@/lib/cart-totals";
-
+import { formatPrice } from "@/lib/format-price";
 export interface OrderSummaryItem extends PricedItem {
   id: string;
   productNameSnapshot: string | null;
@@ -124,10 +124,9 @@ const OrderSummaryCard = ({ items, selectedCurrency, className = "", footer }: O
             <div className="flex-1">
               <p className="text-base text-white font-normal">{item.productNameSnapshot ?? "Custom item"}</p>
               <p className="text-xs text-[#595959]">Qty {item.quantity}</p>
-              <span className="text-sm font-semibold text-[#A56423]">
-                {/* {item.basePrice?.symbol}{" "} */}₦
-                {((item.unitPriceSnapshot ?? 0) * item.quantity).toLocaleString()}
-              </span>
+   <span className="text-sm font-semibold text-[#A56423]">
+  {formatPrice((item.unitPriceSnapshot ?? 0) * item.quantity)}
+</span>
             </div>
           </div>
         ))}
@@ -137,12 +136,15 @@ const OrderSummaryCard = ({ items, selectedCurrency, className = "", footer }: O
         <div className="flex mt-[23px] items-center justify-between text-lg font-semibold">
           <span className="text-[12px] text-[#404944]">Total </span>
           <span className="text-2xl text-[#A56423]">
-            {/* {items[0]?.unitPriceSnapshot?.symbol}{" "} */}₦
-            {items.reduce(
-              (total, item) => total + (item.unitPriceSnapshot ?? 0) * item.quantity,
-              0
-            ).toLocaleString()}
-          </span>
+  
+  {formatPrice(
+    items.reduce(
+      (total, item) =>
+        total + (item.unitPriceSnapshot ?? 0) * item.quantity,
+      0
+    )
+  )}
+</span>
         </div>
         <p className="text-white text-xs mt-8">Your order will only be processed after payment has been verified.</p>
       </div>

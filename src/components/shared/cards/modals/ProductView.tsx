@@ -10,6 +10,7 @@ import {
 import { Product } from "@/types/Index";
 import AnimatedButton from "../../AnimatedButton";
 import DynamicPrice from "../../Prices";
+import { formatPrice } from "@/lib/format-price";
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -67,7 +68,7 @@ export function QuickViewModal({
 
                   <p className="text-[15px] text-black">
                     {/* <DynamicPrice prices={product.prices} /> */}
-                    ₦{product.basePrice}
+                    {formatPrice(product.basePrice|| 0)}
                   </p>
                 </div>
 

@@ -1,4 +1,4 @@
-import TermsPage from "@/views/privacy/Index"
+import TermsPage from "@/views/terms/Index"
 
 const page = () => {
   return <TermsPage/>

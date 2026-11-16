@@ -21,7 +21,10 @@ const Memory = () => {
   
 
   return (
+<div>
+
     <Container className="lg:grid grid-cols-2 flex flex-col-reverse  items-center pb-10 md:pb-20 lg:pb-50 pt-8 md:pt-29.75 gap-15">
+ 
       <div className="mt-12 lg:mt-0">
         <p className="font-medium text-[11px] md:text-xl text-[#404944]">
           Est. Port Harcourt 2022
@@ -71,6 +74,7 @@ const Memory = () => {
         </div>
       </div>
     </Container>
+    </div>
   );
 };
 
