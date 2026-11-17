@@ -17,8 +17,7 @@ const ReturnsRefundsPage = () => {
                 </h1>
   
                 <p className="mt-8 max-w-xl text-sm leading-8 text-[#68645E] md:text-base">
-                  Everything you need to know about cancellations, returns and
-                  refunds at THE SOIBI FASHION.
+                  Everything you need to know about cancellations, returns and refunds at THE SOIBI FASHION.
                 </p>
               </div>
   
@@ -46,9 +45,10 @@ const ReturnsRefundsPage = () => {
   
           <div className="max-w-2xl space-y-6 text-sm leading-8 text-[#5F5B55] md:text-base">
             <p>
-              Every Product is made to order after you have placed your Order
-              and paid. We do not keep stock. Each Product is made specifically
-              for you to the measurements you provide, so it cannot be resold.
+              Every product is made to order. Production begins upon receipt of
+              your order and payment. We do not hold ready-made stock. Each piece
+              is crafted specifically for you, using the measurements you
+              provide, and therefore cannot be resold.
             </p>
   
             <p>
@@ -63,6 +63,7 @@ const ReturnsRefundsPage = () => {
         {/* Policy sections */}
         <section className="border-t border-[#E5E0D8]">
           <div className="mx-auto max-w-7xl px-6 md:px-12">
+  
             {/* Section 01 */}
             <article className="grid gap-10 border-b border-[#E5E0D8] py-16 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-24">
               <div>
@@ -222,30 +223,28 @@ const ReturnsRefundsPage = () => {
                   <p>
                     The Production Time is 21 days from the Production Start
                     Date. Delivery time is separate. It begins at dispatch, and
-                    the number of days depends on the Courier and your
-                    destination.
+                    the number of days depends on the Courier and your destination.
                   </p>
   
                   <p className="mt-4">
                     All dates are estimates, not guarantees. Hand-finished,
                     culturally rooted pieces involve skilled craftsmanship, and
                     timelines may shift due to materials, artisan availability,
-                    or peak periods. We will keep you informed of material
-                    delays.
+                    or peak periods. We will keep you informed of material delays.
                   </p>
   
                   <p className="mt-4">
-                    If we have not dispatched your Order within 30 days after
-                    the end of the Production Time (extended only by force
-                    majeure under clause 15), you may cancel the Order by
-                    written notice, and we will refund everything you paid,
-                    including Delivery Costs, within 14 Business Days.
+                    If we have not dispatched your Order within 30 days after the
+                    end of the Production Time (extended only by an event
+                    described in clause 15), you may cancel the Order by written
+                    notice, and we will refund everything you paid, including any
+                    Delivery Costs, within 14 Business Days.
                   </p>
   
                   <p className="mt-4">
-                    If the delay lasts more than 30 days, you may cancel and
-                    receive a refund of everything you paid for the undelivered
-                    Products, including Delivery Costs, within 14 Business Days.
+                    If the delay lasts more than 30 days, you may cancel, and we
+                    will refund everything you paid for undelivered Products,
+                    including any Delivery Costs, within 14 Business Days.
                   </p>
                 </div>
   
@@ -256,19 +255,17 @@ const ReturnsRefundsPage = () => {
   
                   <p>
                     If you do not confirm your delivery details or pay the
-                    Delivery Costs within 30 days after we notify you that your
-                    Order is ready to ship, we may cancel the Order by written
-                    notice. We will refund the amount you paid within 14
-                    Business Days, less any Delivery Costs and storage costs we
-                    have incurred and our reasonable costs of production.
+                    Delivery Costs within 7 days, we may cancel the Order by
+                    written notice. We will refund the amount you paid within
+                    14 Business Days.
                   </p>
   
                   <p className="mt-4">
                     We may decline or cancel an Order, for example, for pricing
-                    errors, stock or material unavailability, or suspected
-                    fraud. If we do so after payment, we will refund the full
-                    amount paid within 14 Business Days to the account or card
-                    from which the payment was made.
+                    errors, stock or material unavailability, or suspected fraud.
+                    If we do so after payment, we will refund the full amount
+                    paid within 14 Business Days to the account or card from
+                    which the payment was made.
                   </p>
   
                   <p className="mt-4">
@@ -313,80 +310,62 @@ const ReturnsRefundsPage = () => {
           </div>
         </section>
   
-        {/* Contact */}
-        {/* <section className="bg-[#171717] text-[#F8F6F2]">
-          <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 md:items-center md:px-12 md:py-24">
+        {/* Get in Touch */}
+        {/* <section className="border-t border-[#E5E0D8]">
+          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.8fr_1.2fr] md:px-12 md:py-24">
             <div>
-              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#C9A27A]">
-                We're here to help
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#A56423]">
+                Get in Touch
               </p>
   
-              <h2 className="mt-5 max-w-md font-serif text-4xl leading-tight md:text-6xl">
-                Need a little assistance?
+              <h2 className="mt-5 max-w-sm font-serif text-4xl leading-tight md:text-5xl">
+                We're here to help.
               </h2>
-  
-              <p className="mt-6 max-w-md text-sm leading-8 text-[#C2BEB6]">
-                If you have a question about your Order or need to report an
-                issue, get in touch with us.
-              </p>
             </div>
   
-            <div className="grid gap-8 border-t border-[#44413B] pt-8 sm:grid-cols-2 md:border-l md:border-t-0 md:pl-12 md:pt-0">
+            <div className="max-w-2xl space-y-7 text-sm leading-8 text-[#5F5B55] md:text-base">
+              <p>
+                If you have a question about your Order or need to report an
+                issue, contact us:
+              </p>
+  
               <div>
-                <p className="text-xs uppercase tracking-[0.18em] text-[#A9A39A]">
-                  Email
-                </p>
+                <p className="font-semibold text-[#171717]">Email:</p>
                 <a
                   href="mailto:thesoibifashion@gmail.com"
-                  className="mt-3 inline-block break-all text-sm transition-colors hover:text-[#C9A27A]"
+                  className="transition-colors hover:text-[#A56423]"
                 >
                   thesoibifashion@gmail.com
                 </a>
               </div>
   
               <div>
-                <p className="text-xs uppercase tracking-[0.18em] text-[#A9A39A]">
-                  WhatsApp
+                <p className="font-semibold text-[#171717]">
+                  WhatsApp / Phone:
                 </p>
                 <a
                   href="https://wa.me/2349050758912"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 inline-block text-sm transition-colors hover:text-[#C9A27A]"
+                  className="transition-colors hover:text-[#A56423]"
                 >
                   0905 075 8912
                 </a>
               </div>
   
-              <div className="sm:col-span-2">
-                <p className="text-xs uppercase tracking-[0.18em] text-[#A9A39A]">
-                  Location
-                </p>
-                <p className="mt-3 text-sm text-[#C2BEB6]">
-                  Port Harcourt, Rivers State, Nigeria.
-                </p>
+              <div>
+                <p className="font-semibold text-[#171717]">Location:</p>
+                <p>Port Harcourt, Rivers State, Nigeria.</p>
               </div>
             </div>
           </div>
         </section> */}
   
         {/* Legal note */}
-        {/* <section className="mx-auto max-w-7xl px-6 py-16 md:px-12 md:py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-[#A56423]">
-              A final note
-            </p>
-  
-            <h2 className="mt-4 font-serif text-3xl">
-              A little clarity goes a long way.
-            </h2>
-  
-            <p className="mt-5 text-sm leading-8 text-[#68645E]">
-              This policy should be read alongside our full Terms & Conditions.
-              Nothing in this policy limits any consumer rights that cannot
-              legally be excluded.
-            </p>
-          </div>
+        {/* <section className="mx-auto max-w-7xl border-t border-[#E5E0D8] px-6 py-12 md:px-12 md:py-16">
+          <p className="text-center text-sm leading-8 text-[#68645E]">
+            This policy should be read alongside our full Terms & Conditions.
+          </p>
         </section> */}
       </main>
     );
