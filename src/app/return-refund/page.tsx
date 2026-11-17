@@ -3,231 +3,309 @@ const ReturnsRefundsPage = () => {
     return (
       <main className="min-h-screen bg-[#F8F6F2] text-[#171717]">
         {/* Hero */}
-        <section className="border-b border-[#E5E0D8]">
-          <div className="mx-auto max-w-7xl px-6 py-20 md:px-12 md:py-28">
-            <p className="mb-5 text-xs font-medium uppercase tracking-[0.25em] text-[#A56423]">
-              Customer Care / Policies
-            </p>
+        <section className="relative overflow-hidden border-b border-[#E5E0D8]">
+          <div className="mx-auto max-w-7xl px-6 pb-16 pt-16 md:px-12 md:pb-24 md:pt-24">
+            <div className="flex flex-col justify-between gap-12 md:flex-row md:items-end">
+              <div className="max-w-4xl">
+                <p className="mb-8 text-xs font-medium uppercase tracking-[0.25em] text-[#A56423]">
+                  Customer Care / Policies
+                </p>
   
-            <h1 className="max-w-3xl font-serif text-5xl leading-[1.1] tracking-tight md:text-7xl">
-              Returns & Refunds
-            </h1>
+                <h1 className="font-serif text-6xl leading-[0.98] tracking-tight md:text-8xl">
+                  Returns
+                  <span className="block text-[#A56423]">& Refunds</span>
+                </h1>
   
-            <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <p className="max-w-xl text-sm leading-7 text-[#68645E] md:text-base">
-                Everything you need to know about cancellations, returns and
-                refunds at THE SOIBI FASHION.
-              </p>
+                <p className="mt-8 max-w-xl text-sm leading-8 text-[#68645E] md:text-base">
+                  Everything you need to know about cancellations, returns and
+                  refunds at THE SOIBI FASHION.
+                </p>
+              </div>
   
-              <span className="text-xs uppercase tracking-widest text-[#858078]">
-                Last updated: 16 November 2026
-              </span>
+              <div className="flex shrink-0 items-center gap-3 border-t border-[#D8D0C5] pt-5 md:border-t-0 md:border-l md:pl-8 md:pt-0">
+                <span className="h-2 w-2 rounded-full bg-[#A56423]" />
+                <p className="text-xs uppercase tracking-[0.16em] text-[#858078]">
+                  Last updated: 16 November 2026
+                </p>
+              </div>
             </div>
           </div>
         </section>
   
         {/* Introduction */}
-        <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[1fr_2fr] md:px-12 md:py-20">
+        <section className="mx-auto grid max-w-7xl gap-10 px-6 py-20 md:grid-cols-[0.8fr_1.2fr] md:px-12 md:py-28">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-[#A56423]">
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#A56423]">
               Our approach
             </p>
-            <h2 className="mt-4 font-serif text-3xl leading-tight md:text-4xl">
+  
+            <h2 className="mt-5 max-w-sm font-serif text-4xl leading-tight md:text-5xl">
               Made with intention.
             </h2>
           </div>
   
-          <div className="max-w-2xl space-y-5 text-sm leading-8 text-[#5F5B55] md:text-base">
+          <div className="max-w-2xl space-y-6 text-sm leading-8 text-[#5F5B55] md:text-base">
             <p>
-              At THE SOIBI FASHION, our clothing is made to order with care and
-              attention to your selected size and specifications. Because each
-              piece is prepared specifically for an order, our returns and
-              refund policy differs from that of ready-to-wear retail.
+              Every Product is made to order after you have placed your Order
+              and paid. We do not keep stock. Each Product is made specifically
+              for you to the measurements you provide, so it cannot be resold.
             </p>
   
             <p>
-              We want you to be happy with your purchase, and we will work with
-              you to resolve issues where an item is faulty or does not match
-              its description.
+              We take care to present our Products accurately. However, screen
+              settings differ, and handcrafted textiles, dyes, and embellishments
+              can vary slightly between items. Minor variation is part of the
+              character of handmade work and is not a defect.
             </p>
           </div>
         </section>
   
-        {/* Policy Content */}
+        {/* Policy sections */}
         <section className="border-t border-[#E5E0D8]">
           <div className="mx-auto max-w-7xl px-6 md:px-12">
-            {/* Section 1 */}
-            <article className="grid gap-6 border-b border-[#E5E0D8] py-14 md:grid-cols-[1fr_2fr] md:gap-12 md:py-20">
+            {/* Section 01 */}
+            <article className="grid gap-10 border-b border-[#E5E0D8] py-16 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-24">
               <div>
-                <span className="text-xs tracking-[0.2em] text-[#A56423]">
-                  01
-                </span>
-                <h2 className="mt-3 font-serif text-3xl">
+                <p className="font-serif text-5xl text-[#C9A27A]">01</p>
+                <h2 className="mt-5 max-w-xs font-serif text-3xl leading-tight md:text-4xl">
                   Returns & Exchanges
                 </h2>
               </div>
   
-              <div className="max-w-2xl space-y-6 text-sm leading-8 text-[#5F5B55] md:text-base">
-                <h3 className="font-semibold text-[#171717]">
-                  Made-to-order items
-                </h3>
+              <div className="max-w-2xl space-y-10 text-sm leading-8 text-[#5F5B55] md:text-base">
+                <div>
+                  <h3 className="mb-4 font-semibold text-[#171717]">
+                    Made-to-order Products
+                  </h3>
   
-                <p>
-                  All our clothing is made to order. Once production has
-                  started, we cannot accept returns, exchanges or cancellations
-                  for:
-                </p>
-  
-                <ul className="list-disc space-y-3 pl-5 marker:text-[#A56423]">
-                  <li>Change of mind.</li>
-                  <li>
-                    Incorrect measurements or sizing information supplied by
-                    the customer.
-                  </li>
-                  <li>
-                    Fit preferences where the item has been made according to
-                    the measurements or specifications provided.
-                  </li>
-                </ul>
-  
-                <p>
-                  We encourage customers to carefully review their measurements,
-                  selected sizes and order details before confirming an order.
-                </p>
-  
-                <div className="border-l-2 border-[#A56423] bg-[#EFEAE2] p-5">
-                  <p className="font-semibold text-[#171717]">
-                    Please note
-                  </p>
-                  <p className="mt-2 text-sm leading-7">
-                    This policy does not affect your rights regarding products
-                    that are faulty, damaged or not as described.
+                  <p>
+                    You can choose a size from our size chart or provide your own
+                    measurements. Your Product will be made to the size or
+                    measurements you provide. You are responsible for ensuring
+                    that the measurements you provide are accurate. We are happy
+                    to confirm your measurements with you before production.
                   </p>
                 </div>
-              </div>
-            </article>
   
-            {/* Section 2 */}
-            <article className="grid gap-6 border-b border-[#E5E0D8] py-14 md:grid-cols-[1fr_2fr] md:gap-12 md:py-20">
-              <div>
-                <span className="text-xs tracking-[0.2em] text-[#A56423]">
-                  02
-                </span>
-                <h2 className="mt-3 font-serif text-3xl">
-                  Faulty or Incorrect Items
-                </h2>
-              </div>
+                <div className="border-l-2 border-[#A56423] bg-[#EFEAE2] p-6 md:p-8">
+                  <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#A56423]">
+                    Important
+                  </p>
   
-              <div className="max-w-2xl space-y-6 text-sm leading-8 text-[#5F5B55] md:text-base">
-                <p>
-                  If your order arrives faulty, damaged or materially different
-                  from what you ordered, please contact us.
-                </p>
+                  <h3 className="mt-3 font-serif text-2xl text-[#171717]">
+                    When does production start?
+                  </h3>
+  
+                  <div className="mt-5 space-y-4">
+                    <p>
+                      A Delivery Quote is valid for 7 days.
+                    </p>
+  
+                    <p>
+                      The Production Start Date is the date we receive your
+                      acceptance of the Delivery Quote and payment of the
+                      Delivery Costs. If you paid the Delivery Costs at checkout,
+                      the Production Start Date is the date of the Order
+                      Confirmation.
+                    </p>
+  
+                    <p>
+                      If you decline the Delivery Quote, or do not accept it
+                      within 7 days, we will cancel the Order and refund
+                      everything you paid, less any non-recoverable payment
+                      processing fees, within 14 Business Days.
+                    </p>
+                  </div>
+                </div>
   
                 <div>
                   <h3 className="mb-4 font-semibold text-[#171717]">
-                    How to report an issue
+                    Returns, exchanges and cancellations after production starts
                   </h3>
   
-                  <ol className="space-y-4">
-                    {[
-                      "Contact us within 7 days of receiving your order.",
-                      "Provide your order number and a description of the issue.",
-                      "Include clear photographs showing the fault or damage, where applicable.",
-                    ].map((item, index) => (
-                      <li key={index} className="flex gap-4">
-                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#D8D0C5] text-xs text-[#A56423]">
-                          {index + 1}
-                        </span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ol>
+                  <p>
+                    Because every Product is made to your measurements, once the
+                    Production Start Date has passed, an Order cannot be
+                    cancelled, and we do not accept returns, exchanges or refunds
+                    for change of mind or for size or fit issues arising from
+                    the size or measurements you chose or provided.
+                  </p>
+  
+                  <p className="mt-4">
+                    This does not affect clauses 5.4, 7.3 and 15, or your rights
+                    if a Product is faulty or not as described.
+                  </p>
                 </div>
-  
-                <p>
-                  For damage that appears to have occurred during delivery,
-                  please make a note with the courier and notify us within
-                  <strong className="text-[#171717]"> 48 hours of delivery.</strong>
-                </p>
-  
-                <p>
-                  If you discover a fault later, please contact us within a
-                  reasonable time after discovering it.
-                </p>
-  
-                <p>
-                  We will review your complaint and respond within
-                  <strong className="text-[#171717]"> 5 business days.</strong>
-                  Where the issue is confirmed to be our responsibility, we may
-                  offer a repair, replacement or refund, as appropriate.
-                </p>
-  
-                <p>
-                  We will also cover reasonable return shipping costs for
-                  confirmed faulty or incorrectly described items.
-                </p>
               </div>
             </article>
   
-            {/* Section 3 */}
-            <article className="grid gap-6 border-b border-[#E5E0D8] py-14 md:grid-cols-[1fr_2fr] md:gap-12 md:py-20">
+            {/* Section 02 */}
+            <article className="grid gap-10 border-b border-[#E5E0D8] py-16 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-24">
               <div>
-                <span className="text-xs tracking-[0.2em] text-[#A56423]">
-                  03
-                </span>
-                <h2 className="mt-3 font-serif text-3xl">
-                  Cancellations & Refunds
+                <p className="font-serif text-5xl text-[#C9A27A]">02</p>
+                <h2 className="mt-5 max-w-xs font-serif text-3xl leading-tight md:text-4xl">
+                  Faulty or Incorrect Products
                 </h2>
               </div>
   
               <div className="max-w-2xl space-y-8 text-sm leading-8 text-[#5F5B55] md:text-base">
                 <div>
-                  <h3 className="mb-2 font-semibold text-[#171717]">
-                    Before Production Begins
-                  </h3>
                   <p>
-                    Customers may request to cancel an order before production
-                    starts. Approved cancellations will be refunded, less any
-                    non-recoverable payment processing fees.
+                    If your Product is faulty, or not made as described or to
+                    the specifications confirmed in your Order Confirmation,
+                    contact us within 7 days of delivery with your order number
+                    and clear photographs.
+                  </p>
+  
+                  <p className="mt-5">
+                    If a fault appears only later, during normal wear, contact
+                    us within a reasonable time after you discover it.
+                  </p>
+                </div>
+  
+                <div className="border-y border-[#E5E0D8] py-7">
+                  <p>
+                    We will respond within 5 Business Days. After verification,
+                    we will, at your choice where possible, repair, replace, or
+                    refund the item. Where the fault is ours, we will cover
+                    reasonable return shipping costs.
                   </p>
                 </div>
   
                 <div>
-                  <h3 className="mb-2 font-semibold text-[#171717]">
-                    After Production Begins
+                  <h3 className="mb-3 font-semibold text-[#171717]">
+                    Damage during delivery
                   </h3>
+  
                   <p>
-                    Once production has started, orders cannot be cancelled or
-                    refunded simply because of a change of mind or fit preference.
+                    If a parcel arrives damaged, note it on the Courier’s
+                    delivery record and tell the Courier and us within 48 hours,
+                    because a claim for damage in transit lies against the
+                    Courier (clause 5.6).
                   </p>
-                  <p className="mt-3">
-                    This does not affect refunds for confirmed faulty or
-                    incorrectly described items or any applicable statutory
-                    consumer rights.
+  
+                  <p className="mt-4">
+                    Damage caused in transit after the Courier has collected the
+                    parcel is a matter between you and the Courier (clause 5.6).
+                  </p>
+                </div>
+              </div>
+            </article>
+  
+            {/* Section 03 */}
+            <article className="grid gap-10 py-16 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-24">
+              <div>
+                <p className="font-serif text-5xl text-[#C9A27A]">03</p>
+                <h2 className="mt-5 max-w-xs font-serif text-3xl leading-tight md:text-4xl">
+                  Cancellations & Refunds
+                </h2>
+              </div>
+  
+              <div className="max-w-2xl space-y-10 text-sm leading-8 text-[#5F5B55] md:text-base">
+                <div>
+                  <h3 className="mb-4 font-semibold text-[#171717]">
+                    Before the Production Start Date
+                  </h3>
+  
+                  <p>
+                    You may cancel an Order at any time before the Production
+                    Start Date by contacting us, and we will refund everything
+                    you paid, less any non-recoverable payment processing fees.
                   </p>
                 </div>
   
                 <div>
-                  <h3 className="mb-2 font-semibold text-[#171717]">
-                    Refund Processing
+                  <h3 className="mb-4 font-semibold text-[#171717]">
+                    Delays in dispatch
                   </h3>
+  
                   <p>
-                    Approved refunds will be returned to the original payment
-                    method or account, in the original currency where possible,
-                    within
-                    <strong className="text-[#171717]"> 14 business days of approval.</strong>
+                    The Production Time is 21 days from the Production Start
+                    Date. Delivery time is separate. It begins at dispatch, and
+                    the number of days depends on the Courier and your
+                    destination.
+                  </p>
+  
+                  <p className="mt-4">
+                    All dates are estimates, not guarantees. Hand-finished,
+                    culturally rooted pieces involve skilled craftsmanship, and
+                    timelines may shift due to materials, artisan availability,
+                    or peak periods. We will keep you informed of material
+                    delays.
+                  </p>
+  
+                  <p className="mt-4">
+                    If we have not dispatched your Order within 30 days after
+                    the end of the Production Time (extended only by force
+                    majeure under clause 15), you may cancel the Order by
+                    written notice, and we will refund everything you paid,
+                    including Delivery Costs, within 14 Business Days.
+                  </p>
+  
+                  <p className="mt-4">
+                    If the delay lasts more than 30 days, you may cancel and
+                    receive a refund of everything you paid for the undelivered
+                    Products, including Delivery Costs, within 14 Business Days.
                   </p>
                 </div>
   
                 <div>
-                  <h3 className="mb-2 font-semibold text-[#171717]">
-                    Delivery Charges
+                  <h3 className="mb-4 font-semibold text-[#171717]">
+                    Other cancellation circumstances
                   </h3>
+  
                   <p>
-                    Delivery charges are generally non-refundable once an order
-                    has been dispatched, except where the issue is our
-                    responsibility or a refund is due under our Terms & Conditions.
+                    If you do not confirm your delivery details or pay the
+                    Delivery Costs within 30 days after we notify you that your
+                    Order is ready to ship, we may cancel the Order by written
+                    notice. We will refund the amount you paid within 14
+                    Business Days, less any Delivery Costs and storage costs we
+                    have incurred and our reasonable costs of production.
+                  </p>
+  
+                  <p className="mt-4">
+                    We may decline or cancel an Order, for example, for pricing
+                    errors, stock or material unavailability, or suspected
+                    fraud. If we do so after payment, we will refund the full
+                    amount paid within 14 Business Days to the account or card
+                    from which the payment was made.
+                  </p>
+  
+                  <p className="mt-4">
+                    We will send you an Order Confirmation, or tell you that we
+                    have declined your Order, within 48 hours of receiving your
+                    payment. If we do neither within that time, you may cancel,
+                    and we will refund everything you paid within 14 Business
+                    Days.
+                  </p>
+                </div>
+  
+                <div>
+                  <h3 className="mb-4 font-semibold text-[#171717]">
+                    How refunds are processed
+                  </h3>
+  
+                  <p>
+                    We make approved refunds to the original payment method or,
+                    for a bank transfer, to the account the payment came from,
+                    in the original currency paid where possible, within 14
+                    Business Days of approval.
+                  </p>
+  
+                  <p className="mt-4">
+                    Delivery Costs already paid to the Courier are not
+                    refundable once the Order has been dispatched, unless the
+                    error was ours or the Order is cancelled under clause 5.4
+                    or 15.
+                  </p>
+                </div>
+  
+                <div className="border-t border-[#E5E0D8] pt-7">
+                  <p className="text-sm leading-8 text-[#171717]">
+                    Nothing in these Terms limits your rights under the Federal
+                    Competition and Consumer Protection Act 2018 or other
+                    mandatory consumer protection laws that apply to you,
+                    including rights that cannot be waived by contract.
                   </p>
                 </div>
               </div>
@@ -236,72 +314,80 @@ const ReturnsRefundsPage = () => {
         </section>
   
         {/* Contact */}
-        <section className="bg-[#171717] text-[#F8F6F2]">
-          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center md:px-12 md:py-20">
+        {/* <section className="bg-[#171717] text-[#F8F6F2]">
+          <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 md:items-center md:px-12 md:py-24">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-[#C9A27A]">
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#C9A27A]">
                 We're here to help
               </p>
-              <h2 className="mt-4 max-w-md font-serif text-4xl leading-tight md:text-5xl">
+  
+              <h2 className="mt-5 max-w-md font-serif text-4xl leading-tight md:text-6xl">
                 Need a little assistance?
               </h2>
-              <p className="mt-5 max-w-md text-sm leading-7 text-[#C2BEB6]">
-                For questions or assistance regarding returns, refunds or
-                order issues, get in touch with our team. Kindly include your
-                order number so we can assist you faster.
+  
+              <p className="mt-6 max-w-md text-sm leading-8 text-[#C2BEB6]">
+                If you have a question about your Order or need to report an
+                issue, get in touch with us.
               </p>
             </div>
   
-            <div className="space-y-6 border-t border-[#44413B] pt-8 md:border-l md:border-t-0 md:pl-12 md:pt-0">
+            <div className="grid gap-8 border-t border-[#44413B] pt-8 sm:grid-cols-2 md:border-l md:border-t-0 md:pl-12 md:pt-0">
               <div>
-                <p className="text-xs uppercase tracking-widest text-[#A9A39A]">
+                <p className="text-xs uppercase tracking-[0.18em] text-[#A9A39A]">
                   Email
                 </p>
                 <a
                   href="mailto:thesoibifashion@gmail.com"
-                  className="mt-2 inline-block text-base transition-colors hover:text-[#C9A27A]"
+                  className="mt-3 inline-block break-all text-sm transition-colors hover:text-[#C9A27A]"
                 >
                   thesoibifashion@gmail.com
                 </a>
               </div>
   
               <div>
-                <p className="text-xs uppercase tracking-widest text-[#A9A39A]">
+                <p className="text-xs uppercase tracking-[0.18em] text-[#A9A39A]">
                   WhatsApp
                 </p>
                 <a
                   href="https://wa.me/2349050758912"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 inline-block text-base transition-colors hover:text-[#C9A27A]"
+                  className="mt-3 inline-block text-sm transition-colors hover:text-[#C9A27A]"
                 >
                   0905 075 8912
                 </a>
               </div>
   
-              <div>
-                <p className="text-xs uppercase tracking-widest text-[#A9A39A]">
+              <div className="sm:col-span-2">
+                <p className="text-xs uppercase tracking-[0.18em] text-[#A9A39A]">
                   Location
                 </p>
-                <p className="mt-2 text-sm text-[#C2BEB6]">
+                <p className="mt-3 text-sm text-[#C2BEB6]">
                   Port Harcourt, Rivers State, Nigeria.
                 </p>
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
   
-        {/* Legal Note */}
-        <section className="mx-auto max-w-7xl px-6 py-12 md:px-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <h3 className="font-serif text-2xl">A final note</h3>
-            <p className="mt-4 text-sm leading-7 text-[#68645E]">
+        {/* Legal note */}
+        {/* <section className="mx-auto max-w-7xl px-6 py-16 md:px-12 md:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-[#A56423]">
+              A final note
+            </p>
+  
+            <h2 className="mt-4 font-serif text-3xl">
+              A little clarity goes a long way.
+            </h2>
+  
+            <p className="mt-5 text-sm leading-8 text-[#68645E]">
               This policy should be read alongside our full Terms & Conditions.
               Nothing in this policy limits any consumer rights that cannot
               legally be excluded.
             </p>
           </div>
-        </section>
+        </section> */}
       </main>
     );
   };

@@ -1,9 +1,15 @@
+
 "use client";
 
 import { useMemo, useState } from "react";
 import { useGallery } from "@/api/features/gallery";
 import Container from "@/components/shared/Container";
 import GallerySkeleton from "./Skeleton";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 type GalleryImage = {
   id: string;
@@ -17,6 +23,8 @@ type GalleryImage = {
 
 export default function Gallery() {
   const [activeTab, setActiveTab] = useState("all");
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const {
     data,
@@ -31,7 +39,7 @@ export default function Gallery() {
    */
   const tabs = useMemo(() => {
     const categories = Array.from(
-      new Set(gallery.map((item) => item.category)),
+      new Set(gallery.map((item) => item.category))
     );
 
     return [
@@ -47,9 +55,7 @@ export default function Gallery() {
 
   const images = useMemo(() => {
     if (activeTab === "all") {
-      return [...gallery].sort(
-        (a, b) => a.sortOrder - b.sortOrder,
-      );
+      return [...gallery].sort((a, b) => a.sortOrder - b.sortOrder);
     }
 
     return gallery
@@ -57,8 +63,13 @@ export default function Gallery() {
       .sort((a, b) => a.sortOrder - b.sortOrder);
   }, [gallery, activeTab]);
 
+  const openImage = (image: GalleryImage) => {
+    setSelectedImage(image);
+    setIsDialogOpen(true);
+  };
+
   if (collectionLoading) {
-    return <GallerySkeleton/>
+    return <GallerySkeleton />;
   }
 
   if (collectionError) {
@@ -84,19 +95,19 @@ export default function Gallery() {
       </p>
 
       <section>
-      <div className="mb-12 flex flex-col  justify-between gap-6 md:flex-row">
-  <select
-    value={activeTab}
-    onChange={(e) => setActiveTab(e.target.value)}
-    className="mt-[18px] rounded-full border border-[#E8E2D8] bg-white px-5 py-3 text-sm font-medium text-[#6B645D] outline-none"
-  >
-    {tabs.map((tab) => (
-      <option key={tab.value} value={tab.value}>
-        {tab.label}
-      </option>
-    ))}
-  </select>
-</div>
+        <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row">
+          <select
+            value={activeTab}
+            onChange={(e) => setActiveTab(e.target.value)}
+            className="mt-[18px] rounded-full border border-[#E8E2D8] bg-white px-5 py-3 text-sm font-medium text-[#6B645D] outline-none"
+          >
+            {tabs.map((tab) => (
+              <option key={tab.value} value={tab.value}>
+                {tab.label}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {images.length === 0 ? (
           <div className="py-24 text-center">
@@ -111,16 +122,13 @@ export default function Gallery() {
         ) : (
           <div className="grid auto-rows-[240px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {images.map((image, index) => {
-              const featured =
-                index % 7 === 0 || index % 11 === 3;
+              const featured = index % 7 === 0 || index % 11 === 3;
 
               return (
                 <div
                   key={image.id}
                   className={`group relative overflow-hidden rounded-3xl ${
-                    featured
-                      ? "row-span-2 lg:col-span-2"
-                      : "row-span-1"
+                    featured ? "row-span-2 lg:col-span-2" : "row-span-1"
                   }`}
                 >
                   <img
@@ -130,6 +138,14 @@ export default function Gallery() {
                   />
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
+
+                  <button
+                    type="button"
+                    onClick={() => openImage(image)}
+                    className="absolute bottom-5 left-5 z-10 rounded-full bg-white px-5 py-2.5 text-xs font-semibold text-[#1C1917] opacity-100 shadow-lg transition hover:bg-[#F8F6F2] lg:opacity-0 lg:group-hover:opacity-100"
+                  >
+                    View Image
+                  </button>
 
                   {/* <div className="absolute left-5 top-5">
                     <span className="rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
@@ -142,6 +158,22 @@ export default function Gallery() {
           </div>
         )}
       </section>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-4xl overflow-hidden border-none bg-transparent p-2 shadow-none">
+          <DialogTitle className="sr-only">
+            {selectedImage?.title ?? "Gallery image"}
+          </DialogTitle>
+
+          {selectedImage && (
+            <img
+              src={selectedImage.imageUrl}
+              alt={selectedImage.title}
+              className="max-h-[85vh] w-full rounded-2xl object-contain"
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </Container>
   );
 }
