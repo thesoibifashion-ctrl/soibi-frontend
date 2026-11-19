@@ -355,6 +355,7 @@ import ErrorState from "@/components/shared/Error";
 import { useAuth } from "@/providers/query-provider";
 type Step = "details" | "receipt";
 
+
 const CheckoutPage = () => {
   const { selectedCurrency } = useCurrency();
   const router = useRouter();
@@ -448,6 +449,8 @@ console.log(profile, "prof")
         unitPriceSnapshot: item.unitPriceSnapshot,
         currency: item.currency,
         pricesSnapshot: item.pricesSnapshot ?? [],
+        selectedSize:item.selectedSize,
+        customMeasurements:  item.customMeasurements
       }))
     : guestItems.map((item) => ({
         id: item.localId,
@@ -457,6 +460,10 @@ console.log(profile, "prof")
         unitPriceSnapshot: item.unitPriceSnapshot,
         currency: item.currency ?? "",
         pricesSnapshot: item.pricesSnapshot ?? [],
+        selectedSize:item.selectedSize,
+        customMeasurements:  item.customMeasurements
+
+
       }));
 
   const handleReceiptSelected = (file: File | undefined) => {

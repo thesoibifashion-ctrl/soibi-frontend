@@ -87,14 +87,17 @@
 
 "use client";
 
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { type PricedItem } from "@/lib/cart-totals";
-import { formatPrice } from "@/lib/format-price";
-import { Info } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 export interface OrderSummaryItem extends PricedItem {
   id: string;
   productNameSnapshot: string | null;
   imageUrlSnapshot: string | null;
+  selectedSize?:string | number | null | undefined;
+  customMeasurements?: Record<string, string | number> | null;
+
 }
 
 interface OrderSummaryCardProps {
@@ -102,6 +105,7 @@ interface OrderSummaryCardProps {
   selectedCurrency: string;
   className?: string;
   footer?: React.ReactNode;
+
 }
 
 const OrderSummaryCard = ({ items, selectedCurrency, className = "", footer }: OrderSummaryCardProps) => {
@@ -127,9 +131,51 @@ const OrderSummaryCard = ({ items, selectedCurrency, className = "", footer }: O
               <p className="text-base text-white font-normal">{item.productNameSnapshot ?? "Custom item"}</p>
               <p className="text-xs text-[#595959]">Qty {item.quantity}</p>
               <span className="text-sm font-semibold text-[#A56423]">
-                {formatPrice((item.unitPriceSnapshot ?? 0) * item.quantity)}
+                {/* {item.basePrice?.symbol}{" "} */}₦
+                {((item.unitPriceSnapshot ?? 0) * item.quantity).toLocaleString()}
+                
               </span>
             </div>
+                  {item.selectedSize && (
+                              <p className="line-clamp-2 font-display text-xs text-near-black">
+                                <strong>Selected size:</strong> UK
+                                {item.selectedSize}
+                              </p>
+                            )}
+                            {item.customMeasurements &&
+                              Object.entries(item.customMeasurements).some(
+                                ([, value]) => String(value).trim() !== ""
+                              ) && (
+                                <Popover>
+                                <PopoverTrigger className="mt-1 flex items-center gap-1 text-xs font-bold text-near-black">
+                                  Custom measurements
+                                  <ArrowDown size={12} />
+                                </PopoverTrigger>
+                              
+                                <PopoverContent
+                                  align="start"
+                                  className="z-[1100] max-h-60 w-56 overflow-y-auto p-3"
+                                >
+                                  <p className="mb-2 text-xs font-bold text-near-black">
+                                    Custom measurements
+                                  </p>
+                              
+                                  <ul className="space-y-1">
+                                    {Object.entries(item.customMeasurements)
+                                      .filter(([, value]) => String(value).trim() !== "")
+                                      .map(([title, value]) => (
+                                        <li
+                                          key={title}
+                                          className="flex justify-between gap-3 text-xs capitalize text-near-black"
+                                        >
+                                          <span>{title}</span>
+                                          <span className="font-medium">{value}</span>
+                                        </li>
+                                      ))}
+                                  </ul>
+                                </PopoverContent>
+                              </Popover>
+                              )} 
           </div>
         ))}
       </div>
@@ -138,35 +184,14 @@ const OrderSummaryCard = ({ items, selectedCurrency, className = "", footer }: O
         <div className="flex mt-[23px] items-center justify-between text-lg font-semibold">
           <span className="text-[12px] text-[#404944]">Total </span>
           <span className="text-2xl text-[#A56423]">
-            {formatPrice(
-              items.reduce(
-                (total, item) =>
-                  total + (item.unitPriceSnapshot ?? 0) * item.quantity,
-                0
-              )
-            )}
+            {/* {items[0]?.unitPriceSnapshot?.symbol}{" "} */}₦
+            {items.reduce(
+              (total, item) => total + (item.unitPriceSnapshot ?? 0) * item.quantity,
+              0
+            ).toLocaleString()}
           </span>
         </div>
-
-        <p className="text-white text-xs mt-8">
-          Your order will only be processed after payment has been verified.
-        </p>
-
-        <div className="mt-6 flex gap-3 rounded-xl border border-[#A56423]/20 bg-[#A56423]/[0.08] ">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-[#A56423]" />
-
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-[#D6A66F]">
-              A quick note before you order
-            </p>
-            <p className="text-xs leading-5 text-[#D0CCC5]">
-              Please review your selected size and measurements carefully before placing your order.
-            </p>
-            <p className="text-xs leading-5 text-[#D0CCC5]">
-              As our pieces are handcrafted, textiles, dyes and embellishments may vary slightly from the images shown.
-            </p>
-          </div>
-        </div>
+        <p className="text-white text-xs mt-8">Your order will only be processed after payment has been verified.</p>
       </div>
 
       {footer}

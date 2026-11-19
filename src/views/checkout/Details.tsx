@@ -18,6 +18,7 @@ import {
 import { Check, ChevronsUpDown } from "lucide-react";
 import AnimatedSubmitButton from "@/components/shared/SubmitButton";
 import { countries } from "@/country";
+import PaymentMethodModal from "./ChoosePayment";
 
 interface DetailsStepProps {
   authenticated: boolean;
@@ -37,8 +38,7 @@ interface DetailsStepProps {
   onCityChange: (v: string) => void;
   address: string;
   onAddressChange: (v: string) => void;
-  onContinue: () => void;
-  profileSaving:boolean
+  onContinue: (method: "paystack" | "bank_transfer") => void;  profileSaving:boolean
 }
 
 
@@ -67,7 +67,7 @@ const DetailsStep = ({
   const [selectedCountry, setSelectedCountry] = useState(
     countries.find((country) => state.startsWith(country.name)) || null
   );
-
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const handleCountrySelect = (country: (typeof countries)[number]) => {
     setSelectedCountry(country);
     onStateChange(`${country.name}, `);
@@ -280,12 +280,23 @@ const DetailsStep = ({
       </p>
       <div className="w-full flex justify-end items-end ">
         <div className="w-fit">
-          <AnimatedSubmitButton
+          {/* <AnimatedSubmitButton
             onClick={onContinue}
             text={profileSaving ? "loading " : "Proceed to Payment"}
-          />
+          /> */}
+          <button
+  type="button"
+  onClick={() => setShowPaymentModal(true)}
+>
+  Continue
+</button>
         </div>
       </div>
+      <PaymentMethodModal
+  open={showPaymentModal}
+  onOpenChange={setShowPaymentModal}
+  onContinue={(method) => onContinue(method)}
+/>
     </div>
   );
 };
