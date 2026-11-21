@@ -250,23 +250,40 @@ export const removeFavorite = (productId: string) => {
   return apiDelete(`/api/favorites/${productId}`);
 };
 
-export const initializePaystackPayment = (historyId: string) => {
-  return apiPost<{
-    accessCode: string;
-    reference: string;
-    authorizationUrl: string;
+export const preparePaystackPayment = (payload: {
+  contactMethod: "email" | "whatsapp";
+  guestName?: string;
+  guestEmail?: string;
+  guestPhone?: string;
+  state?: string;
+  city?: string;
+  address?: string;
+  phoneNumber?: string;
+  items?: CartItemPayload[];
+  historyId?: string;
+  guestPaymentToken?: string;
+}) => apiPost<{ historyId: string; orderNumber: string; guestPaymentToken?: string }>(
+  "/api/payments/paystack/prepare", payload
+);
+
+export const initializePaystackOrder = (historyId: string, guestPaymentToken?: string) =>
+  apiPost<{
+    accessCode?: string;
+    reference?: string;
+    authorizationUrl?: string;
+    paymentStatus?: "paid";
   }>("/api/payments/paystack/initialize", {
     historyId,
+    ...(guestPaymentToken ? { guestPaymentToken } : {}),
   });
-};
 
 export const verifyPaystackPayment = (reference: string) => {
   return apiGet<{
     historyId: string;
     orderNumber: string | null;
-    paymentStatus: string;
+    paymentStatus: "paid" | "unpaid";
     paystackStatus: string;
-    amountPaidKobo: number;
+    amountPaid: number;
     currency: string;
   }>(`/api/payments/paystack/verify/${encodeURIComponent(reference)}`);
 };

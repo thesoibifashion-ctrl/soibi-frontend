@@ -1,3 +1,4 @@
+import Container from "@/components/shared/Container";
 
 const dataCategories = [
     ["Account and order data", "Name, email address, phone number, delivery and billing address, order history, size and style preferences", "You"],
@@ -186,11 +187,11 @@ const dataCategories = [
       <div className="my-6 w-full overflow-x-auto">
         <table className="w-full min-w-[700px] border-collapse text-left text-lg text-black">
           <thead>
-            <tr className="border-b-2 border-[#A56423]">
+            <tr className="border-b-2 border-[#765996]">
               {headers.map((header) => (
                 <th
                   key={header}
-                  className="px-4 py-4 font-bold text-[#A56423]"
+                  className="px-4 py-4 font-bold text-[#765996]"
                 >
                   {header}
                 </th>
@@ -215,31 +216,24 @@ const dataCategories = [
   
   const PrivacyPolicyPage = () => {
     return (
-      <main className="bg-white">
-        <div className="mx-auto max-w-5xl px-6 py-20 md:px-10">
-          <header className="mb-12 border-b border-[#A56423]/20 pb-10">
-            <p className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-[#A56423]">
-              The Soibi Fashion
-            </p>
-  
-            <h1 className="text-4xl font-bold leading-tight text-[#A56423] md:text-5xl">
-              Privacy & Cookie Policy
-            </h1>
-  
+      <main className="bg-[#EEEEEE]">
+        <Container className="mt-3 pb-3">
+          <div className="bg-[white] shadow-xl rounded-[16px] p-4 lg:p-12">
+          <header className="mb-12 border-b border-[#765996]/20 pb-10">
+          <div className="mt-4 text-sm flex items-center text-black">
+              <p className="text-sm border border-black rounded-full px-2 py-1">Effective Date</p>   <span className="mx-2">•</span> <p>3rd November 2026</p>
+            
+            </div>
             <p className="mt-5 text-xl leading-9 text-black">
               Covering the SOIBI catalogue, the ÉRÉME collection, and all other
               collections sold on this site.
             </p>
   
-            <p className="mt-4 text-xl text-black">
-              <strong>Last updated:</strong> 3rd November 2026
-              <span className="mx-2">•</span>
-              <strong>Version:</strong> 1.0
-            </p>
+          
           </header>
   
           <section className="mb-16 space-y-5">
-            <h2 className="text-2xl font-bold text-[#A56423] md:text-3xl">
+            <h2 className="text-2xl font-bold text-[#765996] md:text-3xl">
               Summary
             </h2>
   
@@ -262,7 +256,7 @@ const dataCategories = [
           <div className="space-y-14">
             {sections.map((section) => (
               <section key={section.title} className="space-y-5">
-                <h2 className="text-2xl font-bold leading-tight text-[#A56423] md:text-3xl">
+                <h2 className="text-2xl font-bold leading-tight text-[#765996] md:text-3xl">
                   {section.title}
                 </h2>
   
@@ -320,7 +314,7 @@ const dataCategories = [
             ))}
           </div>
   
-          <footer className="mt-16 border-t border-[#A56423]/20 pt-8">
+          <footer className="mt-16 border-t border-[#765996]/20 pt-8">
             <p className="text-xl leading-9 text-black">
               <strong>Data Protection Contact:</strong> The Manager
             </p>
@@ -335,7 +329,8 @@ const dataCategories = [
               Agip, Port Harcourt, Rivers State.
             </p>
           </footer>
-        </div>
+          </div>
+        </Container>
       </main>
     );
   }

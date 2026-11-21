@@ -29,7 +29,9 @@ const apiRequest = async <T>(
   const result: ApiResponse<T> = await response.json().catch(() => ({ success: false, message: "Request failed", data: undefined as T }));
 
   if (!response.ok || !result.success) {
-    throw new Error(result.message || "Something went wrong");
+    const error = new Error(result.message || "Something went wrong") as Error & { status?: number };
+    error.status = response.status;
+    throw error;
   }
 
   return result.data;

@@ -127,31 +127,18 @@ export default function Gallery() {
               return (
                 <div
                   key={image.id}
-                  className={`group relative overflow-hidden rounded-3xl ${
+                  onClick={() => openImage(image)}
+                  className={`group relative cursor-pointer overflow-hidden rounded-3xl ${
                     featured ? "row-span-2 lg:col-span-2" : "row-span-1"
                   }`}
                 >
                   <img
                     src={image.imageUrl}
                     alt={image.title}
-                    className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-110"
+                    className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105"
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
-
-                  <button
-                    type="button"
-                    onClick={() => openImage(image)}
-                    className="absolute bottom-5 left-5 z-10 rounded-full bg-white px-5 py-2.5 text-xs font-semibold text-[#1C1917] opacity-100 shadow-lg transition hover:bg-[#F8F6F2] lg:opacity-0 lg:group-hover:opacity-100"
-                  >
-                    View Image
-                  </button>
-
-                  {/* <div className="absolute left-5 top-5">
-                    <span className="rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
-                      {image.title}
-                    </span>
-                  </div> */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </div>
               );
             })}
@@ -160,7 +147,7 @@ export default function Gallery() {
       </section>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-4xl overflow-hidden border-none bg-transparent p-2 shadow-none">
+        <DialogContent className="max-w-[90vw] max-h-[90vh]! lg:max-w-4xl overflow-hidden border-none bg-transparent p-2 shadow-none">
           <DialogTitle className="sr-only">
             {selectedImage?.title ?? "Gallery image"}
           </DialogTitle>

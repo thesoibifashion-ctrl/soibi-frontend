@@ -13,7 +13,6 @@ import { ArrowLeft, InfoIcon, Minus, Plus } from "lucide-react";
 import { useAuth } from "@/providers/query-provider";
 import CheckoutButton from "@/components/shared/modals/CheckoutModal";
 import DynamicPrice from "@/components/shared/Prices";
-import { useCurrency } from "@/providers/currency-provider";
 import { getSelectedPrice } from "@/lib/get-price";
 import LoadingAnimation from "@/components/shared/GifLoader";
 import ProductDescription from "./ProductImage";
@@ -52,8 +51,6 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
 
   const queryClient = useQueryClient();
   const { isAuthenticated, isInitializing } = useAuth();
-  const { selectedCurrency } = useCurrency();
-  const selectedPrice = getSelectedPrice(product?.prices, selectedCurrency);
   const { data: cart } = useQuery({
     queryKey: ["cart"],
     queryFn: getCart,
@@ -146,7 +143,8 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
         selectedColor: null,
         selectedMaterial: product.materials?.[0]?.name ?? null,
         unitPriceSnapshot: product.basePrice ?? 0,
-        currency: selectedCurrency,
+    currency:
+"NGN",
         pricesSnapshot: product.prices ?? [],
         customMeasurements,
       };
@@ -291,7 +289,7 @@ const ViewProductPage = ({ slug }: ViewProductPageProps) => {
         <div className="h-full w-full pb-28">
           <div className="flex flex-col justify-between gap-6  mt-4 lg:p-10">
             <div>
-            <p className="text-2xl lg:text-[95px] leading-tight lg:leading-[120px] text-black">
+            <p className="text-2xl lg:text-[80px] leading-tight  text-black">
                 {product.name}
               </p>  <p className="text-xl lg:text-[20px] leading-tight  text-black">
               {formatPrice(product.basePrice || 0)}

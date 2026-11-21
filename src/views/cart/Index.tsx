@@ -20,7 +20,6 @@ import {
 } from "@/hooks/use-guest-cart";
 import Container from "@/components/shared/Container";
 import Link from "next/link";
-import { useCurrency } from "@/providers/currency-provider";
 import ErrorState from "@/components/shared/Error";
 import Loading from "./Loading";
 
@@ -46,7 +45,6 @@ type DisplayItem = {
 
 const CartPage = () => {
   const queryClient = useQueryClient();
-  const { selectedCurrency } = useCurrency();
 
   const { isAuthenticated: authenticated, isInitializing: authInitializing } = useAuth();
   const authChecked = !authInitializing;
@@ -122,9 +120,7 @@ const CartPage = () => {
         customMeasurements: item.customMeasurements,
       }));
 
-  const activeCurrency = authenticated
-    ? cart?.selectedCurrency ?? selectedCurrency
-    : selectedCurrency;
+  const activeCurrency = "NGN"
 
   const total = displayItems.reduce((sum, item) => {
     const selectedPrice = item.pricesSnapshot?.find(

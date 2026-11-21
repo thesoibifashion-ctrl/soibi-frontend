@@ -2,16 +2,49 @@
 
 import { useEffect } from "react";
 import confetti from "canvas-confetti";
-import { Check, ArrowRight, ShoppingBag } from "lucide-react";
+import { Check, Clock, ArrowRight, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 
-const CheckoutSuccessPage = () => {
+export type CheckoutSuccessVariant = "transfer" | "paystack";
+
+interface CheckoutSuccessProps {
+  variant: CheckoutSuccessVariant;
+  orderNumber?: string | null;
+  // Optional: where "View my orders" should go. The button is hidden if omitted.
+  ordersHref?: string;
+}
+
+const CONTENT = {
+  transfer: {
+    eyebrow: "Order received",
+    title: "Thank you for shopping with us.",
+    body: "Your order has been submitted. We'll start processing it as soon as your bank transfer has been confirmed. Please check back to see when your transfer has been confirmed.",
+    cardTitle: "Your transfer is awaiting confirmation",
+    cardText:
+      "We'll confirm your payment shortly. Check back here or in your orders to see when it's confirmed.",
+  },
+  paystack: {
+    eyebrow: "Payment confirmed",
+    title: "Payment received. Thank you!",
+    body: "Your payment was successful and your order is confirmed. We've received your details and will keep you updated as your order is processed.",
+    cardTitle: "Your order is being processed",
+    cardText: "You'll receive updates as your order progresses.",
+  },
+} as const;
+
+const CheckoutSuccess = ({
+  variant,
+  orderNumber,
+  ordersHref,
+}: CheckoutSuccessProps) => {
+  const content = CONTENT[variant];
+  const isPaid = variant === "paystack";
   useEffect(() => {
     const duration = 1800;
     const end = Date.now() + duration;
-
+  
     const colors = ["#111111", "#8B7355", "#D6C5B3", "#FFFFFF"];
-
+  
     const frame = () => {
       confetti({
         particleCount: 3,
@@ -20,7 +53,7 @@ const CheckoutSuccessPage = () => {
         origin: { x: 0 },
         colors,
       });
-
+  
       confetti({
         particleCount: 3,
         angle: 120,
@@ -28,12 +61,12 @@ const CheckoutSuccessPage = () => {
         origin: { x: 1 },
         colors,
       });
-
+  
       if (Date.now() < end) {
         requestAnimationFrame(frame);
       }
     };
-
+  
     frame();
   }, []);
 
@@ -44,24 +77,33 @@ const CheckoutSuccessPage = () => {
       <div className="pointer-events-none absolute bottom-[-15%] right-[-10%] h-[35vw] w-[35vw] rounded-full bg-[#DDD3C8]/30 blur-3xl" />
 
       <div className="relative z-10 w-full max-w-xl text-center">
-        {/* Success icon */}
+        {/* Status icon */}
         <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-black">
-            <Check className="h-7 w-7 text-white" strokeWidth={2} />
+            {isPaid ? (
+              <Check className="h-7 w-7 text-white" strokeWidth={2} />
+            ) : (
+              <Clock className="h-7 w-7 text-white" strokeWidth={2} />
+            )}
           </div>
         </div>
 
         <p className="mt-10 text-[10px] font-semibold uppercase tracking-[0.3em] text-black/40">
-          Order received
+          {content.eyebrow}
         </p>
 
         <h1 className="mt-4 font-serif text-4xl tracking-tight text-black md:text-5xl">
-          Thank you for shopping with us.
+          {content.title}
         </h1>
 
+        {orderNumber && (
+          <p className="mt-3 text-xs font-medium tracking-wide text-black/60">
+            Order number: {orderNumber}
+          </p>
+        )}
+
         <p className="mx-auto mt-6 max-w-md text-sm leading-7 text-black/55">
-          Your order has been successfully submitted. We’ve received your
-          details and our team will be in touch with you shortly.
+          {content.body}
         </p>
 
         {/* Confirmation card */}
@@ -73,11 +115,9 @@ const CheckoutSuccessPage = () => {
 
             <div>
               <p className="text-sm font-medium text-black">
-                Your order is being processed
+                {content.cardTitle}
               </p>
-              <p className="mt-1 text-xs text-black/45">
-                You’ll receive updates as your order progresses.
-              </p>
+              <p className="mt-1 text-xs text-black/45">{content.cardText}</p>
             </div>
           </div>
         </div>
@@ -92,6 +132,15 @@ const CheckoutSuccessPage = () => {
             <ArrowRight className="h-4 w-4" />
           </Link>
 
+          {ordersHref && (
+            <Link
+              href={ordersHref}
+              className="flex h-12 items-center justify-center rounded-full border border-black/10 bg-white px-7 text-sm font-medium text-black transition hover:bg-black/5"
+            >
+              View my orders
+            </Link>
+          )}
+
           <Link
             href="/"
             className="flex h-12 items-center justify-center rounded-full border border-black/10 bg-white px-7 text-sm font-medium text-black transition hover:bg-black/5"
@@ -104,4 +153,4 @@ const CheckoutSuccessPage = () => {
   );
 };
 
-export default CheckoutSuccessPage;
+export default CheckoutSuccess;

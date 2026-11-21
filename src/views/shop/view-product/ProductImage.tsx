@@ -3,9 +3,6 @@ import { useState } from "react";
 import { addCartItem } from "@/api/features/cart";
 import { toast } from "sonner";
 import { useAuth } from "@/providers/query-provider";
-import DynamicPrice from "@/components/shared/Prices";
-import { useCurrency } from "@/providers/currency-provider";
-import { getSelectedPrice } from "@/lib/get-price";
 import LoadingAnimation from "@/components/shared/GifLoader";
 import { useProductBySlug } from "@/api/features/products";
 import AnimatedSubmitButton from "@/components/shared/SubmitButton";
@@ -110,9 +107,6 @@ const ReferencedProduct = ({ slug, onClose }: ReferencedProductProps) => {
 
   const [isAdding, setIsAdding] = useState(false);
 
-  const { selectedCurrency } = useCurrency();
-
-  const selectedPrice = getSelectedPrice(product?.prices, selectedCurrency);
   const queryClient = useQueryClient();
 
   const handleAddToCart = async () => {
@@ -130,7 +124,7 @@ const ReferencedProduct = ({ slug, onClose }: ReferencedProductProps) => {
         selectedColor: null,
         selectedMaterial: product.materials?.[0]?.name ?? null,
         unitPriceSnapshot: product.basePrice ?? 0,
-        currency: selectedPrice?.currency ?? "",
+        currency: "NGN",
         pricesSnapshot: product.prices ?? [],
         customMeasurements: null,
       };
@@ -272,11 +266,7 @@ const ReferencedProduct = ({ slug, onClose }: ReferencedProductProps) => {
               <div>
                 <p className="text-3xl font-semibold">{product.name}</p>
 
-                <DynamicPrice
-                  prices={product.prices}
-                  className="mt-2 text-sm font-semibold text-white"
-                />
-
+            
                 {product.shortDescription && (
                   <p className="mt-3 max-w-md text-sm leading-6 text-white/80">
                     {product.shortDescription}

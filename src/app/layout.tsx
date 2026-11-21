@@ -4,7 +4,6 @@ import "./globals.css";
 import { QueryProvider } from "@/providers/query-provider";
 import Navbar from "@/components/ui/navigation/Header";
 import { Toaster } from "sonner";
-import { CurrencyProvider } from "@/providers/currency-provider";
 import NextTopLoader from "nextjs-toploader";
 import Footer from "@/components/ui/navigation/Footer";
 import WhatsAppButton from "@/components/shared/Whatsapp";
@@ -48,13 +47,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
         <QueryProvider>
-          <CurrencyProvider>
+          {/* <CurrencyProvider> */}
             <Navbar />
             <NextTopLoader height={3} color="#A56423" showSpinner={false} />
 
-            {children}
+            <div className="min-h-screen">{children}</div>
             <WhatsAppButton/>
-          </CurrencyProvider>
+          {/* </CurrencyProvider> */}
           <Footer/>
         </QueryProvider>
       </body>

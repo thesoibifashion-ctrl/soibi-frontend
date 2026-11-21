@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types/Index";
-import { useCurrency } from "@/providers/currency-provider";
-import { getSelectedPrice } from "@/lib/get-price";
 import { formatPrice } from "@/lib/format-price";
 
 interface products {
@@ -68,7 +66,6 @@ const ProductFiltersSidebar = ({ products, onSelect }: products) => {
   const material = Array.from(materialsMap.values());
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { selectedCurrency } = useCurrency();
 
   const availablePrices = products
     .map((product) => product.basePrice)
@@ -82,13 +79,6 @@ const ProductFiltersSidebar = ({ products, onSelect }: products) => {
     ? Math.max(...availablePrices)
     : 0;
 
-  const currencySymbol =
-    products
-      .map((product) =>
-        getSelectedPrice(product.prices ?? [], selectedCurrency)
-      )
-      .find(Boolean)?.symbol ?? selectedCurrency;
-
   const [minPrice, setMinPrice] = useState(
     searchParams.get("minPrice") ?? ""
   );
@@ -96,11 +86,6 @@ const ProductFiltersSidebar = ({ products, onSelect }: products) => {
   const [maxPrice, setMaxPrice] = useState(
     searchParams.get("maxPrice") ?? ""
   );
-
-  useEffect(() => {
-    setMinPrice("");
-    setMaxPrice("");
-  }, [selectedCurrency]);
 
   const updateFilter = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());

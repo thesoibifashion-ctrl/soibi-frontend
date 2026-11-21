@@ -38,9 +38,27 @@ interface DetailsStepProps {
   onCityChange: (v: string) => void;
   address: string;
   onAddressChange: (v: string) => void;
-  onContinue: (method: "paystack" | "bank_transfer") => void;  profileSaving:boolean
+  onContinue: (method: "paystack" | "bank_transfer") => void;
+  profileSaving: boolean;
+  onPaystack: () => Promise<void>;
 }
 
+type FieldKey =
+  | "name"
+  | "email"
+  | "phone"
+  | "whatsapp"
+  | "country"
+  | "state"
+  | "city"
+  | "address";
+
+const FieldError = ({ message }: { message?: string }) =>
+  message ? (
+    <p role="alert" className="mt-1.5 text-xs text-red-600">
+      {message}
+    </p>
+  ) : null;
 
 const DetailsStep = ({
   authenticated,
@@ -61,13 +79,16 @@ const DetailsStep = ({
   address,
   onAddressChange,
   onContinue,
-  profileSaving
+  onPaystack,
+  profileSaving,
 }: DetailsStepProps) => {
   const [countryOpen, setCountryOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(
     countries.find((country) => state.startsWith(country.name)) || null
   );
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
   const handleCountrySelect = (country: (typeof countries)[number]) => {
     setSelectedCountry(country);
     onStateChange(`${country.name}, `);
@@ -77,9 +98,75 @@ const DetailsStep = ({
   const getFlag = (code: string) =>
     code
       .toUpperCase()
-      .replace(/./g, char =>
+      .replace(/./g, (char) =>
         String.fromCodePoint(127397 + char.charCodeAt(0))
       );
+
+  // ---------- Validation ----------
+  const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+  const isValidPhone = (v: string) => v.replace(/\D/g, "").length >= 7;
+
+  // The state field is prefixed with "Country, " — strip it to check what the user typed
+  const stateOnly = selectedCountry
+    ? state.replace(`${selectedCountry.name},`, "").trim()
+    : state.trim();
+
+  const errors: Partial<Record<FieldKey, string>> = {};
+
+  if (!guestName.trim()) errors.name = "Please enter your full name.";
+
+  if (!guestEmail.trim()) errors.email = "Please enter your email address.";
+  else if (!isValidEmail(guestEmail))
+    errors.email = "Please enter a valid email address.";
+
+  if (!guestPhone.trim()) errors.phone = "Please enter your phone number.";
+  else if (!isValidPhone(guestPhone))
+    errors.phone = "Please enter a valid phone number.";
+
+  if (contactMethod === "whatsapp") {
+    if (!whatsappOverride.trim())
+      errors.whatsapp = "Please enter your WhatsApp number.";
+    else if (!isValidPhone(whatsappOverride))
+      errors.whatsapp = "Please enter a valid WhatsApp number.";
+  }
+
+  if (!selectedCountry) errors.country = "Please select your country.";
+  if (!stateOnly) errors.state = "Please enter your state / province.";
+  if (!city.trim()) errors.city = "Please enter your city.";
+  if (!address.trim()) errors.address = "Please enter your delivery address.";
+
+  const errorKeys = Object.keys(errors) as FieldKey[];
+  const isValid = errorKeys.length === 0;
+
+  const err = (key: FieldKey) => (submitted ? errors[key] : undefined);
+
+  const handleContinueClick = () => {
+    setSubmitted(true);
+
+    if (!isValid) {
+      // Scroll to the first field with an error
+      const order: FieldKey[] = [
+        "name",
+        "email",
+        "phone",
+        "whatsapp",
+        "country",
+        "state",
+        "city",
+        "address",
+      ];
+      const firstError = order.find((k) => errors[k]);
+      if (firstError) {
+        document
+          .getElementById(`field-${firstError}`)
+          ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
+
+    setShowPaymentModal(true);
+  };
+
   return (
     <div className="space-y-5 bg-white shadow-lg rounded-2xl border p-6">
       <div className="space-y-3">
@@ -104,29 +191,38 @@ const DetailsStep = ({
         </div>
 
         <div className="mt-8 space-y-5">
-          <FormInput
-            placeholder=""
-            value={guestName}
-            onChange={(e) => onGuestNameChange(e.target.value)}
-            label="Full name"
-            type="text"
-          />
+          <div id="field-name">
+            <FormInput
+              placeholder=""
+              value={guestName}
+              onChange={(e) => onGuestNameChange(e.target.value)}
+              label="Full name"
+              type="text"
+            />
+            <FieldError message={err("name")} />
+          </div>
 
-          <FormInput
-            placeholder=""
-            type="email"
-            value={guestEmail}
-            onChange={(e) => onGuestEmailChange(e.target.value)}
-            label="Email"
-          />
+          <div id="field-email">
+            <FormInput
+              placeholder=""
+              type="email"
+              value={guestEmail}
+              onChange={(e) => onGuestEmailChange(e.target.value)}
+              label="Email"
+            />
+            <FieldError message={err("email")} />
+          </div>
 
-          <FormInput
-            placeholder=""
-            value={guestPhone}
-            onChange={(e) => onGuestPhoneChange(e.target.value)}
-            label="Phone number"
-            type="tel"
-          />
+          <div id="field-phone">
+            <FormInput
+              placeholder=""
+              value={guestPhone}
+              onChange={(e) => onGuestPhoneChange(e.target.value)}
+              label="Phone number"
+              type="tel"
+            />
+            <FieldError message={err("phone")} />
+          </div>
         </div>
       </div>
       <div className="mt-[50px]">
@@ -164,12 +260,15 @@ const DetailsStep = ({
         </div>
 
         {contactMethod === "whatsapp" && (
-          <FormInput
-            placeholder="WhatsApp number"
-            value={whatsappOverride}
-            onChange={(e) => onWhatsappOverrideChange(e.target.value)}
-            label={""}
-          />
+          <div id="field-whatsapp">
+            <FormInput
+              placeholder="WhatsApp number"
+              value={whatsappOverride}
+              onChange={(e) => onWhatsappOverrideChange(e.target.value)}
+              label={""}
+            />
+            <FieldError message={err("whatsapp")} />
+          </div>
         )}
       </div>
 
@@ -177,20 +276,22 @@ const DetailsStep = ({
         <h2 className="font-semibold text-2xl">Delivery Address</h2>
 
         <p className="text-xs text-gray-500">
-          Optional for now, used only to help our team reach you.
+          Used only to help our team reach you.
         </p>
 
         <div className="space-y-2 ">
-          <div className="w-full lg:w-1/2">
-          <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.14em]">
-          Country
+          <div id="field-country" className="w-full lg:w-1/2">
+            <label className="mb-2 block text-[10px] font-bold uppercase tracking-[0.14em]">
+              Country
             </label>
             <Popover open={countryOpen} onOpenChange={setCountryOpen}>
               <PopoverTrigger
                 type="button"
                 role="combobox"
                 aria-expanded={countryOpen}
-                className="flex h-12.5 mt-3 w-full items-center justify-between rounded-[10px] bg-[#F3F3F6] px-3 text-sm text-black outline-none"
+                className={`flex h-12.5 mt-3 w-full items-center justify-between rounded-[10px] bg-[#F3F3F6] px-3 text-sm text-black outline-none ${
+                  err("country") ? "ring-1 ring-red-500" : ""
+                }`}
               >
                 {selectedCountry ? (
                   <span className="flex items-center gap-2">
@@ -222,7 +323,7 @@ const DetailsStep = ({
                           onSelect={() => handleCountrySelect(item)}
                           className="cursor-pointer"
                         >
-                          <span className="mr-2 text-lg">{(getFlag(item.code))}</span>
+                          <span className="mr-2 text-lg">{getFlag(item.code)}</span>
                           <span>{item.name}</span>
 
                           <Check
@@ -240,11 +341,12 @@ const DetailsStep = ({
                 </Command>
               </PopoverContent>
             </Popover>
+            <FieldError message={err("country")} />
           </div>
         </div>
 
         <div className="lg:flex-row flex-col flex gap-3 mt-5">
-          <div className="w-full lg:w-1/2">
+          <div id="field-state" className="w-full lg:w-1/2">
             <FormInput
               label="State / Province"
               placeholder=""
@@ -252,9 +354,10 @@ const DetailsStep = ({
               onChange={(e) => onStateChange(e.target.value)}
               type="text"
             />
+            <FieldError message={err("state")} />
           </div>
           {/* <input  hidden/> */}
-          <div className="w-full  lg:w-1/2">
+          <div id="field-city" className="w-full  lg:w-1/2">
             <FormInput
               label="City"
               placeholder=""
@@ -262,22 +365,36 @@ const DetailsStep = ({
               onChange={(e) => onCityChange(e.target.value)}
               type="text"
             />
+            <FieldError message={err("city")} />
           </div>
         </div>
 
-        <FormInput
-          label="Address"
-          value={address}
-          onChange={(e) => onAddressChange(e.target.value)}
-          textarea
-          rows={5}
-        />
+        <div id="field-address">
+          <FormInput
+            label="Address"
+            value={address}
+            onChange={(e) => onAddressChange(e.target.value)}
+            textarea
+            rows={5}
+          />
+          <FieldError message={err("address")} />
+        </div>
       </div>
 
       <p className="rounded-lg bg-yellow-50 p-3 text-xs leading-5 text-yellow-800">
         Delivery is not available for online booking yet. Our team will reach
         out to you directly to arrange delivery once your order is confirmed.
       </p>
+
+      {submitted && !isValid && (
+        <p
+          role="alert"
+          className="rounded-lg border border-red-200 bg-red-50 p-3 text-xs leading-5 text-red-700"
+        >
+          Please complete all required fields before continuing.
+        </p>
+      )}
+
       <div className="w-full flex justify-end items-end ">
         <div className="w-fit">
           {/* <AnimatedSubmitButton
@@ -285,18 +402,23 @@ const DetailsStep = ({
             text={profileSaving ? "loading " : "Proceed to Payment"}
           /> */}
           <button
-  type="button"
-  onClick={() => setShowPaymentModal(true)}
->
-  Continue
-</button>
+            type="button"
+            disabled={profileSaving}
+            onClick={handleContinueClick}
+            className={`rounded-full bg-black px-8 py-3 text-sm font-medium text-white transition-opacity ${
+              !isValid || profileSaving ? "opacity-50" : "opacity-100"
+            } ${profileSaving ? "cursor-not-allowed" : "cursor-pointer"}`}
+          >
+            {profileSaving ? "Loading..." : "Continue"}
+          </button>
         </div>
       </div>
       <PaymentMethodModal
-  open={showPaymentModal}
-  onOpenChange={setShowPaymentModal}
-  onContinue={(method) => onContinue(method)}
-/>
+        open={showPaymentModal}
+        onOpenChange={setShowPaymentModal}
+        onContinue={(method) => onContinue(method)}
+        onPaystack={onPaystack}
+      />
     </div>
   );
 };

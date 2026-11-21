@@ -1,7 +1,7 @@
 import CheckoutSuccessPage from '@/views/checkout/Complete'
 
 const page = () => {
-  return <CheckoutSuccessPage/>
+  return <CheckoutSuccessPage variant="transfer" />
 }
 
 export default page

@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { ChevronDown, Plus, Minus } from "lucide-react";
+import Container from "@/components/shared/Container";
 
 const FAQS = [
   {
@@ -106,11 +107,11 @@ const FAQPage = () => {
   const [openQuestion, setOpenQuestion] = useState<string | null>(null);
 
   return (
-    <main className="min-h-screen bg-[#F8F6F2] text-[#171717]">
+    <Container className="min-h-screen bg-[#F8F6F2] text-[#171717]">
       {/* Hero */}
-      <section className="px-6 pb-16 pt-20 md:px-12 md:pb-24 md:pt-28">
-        <div className="mx-auto max-w-[1200px]">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-[#A56423]">
+      <section className=" pb-16 pt-20  md:pb-24 md:pt-28">
+        <div className="">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-[#765996]">
             Customer Care
           </p>
 
@@ -119,7 +120,7 @@ const FAQPage = () => {
               <h1 className="font-serif text-5xl leading-[1.08] tracking-tight md:text-7xl">
                 Frequently asked
                 <br />
-                <span className="italic text-[#A56423]">questions.</span>
+                <span className="italic text-[#765996]">questions.</span>
               </h1>
             </div>
 
@@ -132,11 +133,11 @@ const FAQPage = () => {
       </section>
 
       {/* FAQ content */}
-      <section className="border-t border-[#DED9D0] px-6 py-16 md:px-12 md:py-24">
-        <div className="mx-auto max-w-[1200px]">
+      <section className="border-t border-[#DED9D0]  py-16  md:py-24">
+        <div className="">
           <div className="grid gap-14 md:grid-cols-[260px_1fr] md:gap-20">
             <aside className="md:sticky md:top-30 md:self-start">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#A56423]">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#765996]">
                 Need to know
               </p>
               <p className="mt-4 max-w-[220px] font-serif text-2xl leading-snug">
@@ -148,7 +149,7 @@ const FAQPage = () => {
 
               <a
                 href="mailto:thesoibifashion@gmail.com"
-                className="mt-6 inline-flex items-center gap-2 border-b border-[#A56423] pb-1 text-sm font-semibold text-[#A56423] transition-colors hover:text-[#171717]"
+                className="mt-6 inline-flex items-center gap-2 border-b border-[#765996] pb-1 text-sm font-semibold text-[#765996] transition-colors hover:text-[#171717]"
               >
                 Contact us
                 <span aria-hidden="true">↗</span>
@@ -159,7 +160,7 @@ const FAQPage = () => {
               {FAQS.map((group, groupIndex) => (
                 <div key={group.category}>
                   <div className="mb-5 flex items-center gap-4">
-                    <span className="text-xs font-semibold tracking-widest text-[#A56423]">
+                    <span className="text-xs font-semibold tracking-widest text-[#765996]">
                       0{groupIndex + 1}
                     </span>
                     <h2 className="font-serif text-2xl md:text-3xl">
@@ -189,7 +190,7 @@ const FAQPage = () => {
                               {item.question}
                             </span>
 
-                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#DCD6CC] text-[#A56423] transition-colors">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#DCD6CC] text-[#765996] transition-colors">
                               {isOpen ? (
                                 <Minus size={15} strokeWidth={1.5} />
                               ) : (
@@ -252,7 +253,7 @@ const FAQPage = () => {
           </div>
         </div>
       </section> */}
-    </main>
+    </Container>
   );
 };
 

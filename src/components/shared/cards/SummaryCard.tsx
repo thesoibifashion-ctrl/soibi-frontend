@@ -102,13 +102,12 @@ export interface OrderSummaryItem extends PricedItem {
 
 interface OrderSummaryCardProps {
   items: OrderSummaryItem[];
-  selectedCurrency: string;
   className?: string;
   footer?: React.ReactNode;
 
 }
 
-const OrderSummaryCard = ({ items, selectedCurrency, className = "", footer }: OrderSummaryCardProps) => {
+const OrderSummaryCard = ({ items, className = "", footer }: OrderSummaryCardProps) => {
   const totalItemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (

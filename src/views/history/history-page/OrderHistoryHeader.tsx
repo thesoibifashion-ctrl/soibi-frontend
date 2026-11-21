@@ -21,7 +21,7 @@ const OrderHistoryHeader = () => {
         </div>
 
         <Link
-          href="/product"
+          href="/shop"
           className="group flex w-fit items-center gap-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#0E0E0E]"
         >
           Continue Shopping

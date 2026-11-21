@@ -45,5 +45,6 @@ export function removeGuestCartItem(localId: string) {
 
 export function clearGuestCart() {
   localStorage.removeItem(GUEST_CART_KEY);
+  localStorage.removeItem("soibi_guest_details");
   window.dispatchEvent(new Event("guest-cart-updated"));
 }

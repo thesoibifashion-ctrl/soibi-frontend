@@ -3,7 +3,7 @@ import ScrollTypewriter from "@/components/shared/Typewriter";
 
 interface HeroProps {
     title: string;
-    text: string;
+    text?: string;
     image: string;
   }
   

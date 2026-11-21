@@ -34,6 +34,37 @@ import {
       .replace(/_/g, " ")
       .replace(/\b\w/g, (char) => char.toUpperCase());
   };
+
+  const getPaymentBadge = (paymentStatus?: string | null) => {
+    switch (paymentStatus) {
+      case "paid":
+        return {
+          label: "Paid",
+          className: "border-green-200 bg-green-50 text-green-700",
+          note: null,
+        };
+      case "pending_approval":
+        return {
+          label: "Payment under review",
+          className: "border-amber-200 bg-amber-50 text-amber-700",
+          note: "We'll contact you once your payment is confirmed.",
+        };
+      case "rejected":
+        return {
+          label: "Payment not confirmed",
+          className: "border-red-200 bg-red-50 text-red-700",
+          note: "We couldn't confirm your payment. Please upload a new receipt or contact us.",
+        };
+      case "unpaid":
+        return {
+          label: "Awaiting payment",
+          className: "border-black/10 bg-black/5 text-black/60",
+          note: null,
+        };
+      default:
+        return null;
+    }
+  };
   
   const OrderHistoryCard = ({
     order,
@@ -44,6 +75,10 @@ import {
     const itemCount = order.items?.reduce(
       (total, item) => total + item.quantity,
       0
+    );
+
+    const payment = getPaymentBadge(
+      (order as CartHistory & { paymentStatus?: string | null }).paymentStatus
     );
   
     return (
@@ -99,15 +134,31 @@ import {
                     {order.items.length - 1 === 1 ? "item" : "items"}
                   </p>
                 )}
+
+                {payment?.note && (
+                  <p className="mt-3 max-w-md text-xs leading-5 text-black/50">
+                    {payment.note}
+                  </p>
+                )}
               </div>
   
-              <span
-                className={`h-fit w-fit rounded-full border px-3 py-1.5 text-[9px] font-bold uppercase tracking-wider ${getStatusLabel(
-                  order.status
-                )}`}
-              >
-                {getStatusLabel(order.status)}
-              </span>
+              <div className="flex h-fit flex-wrap gap-2 sm:justify-end">
+                <span
+                  className={`h-fit w-fit rounded-full border px-3 py-1.5 text-[9px] font-bold uppercase tracking-wider ${getStatusLabel(
+                    order.status
+                  )}`}
+                >
+                  {getStatusLabel(order.status)}
+                </span>
+
+                {payment && (
+                  <span
+                    className={`h-fit w-fit rounded-full border px-3 py-1.5 text-[9px] font-bold uppercase tracking-wider ${payment.className}`}
+                  >
+                    {payment.label}
+                  </span>
+                )}
+              </div>
             </div>
   
             {/* Meta */}

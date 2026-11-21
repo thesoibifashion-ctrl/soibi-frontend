@@ -14,22 +14,40 @@ interface PaymentMethodModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onContinue: (method: "paystack" | "bank_transfer") => void;
+  onPaystack?: () => Promise<void>;
 }
 
 const PaymentMethodModal = ({
   open,
   onOpenChange,
   onContinue,
+  onPaystack,
 }: PaymentMethodModalProps) => {
   const [paymentMethod, setPaymentMethod] = useState<
     "paystack" | "bank_transfer" | null
   >(null);
+  const [isPaystackLoading, setIsPaystackLoading] = useState(false);
+  const [paystackError, setPaystackError] = useState("");
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (!paymentMethod) return;
 
-    onContinue(paymentMethod);
-    onOpenChange(false);
+    if (paymentMethod === "bank_transfer") {
+      onContinue(paymentMethod);
+      onOpenChange(false);
+      return;
+    }
+    if (!onPaystack || isPaystackLoading) return;
+    setPaystackError("");
+    setIsPaystackLoading(true);
+    try {
+      await onPaystack();
+      onOpenChange(false);
+    } catch (error) {
+      setPaystackError(error instanceof Error ? error.message : "We couldn't start your payment. Please try again.");
+    } finally {
+      setIsPaystackLoading(false);
+    }
   };
 
   const paymentOptions = [
@@ -122,16 +140,17 @@ const PaymentMethodModal = ({
       <div className="mt-6 border-t border-gray-100 pt-5">
         <button
           type="button"
-          disabled={!paymentMethod}
+          disabled={!paymentMethod || isPaystackLoading}
           onClick={handleContinue}
           className="group flex h-13 w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-3.5 text-sm font-medium text-white transition-all duration-200 hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300"
         >
-          Continue
+          {isPaystackLoading ? "Setting up payment…" : "Continue"}
           <ArrowRight
             size={16}
             className="transition-transform group-hover:translate-x-1"
           />
         </button>
+        {paystackError && <p className="mt-3 text-center text-sm text-red-600" role="alert">{paystackError}</p>}
 
         <div className="mt-4 flex items-center justify-center gap-2 text-gray-400">
           <ShieldCheck size={14} />
