@@ -3,6 +3,7 @@
 import { useState } from "react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -68,16 +69,19 @@ export function QuickViewModal({
 
                   <p className="text-[15px] text-black">
                     {/* <DynamicPrice prices={product.prices} /> */}
-                    {formatPrice(product.basePrice|| 0)}
+                    {formatPrice(product.basePrice || 0)}
                   </p>
                 </div>
 
-                <div className="mx-auto mt-5">
-                  <div onClick={() => setLoading(true)}>
-                    <AnimatedButton
-                      text={loading ? "Loading..." : "View Full Details"}
-                      route={`/shop/${product.slug}`}
-                    />
+                <div className="w-full mt-5">
+                  <div className="w-full  flex justify-between ">
+                    <div onClick={() => setLoading(true)}>
+                      <AnimatedButton
+                        text={loading ? "Loading..." : "View Full Details"}
+                        route={`/shop/${product.slug}`}
+                      />
+                    </div>
+                    <DialogClose className="font-medium text-sm border px-3 py-1 rounded-full ">Close</DialogClose>
                   </div>
                 </div>
               </div>

@@ -41,7 +41,7 @@ const About = () => {
   }
 
   return (
-    <Container className="mt-8 grid grid-cols-1 gap-10 lg:mt-22.25 lg:grid-cols-2 lg:gap-17.5">
+    <Container className="mt-8  grid grid-cols-1 gap-10 lg:mt-22.25 lg:grid-cols-2 lg:gap-17.5">
       <div className="relative hidden min-h-[600px] lg:block">
         <Image
           src={about?.options?.[0]?.imageUrl || "/soibi-about.jpg"}

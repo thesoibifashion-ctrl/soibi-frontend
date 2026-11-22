@@ -201,7 +201,7 @@ const  TermsAndConditionsPage = () => {
     <main className="bg-[#EEEEEE]">
     <Container className="mt-3 pb-3">
       <div className="bg-[white] shadow-xl rounded-[16px] p-4 lg:p-12">
-      <header className="mb-12 border-b border-[#765996]/20 pb-10">
+      <header className="mb-12 border-b border-[#7B3C10]/20 pb-10">
           <div className="mt-4 text-sm flex items-center text-black">
               <p className="text-sm border border-black rounded-full px-2 py-1">Effective Date</p>   <span className="mx-2">•</span> <p>3rd November 2026</p>
             
@@ -217,7 +217,7 @@ const  TermsAndConditionsPage = () => {
         <div className="space-y-14">
           {sections.map((section) => (
             <section key={section.title} className="space-y-5">
-              <h2 className="text-2xl font-bold leading-tight text-[#765996] md:text-3xl">
+              <h2 className="text-2xl font-bold leading-tight text-[#7B3C10] md:text-3xl">
                 {section.title}
               </h2>
 
@@ -256,7 +256,7 @@ const  TermsAndConditionsPage = () => {
           ))}
 
           <section className="space-y-5">
-            <h2 className="text-2xl font-bold leading-tight text-[#765996] md:text-3xl">
+            <h2 className="text-2xl font-bold leading-tight text-[#7B3C10] md:text-3xl">
               20. Contact Us
             </h2>
 
@@ -286,12 +286,12 @@ const  TermsAndConditionsPage = () => {
             </div>
           </section>
 
-          <div className="border-t border-[#765996]/20 pt-8">
+          <div className="border-t border-[#7B3C10]/20 pt-8">
             <p className="text-xl leading-9 text-black">
               Please also read our{" "}
               <Link
                 href="/privacy-policy"
-                className="font-semibold text-[#765996] underline underline-offset-4"
+                className="font-semibold text-[#7B3C10] underline underline-offset-4"
               >
                 Privacy & Cookie Policy
               </Link>

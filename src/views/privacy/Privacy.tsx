@@ -187,11 +187,11 @@ const dataCategories = [
       <div className="my-6 w-full overflow-x-auto">
         <table className="w-full min-w-[700px] border-collapse text-left text-lg text-black">
           <thead>
-            <tr className="border-b-2 border-[#765996]">
+            <tr className="border-b-2 border-[#7B3C10]">
               {headers.map((header) => (
                 <th
                   key={header}
-                  className="px-4 py-4 font-bold text-[#765996]"
+                  className="px-4 py-4 font-bold text-[#7B3C10]"
                 >
                   {header}
                 </th>
@@ -219,7 +219,7 @@ const dataCategories = [
       <main className="bg-[#EEEEEE]">
         <Container className="mt-3 pb-3">
           <div className="bg-[white] shadow-xl rounded-[16px] p-4 lg:p-12">
-          <header className="mb-12 border-b border-[#765996]/20 pb-10">
+          <header className="mb-12 border-b border-[#7B3C10]/20 pb-10">
           <div className="mt-4 text-sm flex items-center text-black">
               <p className="text-sm border border-black rounded-full px-2 py-1">Effective Date</p>   <span className="mx-2">•</span> <p>3rd November 2026</p>
             
@@ -233,7 +233,7 @@ const dataCategories = [
           </header>
   
           <section className="mb-16 space-y-5">
-            <h2 className="text-2xl font-bold text-[#765996] md:text-3xl">
+            <h2 className="text-2xl font-bold text-[#7B3C10] md:text-3xl">
               Summary
             </h2>
   
@@ -256,7 +256,7 @@ const dataCategories = [
           <div className="space-y-14">
             {sections.map((section) => (
               <section key={section.title} className="space-y-5">
-                <h2 className="text-2xl font-bold leading-tight text-[#765996] md:text-3xl">
+                <h2 className="text-2xl font-bold leading-tight text-[#7B3C10] md:text-3xl">
                   {section.title}
                 </h2>
   
@@ -314,7 +314,7 @@ const dataCategories = [
             ))}
           </div>
   
-          <footer className="mt-16 border-t border-[#765996]/20 pt-8">
+          <footer className="mt-16 border-t border-[#7B3C10]/20 pt-8">
             <p className="text-xl leading-9 text-black">
               <strong>Data Protection Contact:</strong> The Manager
             </p>

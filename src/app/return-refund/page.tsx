@@ -8,13 +8,13 @@ const ReturnsRefundsPage = () => {
         <div className=" pb-16 pt-16  md:pb-24 md:pt-30">
           <div className="flex flex-col justify-between gap-12 md:flex-row md:items-end">
             <div className="max-w-4xl">
-              <p className="mb-8 text-xs font-medium uppercase tracking-[0.25em] text-[#765996]">
+              <p className="mb-8 text-xs font-medium uppercase tracking-[0.25em] text-[#7B3C10]">
                 Customer Care / Policies
               </p>
 
               <h1 className="font-serif text-6xl leading-[0.98] tracking-tight md:text-8xl">
                 Returns
-                <span className="block text-[#765996]">& Refunds</span>
+                <span className="block text-[#7B3C10]">& Refunds</span>
               </h1>
 
               <p className="mt-8 max-w-xl text-sm leading-8 text-[#68645E] md:text-base">
@@ -23,7 +23,7 @@ const ReturnsRefundsPage = () => {
             </div>
 
             <div className="flex shrink-0 items-center gap-3 border-t border-[#D8D0C5] pt-5 md:border-t-0 md:border-l md:pl-8 md:pt-0">
-              <span className="h-2 w-2 rounded-full bg-[#765996]" />
+              <span className="h-2 w-2 rounded-full bg-[#7B3C10]" />
               <p className="text-xs uppercase tracking-[0.16em] text-[#858078]">
                 Last updated: 16 November 2026
               </p>
@@ -35,7 +35,7 @@ const ReturnsRefundsPage = () => {
       {/* Introduction */}
       <section className="mx-auto grid py-4  gap-10  md:grid-cols-[0.8fr_1.2fr] ">
         <div>
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#765996]">
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#7B3C10]">
             Our approach
           </p>
 
@@ -68,7 +68,7 @@ const ReturnsRefundsPage = () => {
           {/* Section 01 */}
           <article className="grid gap-10 border-b border-[#E5E0D8] py-16 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-24">
             <div className="md:sticky md:top-28 md:self-start">
-              <p className="font-serif text-5xl text-[#765996]">01</p>
+              <p className="font-serif text-5xl text-[#7B3C10]">01</p>
               <h2 className="mt-5 max-w-xs font-serif text-3xl leading-tight md:text-4xl">
                 Returns & Exchanges
               </h2>
@@ -89,8 +89,8 @@ const ReturnsRefundsPage = () => {
                 </p>
               </div>
 
-              <div className="border-l-2 border-[#765996] bg-[#EFEAE2] p-6 md:p-8">
-                <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#765996]">
+              <div className="border-l-2 border-[#7B3C10] bg-[#EFEAE2] p-6 md:p-8">
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#7B3C10]">
                   Important
                 </p>
 
@@ -144,7 +144,7 @@ const ReturnsRefundsPage = () => {
           {/* Section 02 */}
           <article className="grid gap-10 border-b border-[#E5E0D8] py-16 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-24">
             <div className="md:sticky md:top-28 md:self-start">
-              <p className="font-serif text-5xl text-[#765996]">02</p>
+              <p className="font-serif text-5xl text-[#7B3C10]">02</p>
               <h2 className="mt-5 max-w-xs font-serif text-3xl leading-tight md:text-4xl">
                 Faulty or Incorrect Products
               </h2>
@@ -197,7 +197,7 @@ const ReturnsRefundsPage = () => {
           {/* Section 03 */}
           <article className="grid gap-10 py-16 md:grid-cols-[0.8fr_1.2fr] md:gap-16 md:py-24">
             <div className="md:sticky md:top-28 md:self-start">
-              <p className="font-serif text-5xl text-[#765996]">03</p>
+              <p className="font-serif text-5xl text-[#7B3C10]">03</p>
               <h2 className="mt-5 max-w-xs font-serif text-3xl leading-tight md:text-4xl">
                 Cancellations & Refunds
               </h2>
@@ -315,7 +315,7 @@ const ReturnsRefundsPage = () => {
       {/* <section className="border-t border-[#E5E0D8]">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.8fr_1.2fr] md:px-12 md:py-24">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#765996]">
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#7B3C10]">
               Get in Touch
             </p>
 
@@ -334,7 +334,7 @@ const ReturnsRefundsPage = () => {
               <p className="font-semibold text-[#171717]">Email:</p>
               <a
                 href="mailto:thesoibifashion@gmail.com"
-                className="transition-colors hover:text-[#765996]"
+                className="transition-colors hover:text-[#7B3C10]"
               >
                 thesoibifashion@gmail.com
               </a>
@@ -348,7 +348,7 @@ const ReturnsRefundsPage = () => {
                 href="https://wa.me/2349050758912"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-[#765996]"
+                className="transition-colors hover:text-[#7B3C10]"
               >
                 0905 075 8912
               </a>

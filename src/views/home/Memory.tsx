@@ -21,12 +21,11 @@ const Memory = () => {
   
 
   return (
-<div>
+<div className="">
 
-    <Container className="lg:grid grid-cols-2 flex mt-20 lg:mt-0 flex-col-reverse  items-center pb-10 md:pb-20 lg:pb-50 pt-8 md:pt-29.75 gap-15">
- 
-      <div className="">
-        <p className="font-medium text-[11px] md:text-xl text-[#404944]">
+    <Container className="lg:grid grid-cols-2  flex mt-10 lg:mt-0 flex-col-reverse  items-center pb-10 md:pb-20 lg:pb-50 pt-8 md:pt-29.75 gap-15">
+      <div className=" ">
+        <p className="font-medium pt-12 lg:pt-0 text-[11px] md:text-xl text-[#404944]">
           Est. Port Harcourt 2022
         </p>
         <div className=" md:mt-8">
@@ -51,18 +50,19 @@ const Memory = () => {
           </div>
         </div>
       </div>
-      <div className="h-150 relative w-full">
+       <div className="h-150 border-t border-[#DED9D0] relative w-full">
         {/* <img
           src="/memory.png"
           className="h-full rounded-lg w-full object-cover"
         /> */}
+
           <Image
                   src={about?.options?.[0]?.imageUrl || "/soibi-about.jpg"}
                   alt="about"
                   fill
-                  className="object-cover rounded-lg object-top"
+                  className="object-cover mt-18 lg:mt-0 rounded-lg object-top"
                 />
-        <div className="absolute -bottom-18 lg:-bottom-7 lg:-left-10 left-2 w-48.25 rounded-[10px] bg-black p-6 animate-subtle-bounce">
+        <div className="absolute -bottom-24 lg:-bottom-7 lg:-left-10 left-2 w-48.25 rounded-[10px] bg-black p-6 animate-subtle-bounce">
           <p className="flex items-baseline text-[50px] leading-none text-white">
             {collectionLength?.length}
             <span className="ml-1 text-[20px]">Collections</span>

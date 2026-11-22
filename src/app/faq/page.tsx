@@ -111,7 +111,7 @@ const FAQPage = () => {
       {/* Hero */}
       <section className=" pb-16 pt-20  md:pb-24 md:pt-28">
         <div className="">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-[#765996]">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-[#7B3C10]">
             Customer Care
           </p>
 
@@ -120,7 +120,7 @@ const FAQPage = () => {
               <h1 className="font-serif text-5xl leading-[1.08] tracking-tight md:text-7xl">
                 Frequently asked
                 <br />
-                <span className="italic text-[#765996]">questions.</span>
+                <span className="italic text-[#7B3C10]">questions.</span>
               </h1>
             </div>
 
@@ -137,7 +137,7 @@ const FAQPage = () => {
         <div className="">
           <div className="grid gap-14 md:grid-cols-[260px_1fr] md:gap-20">
             <aside className="md:sticky md:top-30 md:self-start">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#765996]">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7B3C10]">
                 Need to know
               </p>
               <p className="mt-4 max-w-[220px] font-serif text-2xl leading-snug">
@@ -149,7 +149,7 @@ const FAQPage = () => {
 
               <a
                 href="mailto:thesoibifashion@gmail.com"
-                className="mt-6 inline-flex items-center gap-2 border-b border-[#765996] pb-1 text-sm font-semibold text-[#765996] transition-colors hover:text-[#171717]"
+                className="mt-6 inline-flex items-center gap-2 border-b border-[#7B3C10] pb-1 text-sm font-semibold text-[#7B3C10] transition-colors hover:text-[#171717]"
               >
                 Contact us
                 <span aria-hidden="true">↗</span>
@@ -160,7 +160,7 @@ const FAQPage = () => {
               {FAQS.map((group, groupIndex) => (
                 <div key={group.category}>
                   <div className="mb-5 flex items-center gap-4">
-                    <span className="text-xs font-semibold tracking-widest text-[#765996]">
+                    <span className="text-xs font-semibold tracking-widest text-[#7B3C10]">
                       0{groupIndex + 1}
                     </span>
                     <h2 className="font-serif text-2xl md:text-3xl">
@@ -190,7 +190,7 @@ const FAQPage = () => {
                               {item.question}
                             </span>
 
-                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#DCD6CC] text-[#765996] transition-colors">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#DCD6CC] text-[#7B3C10] transition-colors">
                               {isOpen ? (
                                 <Minus size={15} strokeWidth={1.5} />
                               ) : (
@@ -207,7 +207,7 @@ const FAQPage = () => {
                             }`}
                           >
                             <div className="overflow-hidden">
-                              <p className="max-w-[680px] pr-10 text-sm leading-7 text-[#716B63]">
+                              <p className="max-w-[680px] pr-10 text-sm leading-7 text-[black]">
                                 {item.answer}
                               </p>
                             </div>
