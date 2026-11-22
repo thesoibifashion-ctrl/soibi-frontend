@@ -3,7 +3,7 @@ import  { Suspense } from 'react'
 
 const page = () => {
   return (
-    <Suspense><TrackingPage/></Suspense>
+    <Suspense fallback={null}><TrackingPage/></Suspense>
   )
 }
 

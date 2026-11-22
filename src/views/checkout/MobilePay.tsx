@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Check } from "lucide-react";
 import PaymentDetails from "./AccountDetails";
+import { trackedFetch } from "@/lib/network-status";
 import { uploadToCloudinary } from "@/lib/cloudinary-id";
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
@@ -29,7 +30,7 @@ export default function MobilePayPage() {
     try {
       const { secureUrl, publicId } = await uploadToCloudinary(file);
 
-      const res = await fetch(
+      const res = await trackedFetch(
         `${API_URL}/api/checkout/mobile-sessions/${sessionId}`,
         {
           method: "PATCH",

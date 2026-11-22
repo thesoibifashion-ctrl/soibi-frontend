@@ -7,6 +7,8 @@ import {
 import { useAuth } from "@/providers/query-provider";
 import { CircleUser, LogIn, RotateCcwClock, ShoppingBag, User, UserPen } from "lucide-react";
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import LoginModal from "./modals/LoginModal";
 import Link from "next/link";
 import { logout as logoutSession } from "@/lib/auth-storage";
@@ -18,6 +20,8 @@ interface isScrolled {
 const UserPop = ({ scrolled }: isScrolled) => {
   const { isAuthenticated: authenticated } = useAuth();
   const [openCheckoutModal, setOpenCheckoutModal] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+  const queryClient = useQueryClient();
 
   const { data, isLoading } = useGetAuth(authenticated);
 
@@ -27,8 +31,16 @@ const UserPop = ({ scrolled }: isScrolled) => {
   //       : setOpenCheckoutModal(true);
   //   };
   const handleLogout = async () => {
-    await logoutSession();
-    window.location.href = "/";
+    if (loggingOut) return;
+    setLoggingOut(true);
+    try {
+      await logoutSession();
+      queryClient.clear();
+      window.location.href = "/";
+    } catch {
+      toast.error("We couldn't sign you out. Please check your connection and try again.");
+      setLoggingOut(false);
+    }
   };
   return (
     <>
@@ -87,9 +99,9 @@ const UserPop = ({ scrolled }: isScrolled) => {
                   <UserPen size={18} />
                   Profile
                 </Link>
-                <button onClick={handleLogout} className="flex w-full items-center gap-3 rounded-xl px-3 py-1.5 text-sm text-red-500 transition hover:bg-red-50">
+                <button onClick={handleLogout} disabled={loggingOut} className="flex w-full items-center gap-3 rounded-xl px-3 py-1.5 text-sm text-red-500 transition hover:bg-red-50">
                   <LogIn size={18} />
-                  Logout
+                  {loggingOut ? "Signing out..." : "Logout"}
                 </button>
               </div>
             </div>

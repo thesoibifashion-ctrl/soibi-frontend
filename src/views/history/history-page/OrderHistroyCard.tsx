@@ -53,8 +53,7 @@ import {
         return {
           label: "Payment not confirmed",
           className: "border-red-200 bg-red-50 text-red-700",
-          note: "We couldn't confirm your payment. Please upload a new receipt or contact us.",
-        };
+          note: "We couldn't confirm your payment. Please contact us for more information.",        };
       case "unpaid":
         return {
           label: "Awaiting payment",
@@ -77,9 +76,19 @@ import {
       0
     );
 
-    const payment = getPaymentBadge(
-      (order as CartHistory & { paymentStatus?: string | null }).paymentStatus
-    );
+    const paymentFields = order as CartHistory & {
+      paymentStatus?: string | null;
+      paymentRejectionReason?: string | null;
+    };
+
+    const payment = getPaymentBadge(paymentFields.paymentStatus);
+
+    const rejectionReason =
+      paymentFields.paymentStatus === "rejected" &&
+      typeof paymentFields.paymentRejectionReason === "string" &&
+      paymentFields.paymentRejectionReason.trim()
+        ? paymentFields.paymentRejectionReason.trim()
+        : null;
   
     return (
       <div className="group block overflow-hidden rounded-2xl border border-black/10 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-[#C9A227]/40 hover:shadow-xl hover:shadow-black/5">
@@ -139,6 +148,17 @@ import {
                   <p className="mt-3 max-w-md text-xs leading-5 text-black/50">
                     {payment.note}
                   </p>
+                )}
+
+                {rejectionReason && (
+                  <div className="mt-3 max-w-md rounded-xl border border-red-200 bg-red-50 px-3 py-2.5">
+                    <p className="text-[9px] font-bold uppercase tracking-wider text-red-700">
+                      Reason:
+                    </p>
+                    <p className="mt-1 text-xs leading-5 text-red-800">
+                      {rejectionReason}
+                    </p>
+                  </div>
                 )}
               </div>
   

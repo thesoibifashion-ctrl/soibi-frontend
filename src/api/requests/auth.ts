@@ -1,4 +1,5 @@
 const VITE_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { trackedFetch } from "@/lib/network-status";
 import { authStorage, isAuthSessionEndpoint, refreshSession } from "@/lib/auth-storage";
 
 export interface ApiResponse<T> {
@@ -11,7 +12,7 @@ const apiRequest = async <T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> => {
-  const send = (token: string | null) => fetch(`${VITE_API_BASE_URL}${endpoint}`, {
+  const send = (token: string | null) => trackedFetch(`${VITE_API_BASE_URL}${endpoint}`, {
     ...options,
     credentials: "include",
     headers: {

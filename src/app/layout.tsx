@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Inter, Poller_One, Prata } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/providers/query-provider";
@@ -7,6 +8,7 @@ import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
 import Footer from "@/components/ui/navigation/Footer";
 import WhatsAppButton from "@/components/shared/Whatsapp";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 const prata = Prata({
   variable: "--font-prata",
@@ -36,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${prata.variable} ${inter.variable} ${pollerOne.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* <NetworkErrorBanner /> */}
         <Toaster
           position="top-left"
           toastOptions={{
@@ -46,6 +49,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             },
           }}
         />
+          <Suspense fallback={null}>
+            <ScrollToTop />
+          </Suspense>
+
         <QueryProvider>
           {/* <CurrencyProvider> */}
             <Navbar />

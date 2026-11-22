@@ -1,4 +1,5 @@
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { trackedFetch } from "@/lib/network-status";
 import { authStorage, isAuthSessionEndpoint, refreshSession } from "@/lib/auth-storage";
 
 type RequestOptions = RequestInit & {
@@ -11,7 +12,7 @@ export async function apiClient<T>(
 ): Promise<T> {
   const { accessToken, headers, ...requestOptions } = options;
 
-  const send = (token: string | null) => fetch(`${API_URL}${endpoint}`, {
+  const send = (token: string | null) => trackedFetch(`${API_URL}${endpoint}`, {
     ...requestOptions,
     credentials: "include",
     headers: {

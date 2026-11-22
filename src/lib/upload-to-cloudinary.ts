@@ -1,9 +1,10 @@
+import { trackedFetch } from "@/lib/network-status";
 export async function uploadToCloudinary(file: File): Promise<string> {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_PRESET as string);
   
-    const res = await fetch(
+    const res = await trackedFetch(
       `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/auto/upload`,
       {
         method: "POST",

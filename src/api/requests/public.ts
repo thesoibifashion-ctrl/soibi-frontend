@@ -1,3 +1,4 @@
+import { trackedFetch } from "@/lib/network-status";
 const VITE_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export interface ApiResponse<T> {
@@ -10,7 +11,7 @@ const publicApiRequest = async <T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> => {
-  const response = await fetch(`${VITE_API_BASE_URL}${endpoint}`, {
+  const response = await trackedFetch(`${VITE_API_BASE_URL}${endpoint}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",

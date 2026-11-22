@@ -63,12 +63,13 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           {product.id && <FavoriteButton productId={product.id} />}
         </div>
         <div className=" flex items-center gap-2">
-          {prod.prices && (
+          {/* {prod.prices && (
             <DynamicPrice
               prices={prod.prices}
               className="text-sm font-semibold"
             />
-          )}
+          )} */}
+          {prod.basePrice}
         </div>
       </div>
     </div>

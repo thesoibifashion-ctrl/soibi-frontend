@@ -1,7 +1,12 @@
-import BlogPage from "@/views/blog/Index"
+import BlogPage from "@/views/blog/Index";
+import { Suspense } from "react";
 
 const page = () => {
-  return <BlogPage/>
-}
+  return (
+    <Suspense fallback={null}>
+      <BlogPage />
+    </Suspense>
+  );
+};
 
-export default page
+export default page;

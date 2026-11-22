@@ -385,6 +385,8 @@ console.log(profile, "prof")
           city: guestDetails.city || undefined,
           address: guestDetails.address || undefined,
           items: guestItems.map(({ localId, ...rest }) => rest),
+          receiptUrl: uploadedReceiptUrl ?? undefined,
+
         });
 
         clearGuestCart();

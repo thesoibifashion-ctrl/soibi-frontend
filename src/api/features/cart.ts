@@ -21,6 +21,7 @@ export interface CartItemPayload {
   unitPriceSnapshot: number;
   customMeasurements?: Record<string, string | number> | null;
   customNotes?: string | null;
+  receiptUrl?:string
 
   pricesSnapshot?: {
     name: string;
@@ -167,6 +168,7 @@ export const submitCart = (payload: {
   address?: string;
   phoneNumber?: string;
   items?:CartItemPayload[];
+  receiptUrl?:string
 }) => {
   return apiPost<{
     submittedCartId: string;

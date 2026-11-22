@@ -53,6 +53,37 @@ type FieldKey =
   | "city"
   | "address";
 
+type Country = (typeof countries)[number];
+
+/**
+ * The delivery "state" is stored as a single string in the form
+ * "Country, Province" (for example "Nigeria, Lagos"). These helpers split
+ * and join that string so the State / Province input only ever shows the
+ * province part.
+ */
+const parseState = (
+  value: string
+): { country: Country | null; province: string } => {
+  const match = countries
+    .filter(
+      (country) =>
+        value === country.name || value.startsWith(`${country.name},`)
+    )
+    .sort((a, b) => b.name.length - a.name.length)[0];
+
+  if (!match) return { country: null, province: value };
+
+  return {
+    country: match,
+    province: value.slice(match.name.length).replace(/^,\s?/, ""),
+  };
+};
+
+const joinState = (country: Country | null, province: string) => {
+  if (!country) return province;
+  return province ? `${country.name}, ${province}` : country.name;
+};
+
 const FieldError = ({ message }: { message?: string }) =>
   message ? (
     <p role="alert" className="mt-1.5 text-xs text-red-600">
@@ -83,15 +114,12 @@ const DetailsStep = ({
   profileSaving,
 }: DetailsStepProps) => {
   const [countryOpen, setCountryOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(
-    countries.find((country) => state.startsWith(country.name)) || null
-  );
+  const { country: selectedCountry, province } = parseState(state);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleCountrySelect = (country: (typeof countries)[number]) => {
-    setSelectedCountry(country);
-    onStateChange(`${country.name}, `);
+  const handleCountrySelect = (country: Country) => {
+    onStateChange(joinState(country, province));
     setCountryOpen(false);
   };
 
@@ -106,10 +134,8 @@ const DetailsStep = ({
   const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
   const isValidPhone = (v: string) => v.replace(/\D/g, "").length >= 7;
 
-  // The state field is prefixed with "Country, " — strip it to check what the user typed
-  const stateOnly = selectedCountry
-    ? state.replace(`${selectedCountry.name},`, "").trim()
-    : state.trim();
+  // What the user typed in the State / Province box (without the country)
+  const stateOnly = province.trim();
 
   const errors: Partial<Record<FieldKey, string>> = {};
 
@@ -164,6 +190,8 @@ const DetailsStep = ({
       return;
     }
 
+    // Tidy the saved value (no stray spaces) before moving on
+    onStateChange(joinState(selectedCountry, province.trim()));
     setShowPaymentModal(true);
   };
 
@@ -350,8 +378,10 @@ const DetailsStep = ({
             <FormInput
               label="State / Province"
               placeholder=""
-              value={state}
-              onChange={(e) => onStateChange(e.target.value)}
+              value={province}
+              onChange={(e) =>
+                onStateChange(joinState(selectedCountry, e.target.value))
+              }
               type="text"
             />
             <FieldError message={err("state")} />

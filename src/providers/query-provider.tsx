@@ -26,6 +26,9 @@ interface QueryProviderProps {
 }
 
 export function QueryProvider({ children }: QueryProviderProps) {
+  const [queryClient] = useState(
+    () => new QueryClient({ defaultOptions: { queries: { staleTime: 60 * 1000, refetchOnWindowFocus: false } } }),
+  );
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<Record<string, unknown> | null>(null);
   const [isInitializing, setIsInitializing] = useState(true);
@@ -36,6 +39,8 @@ export function QueryProvider({ children }: QueryProviderProps) {
       setUser(authStorage.getUser());
       if (authStorage.getToken()) setIsInitializing(false);
     };
+    const clearAuthQueries = () => queryClient.clear();
+    window.addEventListener("auth-logout", clearAuthQueries);
     window.addEventListener("auth-change", handleAuthChange);
     const initialize = () => void initializeAuth().then(() => {
       if (active) {
@@ -49,21 +54,12 @@ export function QueryProvider({ children }: QueryProviderProps) {
     initialize();
     return () => {
       active = false;
+      window.removeEventListener("auth-logout", clearAuthQueries);
       window.removeEventListener("auth-change", handleAuthChange);
       window.removeEventListener("online", handleOnline);
     };
   }, []);
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 60 * 1000,
-            refetchOnWindowFocus: false,
-          },
-        },
-      }),
-  );
+
 
   return (
     <QueryClientProvider client={queryClient}>

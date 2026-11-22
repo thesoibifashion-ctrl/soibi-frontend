@@ -194,6 +194,7 @@ import { ArrowLeft, Check, Copy, Smartphone } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import PaymentDetails from "./AccountDetails";
+import { trackedFetch } from "@/lib/network-status";
 
 interface ReceiptStepProps {
   receiptPreview: string | null;
@@ -227,7 +228,7 @@ const ReceiptStep = ({
 
   // Create the session as soon as the QR is shown
   useEffect(() => {
-    fetch(`${API_URL}/api/checkout/mobile-sessions`, {
+    trackedFetch(`${API_URL}/api/checkout/mobile-sessions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ sessionId }),
@@ -242,7 +243,7 @@ const ReceiptStep = ({
 
     const interval = setInterval(async () => {
       try {
-        const res = await fetch(
+        const res = await trackedFetch(
           `${API_URL}/api/checkout/mobile-sessions/${sessionId}`
         );
 

@@ -1,3 +1,4 @@
+import { trackedFetch } from "@/lib/network-status";
 // lib/cloudinary.ts
 
 interface CloudinaryUploadResult {
@@ -15,7 +16,7 @@ interface CloudinaryUploadResult {
       process.env.NEXT_PUBLIC_CLOUDINARY_PRESET as string
     );
   
-    const res = await fetch(
+    const res = await trackedFetch(
       `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/auto/upload`,
       {
         method: "POST",
